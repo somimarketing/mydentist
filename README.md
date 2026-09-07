@@ -27,7 +27,7 @@ Measured on the production build (Lighthouse 12, Chromium): performance 95 to 96
 | Phone for `tel:` links and the display string | `NEXT_PUBLIC_PHONE` and `site.phoneDisplay` in `lib/site.ts` |
 | Public URL for canonical, hreflang, OpenGraph, sitemap | `NEXT_PUBLIC_SITE_URL` |
 | Street address, email, social links | `site.address`, `site.email`, `site.social` in `lib/site.ts` |
-| Map pin and zoom | `site.map` in `lib/site.ts` (the embed and the "Open in Google Maps" link both read it) |
+| Map location | `site.mapQuery` in `lib/site.ts` (an address string Google geocodes; the embed and the "Open in Google Maps" link both read it) |
 | Opening hours (also feeds the JSON-LD) | `site.hours` in `lib/site.ts` and the `openingHoursSpecification` block in `app/[locale]/page.tsx` |
 | Form delivery | `deliver()` in `app/actions/booking.ts` (marked `TODO`). Wire Resend, a CRM webhook, a Sheet, or the WhatsApp Business API. Validation, honeypot and success/error states are already done. |
 | Prefilled WhatsApp messages | `meta.whatsappMessage` and `meta.whatsappFollowUp` in `lib/i18n/en.ts` and `lib/i18n/es.ts` |

@@ -255,7 +255,7 @@ export const en: Dictionary = {
 
   location: {
     eyebrow: "The clinic",
-    headline: "On the main boulevard in San Carlos, ten minutes from the marina.",
+    headline: "In Sector Crestón, San Carlos, a few minutes from the marina.",
     addressLabel: "Address",
     hoursLabel: "Hours, Sonora time",
     days: { "mon-fri": "Monday to Friday", sat: "Saturday", sun: "Sunday" },

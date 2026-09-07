@@ -255,7 +255,7 @@ export const es: Dictionary = {
 
   location: {
     eyebrow: "El consultorio",
-    headline: "Sobre el bulevar principal de San Carlos, con estacionamiento enfrente.",
+    headline: "En Sector Crestón, San Carlos, a unos minutos de la marina.",
     addressLabel: "Dirección",
     hoursLabel: "Horario",
     days: { "mon-fri": "Lunes a viernes", sat: "Sábado", sun: "Domingo" },

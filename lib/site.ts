@@ -8,23 +8,20 @@ const digits = (v: string | undefined, fallback: string) =>
 export const site = {
   name: "MyDentist",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mydentist.mx",
-  whatsapp: digits(process.env.NEXT_PUBLIC_WHATSAPP, "526220000000"),
-  phone: digits(process.env.NEXT_PUBLIC_PHONE, "526220000000"),
-  phoneDisplay: "+52 622 000 0000",
+  whatsapp: digits(process.env.NEXT_PUBLIC_WHATSAPP, "523316068212"),
+  phone: digits(process.env.NEXT_PUBLIC_PHONE, "523316068212"),
+  phoneDisplay: "+52 33 1606 8212",
   email: "hola@mydentist.mx",
   doctor: "Dr. Daniel Martínez",
   address: {
-    street: "Blvd. Manlio Fabio Beltrones 123, Local 4",
-    area: "Sector Creston, San Carlos Nuevo Guaymas",
-    city: "Guaymas, Sonora 85506",
+    street: "Aurora 299",
+    area: "Sector Crestón, Ranchito Campestre",
+    city: "85506 San Carlos, Sonora",
     country: "México",
   },
-  /** San Carlos, Sonora. Replace with the clinic pin. */
-  map: {
-    lat: 27.9614,
-    lng: -111.0475,
-    zoom: 16,
-  },
+  /** Google geocodes this string for the embed and the "open in maps" link. */
+  mapQuery: "Aurora 299, Sector Crestón, Ranchito Campestre, 85506 San Carlos, Sonora, México",
+  mapZoom: 16,
   social: {
     instagram: "https://instagram.com/mydentist.sc",
     facebook: "https://facebook.com/mydentist.sc",
@@ -38,13 +35,11 @@ export const site = {
 } as const;
 
 export function mapEmbedUrl(lang: "en" | "es") {
-  const { lat, lng, zoom } = site.map;
-  return `https://maps.google.com/maps?q=${lat},${lng}&z=${zoom}&hl=${lang}&output=embed`;
+  return `https://maps.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&z=${site.mapZoom}&hl=${lang}&output=embed`;
 }
 
 export function mapLink() {
-  const { lat, lng } = site.map;
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`;
 }
 
 export function whatsappLink(message: string) {
