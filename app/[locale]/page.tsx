@@ -7,7 +7,7 @@ import { TrustStrip } from "@/components/sections/TrustStrip";
 import { Services } from "@/components/sections/Services";
 import { Why } from "@/components/sections/Why";
 import { BeforeAfter } from "@/components/sections/BeforeAfter";
-import { Doctor } from "@/components/sections/Doctor";
+import { Doctors } from "@/components/sections/Doctors";
 import { Process } from "@/components/sections/Process";
 import { LocaleBlock } from "@/components/sections/LocaleBlock";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -47,6 +47,7 @@ export default async function LandingPage({ params }: { params: Params }) {
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "19:00" },
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "14:00" },
     ],
+    employee: site.doctors.map((d) => ({ "@type": "Person", name: d.name, jobTitle: "Dentist", telephone: `+${d.phone}`, email: d.email })),
     sameAs: [site.social.instagram, site.social.facebook],
   };
 
@@ -65,7 +66,7 @@ export default async function LandingPage({ params }: { params: Params }) {
         <Services data={dict.services} whatsappHref={wa} />
         <Why data={dict.why} />
         <BeforeAfter data={dict.beforeAfter} />
-        <Doctor data={dict.doctor} />
+        <Doctors data={dict.doctors} whatsappMessage={dict.meta.whatsappMessage} />
         <Process data={dict.process} />
         <LocaleBlock data={dict.localeBlock} whatsappHref={wa} />
         <Testimonials data={dict.testimonials} />

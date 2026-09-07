@@ -34,7 +34,8 @@ const specs = {
   "ba-implant-after-1200x900.jpg": [1200, 900, "light"],
   "ba-whitening-before-1200x900.jpg": [1200, 900, "mid"],
   "ba-whitening-after-1200x900.jpg": [1200, 900, "light"],
-  "doctor-portrait-1200x1500.jpg": [1200, 1500, "dark"],
+  "doctor-daniel-portrait-1200x1500.jpg": [1200, 1500, "dark"],
+  "doctor-carolina-portrait-1200x1500.jpg": [1200, 1500, "dark"],
 };
 
 function svgFor(w, h, tone, label) {
