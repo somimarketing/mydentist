@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand tokens. Do not invent colors. */
+  --color-charcoal: #343333;
+  --color-cotton: #e8e8e4;
+  --color-powder: #b8c6cc;
+  --color-slate: #5e6572;
+  --color-bone: #c4c0bc;
+
+  --color-background: var(--color-cotton);
+  --color-foreground: var(--color-charcoal);
+
+  --font-display: var(--font-ancizar), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: var(--font-grotesque), "Helvetica Neue", Arial, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --text-display-xl: clamp(2.75rem, 7vw, 6.5rem);
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-l: clamp(2.25rem, 4.6vw, 4.25rem);
+  --text-display-l--line-height: 1.04;
+  --text-display-l--letter-spacing: -0.02em;
+  --text-display-m: clamp(1.75rem, 3vw, 2.75rem);
+  --text-display-m--line-height: 1.12;
+  --text-display-m--letter-spacing: -0.02em;
+  --text-display-s: 1.5rem;
+  --text-display-s--line-height: 1.2;
+  --text-display-s--letter-spacing: -0.015em;
+
+  --text-body-l: 1.375rem;
+  --text-body-l--line-height: 1.5;
+  --text-body: 1.1875rem;
+  --text-body--line-height: 1.6;
+  --text-ui: 1.0625rem;
+  --text-ui--line-height: 1.4;
+  --text-caption: 0.9375rem;
+  --text-caption--line-height: 1.5;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-cotton);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-powder);
+    color: var(--color-charcoal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-slate);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-cotton);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  line-height: 1;
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+@utility hairline {
+  border-color: color-mix(in oklab, var(--color-bone) 70%, transparent);
+}
+
+/* Duotone image treatment: charcoal shadows, powder highlights. */
+@utility duotone {
+  position: relative;
+  background-color: var(--color-powder);
+  overflow: hidden;
+  isolation: isolate;
+}
+.duotone > img {
+  filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: multiply;
+}
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-charcoal);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+}
+
+/* Logo intro: the icon draws on, then fills. 1.5s, once per session. */
+.logo-intro .logo-outline {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-intro="done"]) .logo-intro .logo-outline {
+    opacity: 1;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation:
+      logo-draw 900ms var(--ease-out-expo) forwards,
+      logo-outline-out 300ms ease-out 1200ms forwards;
+  }
+  html:not([data-intro="done"]) .logo-intro .logo-fill {
+    opacity: 0;
+    animation: logo-fill 600ms ease-out 900ms forwards;
+  }
+}
+
+@keyframes logo-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes logo-fill {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes logo-outline-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Native date input: keep the palette. */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* Accordion (Radix) height animation. */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+@utility animate-accordion-down {
+  animation: accordion-down 500ms var(--ease-out-expo);
+}
+@utility animate-accordion-up {
+  animation: accordion-up 400ms var(--ease-out-expo);
+}
+
+/* Before/after range input: the whole figure is the track, the thumb is invisible. */
+.compare-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 44px;
+  height: 100%;
+  background: transparent;
+  cursor: ew-resize;
+}
+.compare-range::-moz-range-thumb {
+  width: 44px;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+/* Scroll reveal. Static when JS is off or motion is reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 700ms var(--ease-out-expo),
+      transform 700ms var(--ease-out-expo);
+  }
+  .js .reveal.is-shown {
+    opacity: 1;
+    transform: none;
+  }
+}
