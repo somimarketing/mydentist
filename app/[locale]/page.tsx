@@ -38,12 +38,11 @@ export default async function LandingPage({ params }: { params: Params }) {
     address: {
       "@type": "PostalAddress",
       streetAddress: site.address.street,
-      addressLocality: "San Carlos Nuevo Guaymas",
+      addressLocality: "San Carlos",
       addressRegion: "Sonora",
       postalCode: "85506",
       addressCountry: "MX",
     },
-    geo: { "@type": "GeoCoordinates", latitude: site.map.lat, longitude: site.map.lng },
     openingHoursSpecification: [
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "19:00" },
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "14:00" },
