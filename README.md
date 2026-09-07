@@ -57,7 +57,7 @@ npm run placeholders -- --manifest-only
 | `ba-veneers-before/after-1200x900.jpg` | 1200 x 900 | Before/after case 1 |
 | `ba-implant-before/after-1200x900.jpg` | 1200 x 900 | Before/after case 2 |
 | `ba-whitening-before/after-1200x900.jpg` | 1200 x 900 | Before/after case 3 |
-| `doctor-portrait-1200x1500.jpg` | 1200 x 1500 | Dr. Martínez portrait (rendered grayscale) |
+| `doctor-daniel-portrait-1200x1500.jpg` and `doctor-carolina-portrait-1200x1500.jpg` | 1200 x 1500 | Doctor portraits (rendered grayscale) |
 | `public/og/og-en-1200x630.jpg`, `og-es-1200x630.jpg` | 1200 x 630 | OpenGraph / Twitter cards per locale |
 
 The "Why" photos are duotoned by the `.duotone` utility in `app/globals.css`, so a real photo drops into the palette automatically.
@@ -82,7 +82,7 @@ middleware.ts           / redirects to /en or /es by Accept-Language
 
 - Trust strip numbers (12 years, 4,000+ patients, 5-year guarantee).
 - EN price table: US ranges are published national averages; MyDentist "from" prices are placeholders.
-- Dr. Martínez's credentials in both dictionaries.
+- Both doctors' credentials in both dictionaries (Dra. García Albelais's are generic placeholders; Dr. Martínez Corona's residency and memberships are unverified).
 - Payment plan terms (3, 6, 12 months), accepted insurers, guarantee terms in the FAQ.
 - Testimonials are written as samples and should be replaced with real, consented reviews.
 - Travel times (Hermosillo 90 min, Nogales 4.5 h) are approximate.

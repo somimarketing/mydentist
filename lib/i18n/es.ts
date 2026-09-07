@@ -4,7 +4,7 @@ export const es: Dictionary = {
   meta: {
     title: "MyDentist San Carlos | Dentista para toda la familia en San Carlos, Sonora",
     description:
-      "Dentista en San Carlos, Sonora. Cita la misma semana, mensualidades sin intereses, atención para niños y adultos. Agenda por WhatsApp con el Dr. Daniel Martínez.",
+      "Dentista en San Carlos, Sonora. Cita la misma semana, mensualidades sin intereses, atención para niños y adultos. Agenda por WhatsApp con el Dr. Daniel Martínez y la Dra. Carolina García.",
     ogAlt: "Consultorio MyDentist en San Carlos, Sonora",
     whatsappMessage:
       "Hola MyDentist, quiero agendar una cita. ¿Qué día tienen disponible esta semana?",
@@ -16,7 +16,7 @@ export const es: Dictionary = {
     links: [
       { href: "#services", label: "Servicios" },
       { href: "#pricing", label: "Planes de pago" },
-      { href: "#doctor", label: "Dr. Martínez" },
+      { href: "#doctors", label: "Los doctores" },
       { href: "#faq", label: "Preguntas" },
     ],
     cta: "Agenda por WhatsApp",
@@ -115,9 +115,9 @@ export const es: Dictionary = {
       },
       {
         eyebrow: "Tu familia",
-        headline: "Un solo dentista para todos, desde los peques hasta los abuelos.",
+        headline: "Un solo consultorio para todos, desde los peques hasta los abuelos.",
         body:
-          "Agendamos a toda la familia el mismo día, uno tras otro, para que hagas un solo viaje. A los niños los tratamos con calma y sin prisa. El Dr. Martínez conoce el historial de cada quien y lo ves a él en cada cita, no a alguien distinto cada vez.",
+          "Agendamos a toda la familia el mismo día, uno tras otro, para que hagas un solo viaje. A los niños los tratamos con calma y sin prisa. El Dr. Daniel y la Dra. Carolina conocen el historial de cada quien, y en cada cita te atienden ellos, no alguien distinto cada vez.",
         image: {
           src: "/placeholder/why-family-1600x1200.jpg",
           alt: "Familia en la sala de espera de MyDentist",
@@ -156,22 +156,46 @@ export const es: Dictionary = {
     ],
   },
 
-  doctor: {
-    eyebrow: "Tu dentista",
-    name: "Dr. Daniel Martínez",
-    role: "Odontología general y estética, director del consultorio",
-    credentials: [
-      "Cirujano Dentista, Universidad Autónoma de Guadalajara",
-      "Especialidad en implantología, New York University College of Dentistry",
-      "Miembro de la Asociación Dental Mexicana",
-      "Cédula profesional y licencia sanitaria COFEPRIS vigentes",
+  doctors: {
+    eyebrow: "Tus dentistas",
+    headline: "Dos doctores, un consultorio. Te atienden ellos en cada cita.",
+    contactLabel: "Escríbele a {name} por WhatsApp",
+    items: [
+      {
+        id: "daniel",
+        name: "Dr. Daniel Martínez Corona",
+        role: "Odontología general, estética e implantes",
+        credentials: [
+          "Cirujano Dentista, Universidad Autónoma de Guadalajara",
+          "Formación en implantología, New York University College of Dentistry",
+          "Miembro de la Asociación Dental Mexicana",
+          "Cédula profesional y licencia sanitaria COFEPRIS vigentes",
+        ],
+        quote:
+          "Estudié en Nueva York y me pude haber quedado. Me regresé a San Carlos porque quería el consultorio al que yo mandaría a mi propia familia. Aquí me ves a mí en cada cita, desde la primera limpieza de tus hijos hasta lo que necesiten tus papás.",
+        portrait: {
+          src: "/placeholder/doctor-daniel-portrait-1200x1500.jpg",
+          alt: "Retrato del Dr. Daniel Martínez Corona",
+        },
+      },
+      {
+        id: "carolina",
+        name: "Dra. Carolina García Albelais",
+        role: "Odontología general y familiar",
+        credentials: [
+          "Cirujana Dentista, Universidad Autónoma de Guadalajara",
+          "Enfoque en prevención y atención a niños",
+          "Miembro de la Asociación Dental Mexicana",
+          "Cédula profesional y licencia sanitaria COFEPRIS vigentes",
+        ],
+        quote:
+          "Casi todos mis pacientes llegan nerviosos la primera vez. Mi trabajo es que salgan tranquilos, entiendan qué les hicimos y regresen sin miedo. Eso aplica igual para un niño de seis años que para tu mamá.",
+        portrait: {
+          src: "/placeholder/doctor-carolina-portrait-1200x1500.jpg",
+          alt: "Retrato de la Dra. Carolina García Albelais",
+        },
+      },
     ],
-    quote:
-      "Estudié en Nueva York y me pude haber quedado. Me regresé a San Carlos porque quería el consultorio al que yo mandaría a mi propia familia. Aquí me ves a mí en cada cita, desde la primera limpieza de tus hijos hasta lo que necesiten tus papás.",
-    portrait: {
-      src: "/placeholder/doctor-portrait-1200x1500.jpg",
-      alt: "Retrato del Dr. Daniel Martínez",
-    },
   },
 
   process: {

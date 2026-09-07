@@ -71,13 +71,20 @@ export type Dictionary = {
     }[];
   };
 
-  doctor: {
+  doctors: {
     eyebrow: string;
-    name: string;
-    role: string;
-    credentials: string[];
-    quote: string;
-    portrait: ImageRef;
+    headline: string;
+    /** Label for the per-doctor WhatsApp link, e.g. "Message Dr. Daniel". `{name}` is replaced. */
+    contactLabel: string;
+    items: {
+      /** Matches an entry in site.doctors by id. */
+      id: "daniel" | "carolina";
+      name: string;
+      role: string;
+      credentials: string[];
+      quote: string;
+      portrait: ImageRef;
+    }[];
   };
 
   process: {

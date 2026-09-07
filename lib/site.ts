@@ -11,8 +11,25 @@ export const site = {
   whatsapp: digits(process.env.NEXT_PUBLIC_WHATSAPP, "523316068212"),
   phone: digits(process.env.NEXT_PUBLIC_PHONE, "523316068212"),
   phoneDisplay: "+52 33 1606 8212",
-  email: "hola@mydentist.mx",
-  doctor: "Dr. Daniel Martínez",
+  email: "daniel_mcn88@hotmail.com",
+  doctors: [
+    {
+      id: "daniel",
+      name: "Dr. Daniel Martínez Corona",
+      shortName: "Dr. Daniel",
+      phone: "523316068212",
+      phoneDisplay: "+52 33 1606 8212",
+      email: "daniel_mcn88@hotmail.com",
+    },
+    {
+      id: "carolina",
+      name: "Dra. Carolina García Albelais",
+      shortName: "Dra. Carolina",
+      phone: "523331915965",
+      phoneDisplay: "+52 33 3191 5965",
+      email: "carogarcia.albelais@gmail.com",
+    },
+  ],
   address: {
     street: "Aurora 299",
     area: "Sector Crestón, Ranchito Campestre",
@@ -42,8 +59,14 @@ export function mapLink() {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`;
 }
 
-export function whatsappLink(message: string) {
-  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
+export function whatsappLink(message: string, number: string = site.whatsapp) {
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+}
+
+export function doctorById(id: (typeof site.doctors)[number]["id"]) {
+  const doc = site.doctors.find((d) => d.id === id);
+  if (!doc) throw new Error(`Unknown doctor id ${id}`);
+  return doc;
 }
 
 export function telLink() {

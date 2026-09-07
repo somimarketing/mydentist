@@ -3,7 +3,7 @@ import { Logo } from "@/components/brand/Logo";
 import { FacebookIcon, InstagramIcon } from "@/components/icons";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/types";
-import { site, telLink } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 
 type Props = { locale: Locale; dict: Dictionary; whatsappHref: string };
 
@@ -59,21 +59,22 @@ export function Footer({ locale, dict, whatsappHref }: Props) {
         <div>
           <p className="eyebrow text-cotton/70">{dict.footer.contact}</p>
           <ul className="mt-6 flex flex-col gap-3 text-ui font-semibold text-cotton/80">
-            <li>
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="transition-colors duration-500 hover:text-cotton">
-                WhatsApp {site.phoneDisplay}
-              </a>
-            </li>
-            <li>
-              <a href={telLink()} className="transition-colors duration-500 hover:text-cotton">
-                {site.phoneDisplay}
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${site.email}`} className="transition-colors duration-500 hover:text-cotton">
-                {site.email}
-              </a>
-            </li>
+            {site.doctors.map((d) => (
+              <li key={d.id} className="flex flex-col">
+                <span className="text-cotton/70">{d.name}</span>
+                <a
+                  href={d.id === "daniel" ? whatsappHref : whatsappLink(dict.meta.whatsappMessage, d.phone)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-500 hover:text-cotton"
+                >
+                  WhatsApp {d.phoneDisplay}
+                </a>
+                <a href={`mailto:${d.email}`} className="break-all transition-colors duration-500 hover:text-cotton">
+                  {d.email}
+                </a>
+              </li>
+            ))}
             <li className="text-cotton/70">
               {site.address.street}
               <br />

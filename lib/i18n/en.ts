@@ -16,7 +16,7 @@ export const en: Dictionary = {
     links: [
       { href: "#services", label: "Treatments" },
       { href: "#pricing", label: "USD pricing" },
-      { href: "#doctor", label: "Dr. Martínez" },
+      { href: "#doctors", label: "The doctors" },
       { href: "#faq", label: "FAQ" },
     ],
     cta: "Get a quote on WhatsApp",
@@ -29,7 +29,7 @@ export const en: Dictionary = {
   hero: {
     headline: "Your whole treatment. One trip. A third of the price.",
     support:
-      "A private dental clinic in San Carlos, Sonora, run to the standard you expect at home. Sterilization you can inspect, prices you can compare, and a doctor who speaks your language.",
+      "A private dental clinic in San Carlos, Sonora, run to the standard you expect at home. Sterilization you can inspect, prices you can compare, and doctors who speak your language.",
     primary: "Get a written quote on WhatsApp",
     secondary: { label: "See USD pricing", href: "#pricing" },
     image: {
@@ -156,22 +156,46 @@ export const en: Dictionary = {
     ],
   },
 
-  doctor: {
-    eyebrow: "Your dentist",
-    name: "Dr. Daniel Martínez",
-    role: "General and cosmetic dentistry, clinic director",
-    credentials: [
-      "DDS, Universidad Autónoma de Guadalajara",
-      "Advanced implantology residency, New York University College of Dentistry",
-      "Member, Asociación Dental Mexicana and American Academy of Cosmetic Dentistry",
-      "Licensed by COFEPRIS, Mexico's federal health authority",
+  doctors: {
+    eyebrow: "Your doctors",
+    headline: "Two dentists. One clinic. You see them on every visit.",
+    contactLabel: "Message {name} on WhatsApp",
+    items: [
+      {
+        id: "daniel",
+        name: "Dr. Daniel Martínez Corona",
+        role: "General, cosmetic and implant dentistry",
+        credentials: [
+          "DDS, Universidad Autónoma de Guadalajara",
+          "Advanced implantology training, New York University College of Dentistry",
+          "Member, Asociación Dental Mexicana",
+          "Licensed by COFEPRIS, Mexico's federal health authority",
+        ],
+        quote:
+          "I trained in New York and I could have stayed. I came home to San Carlos because I wanted to build the clinic I would send my own family to. If you fly in, you will meet me on your first day and on your last.",
+        portrait: {
+          src: "/placeholder/doctor-daniel-portrait-1200x1500.jpg",
+          alt: "Portrait of Dr. Daniel Martínez Corona",
+        },
+      },
+      {
+        id: "carolina",
+        name: "Dra. Carolina García Albelais",
+        role: "General and family dentistry",
+        credentials: [
+          "DDS, Universidad Autónoma de Guadalajara",
+          "Focus on preventive and pediatric care",
+          "Member, Asociación Dental Mexicana",
+          "Licensed by COFEPRIS, Mexico's federal health authority",
+        ],
+        quote:
+          "Most of my patients came in nervous the first time. My job is that they leave calm, understand exactly what we did, and come back without dreading it. That goes for a six-year-old and for a retiree from Arizona alike.",
+        portrait: {
+          src: "/placeholder/doctor-carolina-portrait-1200x1500.jpg",
+          alt: "Portrait of Dra. Carolina García Albelais",
+        },
+      },
     ],
-    quote:
-      "I trained in New York and I could have stayed. I came home to San Carlos because I wanted to build the clinic I would send my own family to. If you fly in, you will meet me on your first day and on your last.",
-    portrait: {
-      src: "/placeholder/doctor-portrait-1200x1500.jpg",
-      alt: "Portrait of Dr. Daniel Martínez",
-    },
   },
 
   process: {
@@ -183,7 +207,7 @@ export const en: Dictionary = {
         body: "On WhatsApp. Within one business day you get a written plan with USD pricing and how many days to book.",
       },
       {
-        title: "Fly in and meet the doctor",
+        title: "Fly in and meet your doctor",
         body: "Your first appointment is the day you land. We take 3D scans, confirm the plan and the price in writing, then start.",
       },
       {
@@ -192,7 +216,7 @@ export const en: Dictionary = {
       },
       {
         title: "Fly home with a guarantee",
-        body: "Your file, x-rays and written five-year guarantee go with you. Follow-up is on WhatsApp, with the doctor, not a call center.",
+        body: "Your file, x-rays and written five-year guarantee go with you. Follow-up is on WhatsApp, with your doctor, not a call center.",
       },
     ],
   },
@@ -276,7 +300,7 @@ export const en: Dictionary = {
       },
       {
         q: "Does the staff speak English?",
-        a: "Yes. Dr. Martínez trained in New York and the front desk and assistants all speak English. Your treatment plan, consent forms and receipts are in English.",
+        a: "Yes. Both doctors speak English, Dr. Martínez trained in New York, and the front desk and assistants all speak English. Your treatment plan, consent forms and receipts are in English.",
       },
       {
         q: "How do I get a price before I travel?",
@@ -300,7 +324,7 @@ export const en: Dictionary = {
       },
       {
         q: "What if something goes wrong after I go home?",
-        a: "You message Dr. Martínez directly on WhatsApp and he answers. Minor adjustments can usually be handled by a local dentist and we cover the cost under the guarantee. Anything larger, you come back and the correction is done at no charge.",
+        a: "You message your doctor directly on WhatsApp and they answer. Minor adjustments can usually be handled by a local dentist and we cover the cost under the guarantee. Anything larger, you come back and the correction is done at no charge.",
       },
     ],
   },
@@ -308,7 +332,7 @@ export const en: Dictionary = {
   finalCta: {
     headline: "Send a photo today. Have a price by tomorrow.",
     support:
-      "The fastest way is WhatsApp. Dr. Martínez's team replies within one business day with a written plan in USD.",
+      "The fastest way is WhatsApp. The doctors reply within one business day with a written plan in USD.",
     whatsapp: "Message us on WhatsApp",
     whatsappHint: "Opens WhatsApp with a message ready to send",
     form: {
