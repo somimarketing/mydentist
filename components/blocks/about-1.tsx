@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Instagram, MessageCircle } from "lucide-react";
+import { site, links, messages, whatsappUrl } from "@/lib/site";
 
 interface TeamMember {
   id: number;
@@ -17,32 +18,24 @@ interface About1Props {
   displayProgressIndicators?: boolean;
 }
 
-/* [DATO] Real photos of Daniel, his partner, and any staff. Names, roles and
-   social links confirmed by Daniel. Placeholder art until then. */
+/* Names and WhatsApp numbers are confirmed. [DATO] Real photos of both
+   dentists, plus any further staff, still to come from Daniel. */
 const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 1,
-    name: "Dr. Daniel Martinez Corona",
+    name: site.doctors[0].name,
     role: "Implant and aesthetic dentistry",
     image: "/images/ph-4.jpg",
-    whatsapp: "#contact",
-    instagram: "#contact",
+    whatsapp: whatsappUrl(messages.general, site.doctors[0].phone),
+    instagram: links.instagram ?? whatsappUrl(messages.general, site.doctors[0].phone),
   },
   {
     id: 2,
-    name: "Dr. Carolina [DATO surname]",
-    role: "[DATO] Dentist, clinic partner",
+    name: site.doctors[1].name,
+    role: "General and family dentistry, clinic partner",
     image: "/images/ph-1.jpg",
-    whatsapp: "#contact",
-    instagram: "#contact",
-  },
-  {
-    id: 3,
-    name: "[DATO] Team member",
-    role: "[DATO] Role",
-    image: "/images/ph-5.jpg",
-    whatsapp: "#contact",
-    instagram: "#contact",
+    whatsapp: whatsappUrl(messages.general, site.doctors[1].phone),
+    instagram: links.instagram ?? whatsappUrl(messages.general, site.doctors[1].phone),
   },
 ];
 

@@ -3,10 +3,11 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { motion } from "motion/react";
+import { links } from "@/lib/site";
 
-/* [DATO] Real clinic links once Daniel confirms them. */
-const WHATSAPP_URL = "#contact";
-const BOOKING_URL = "#contact";
+/* Real clinic links. Booking opens WhatsApp until a calendar exists. */
+const WHATSAPP_URL = links.whatsapp;
+const BOOKING_URL = links.booking;
 
 /* [DATO] Six clinic and smile photos replace the placeholder art. The
    six-image trail mechanic stays exactly as shipped. */

@@ -12,11 +12,12 @@ import {
 import { Menu, MoveRight, X, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { links } from "@/lib/site";
 
-/* [DATO] Swap for the real clinic links once Daniel confirms them.
+/* Real clinic links. Booking opens WhatsApp until a calendar exists.
    Until then both point at the contact block so nothing is a dead end. */
-const WHATSAPP_URL = "#contact";
-const BOOKING_URL = "#contact";
+const WHATSAPP_URL = links.whatsapp;
+const BOOKING_URL = links.booking;
 
 const navigationItems = [
   {

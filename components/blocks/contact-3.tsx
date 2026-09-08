@@ -2,12 +2,13 @@
 
 import { motion } from "motion/react";
 import { MessageCircle, Video, Phone } from "lucide-react";
+import { links, site } from "@/lib/site";
 
-/* [DATO] The three links below are the clinic's real WhatsApp, booking
-   calendar and phone number. They point back at this block until then. */
-const WHATSAPP_URL = "#contact";
-const BOOKING_URL = "#contact";
-const PHONE_URL = "#contact";
+/* WhatsApp and phone are the clinic's real numbers. [DATO] A booking
+   calendar does not exist yet, so "book a consult" also opens WhatsApp. */
+const WHATSAPP_URL = links.whatsapp;
+const BOOKING_URL = links.booking;
+const PHONE_URL = links.phone;
 
 export default function Contact3() {
   /* WhatsApp first. The generic Live chat and Email us labels are gone. */
@@ -27,7 +28,7 @@ export default function Contact3() {
     {
       icon: Phone,
       title: "Call the clinic",
-      description: "[DATO] phone number",
+      description: site.phoneDisplay,
       href: PHONE_URL,
     },
   ];

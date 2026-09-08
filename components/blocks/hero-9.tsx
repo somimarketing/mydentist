@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
 import GradientText from "@/components/react-bits/GradientText";
+import { links } from "@/lib/site";
 
-/* [DATO] Real clinic links once Daniel confirms. Both fall back to the
-   contact block so nothing is a dead end today. */
-const WHATSAPP_URL = "#contact";
-const BOOKING_URL = "#contact";
+/* Real clinic links. Booking opens WhatsApp until a calendar exists. */
+const WHATSAPP_URL = links.whatsapp;
+const BOOKING_URL = links.booking;
 
 export function Hero9() {
   /* Browsers ignore media attributes on video sources, so the lighter

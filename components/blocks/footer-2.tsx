@@ -2,11 +2,13 @@
 
 import { motion } from "motion/react";
 import { Instagram, MessageCircle } from "lucide-react";
+import { links } from "@/lib/site";
 
-/* [DATO] Real clinic links once Daniel confirms them. */
-const WHATSAPP_URL = "#contact";
-const BOOKING_URL = "#contact";
-const INSTAGRAM_URL = "#contact";
+/* Real clinic links. Booking opens WhatsApp until a calendar exists. */
+const WHATSAPP_URL = links.whatsapp;
+const BOOKING_URL = links.booking;
+/* [DATO] Instagram handle not confirmed; falls back to WhatsApp. */
+const INSTAGRAM_URL = links.instagram ?? links.whatsapp;
 
 export default function Footer2() {
   const containerVariants = {

@@ -1,8 +1,9 @@
 import { MessageCircle } from "lucide-react";
+import { links } from "@/lib/site";
 
-/* [DATO] Real clinic links once Daniel confirms them. */
-const WHATSAPP_URL = "#contact";
-const BOOKING_URL = "#contact";
+/* Real clinic links. Booking opens WhatsApp until a calendar exists. */
+const WHATSAPP_URL = links.whatsapp;
+const BOOKING_URL = links.booking;
 
 /*
   Phones only. The page has one job, a booked consult, so the two actions
