@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Ancizar_Serif, Darker_Grotesque } from "next/font/google";
 import "./globals.css";
 
 /*
-  Inter is the only family on this site.
-  The variable file covers every roman weight. Real italic files carry the
-  "my" / "yours" signature, so the browser never has to fake an oblique.
+  Two families, straight off the brand board.
+
+  Ancizar Serif carries every headline and the "my" / "yours" signature.
+  That italic is the logo's own move: serif-italic "My" against the heavier
+  grotesque "Dentist". Using it in the copy makes the page and the mark read
+  as one thing.
 */
-const inter = localFont({
-  src: [
-    { path: "../public/fonts/inter-var.woff2", weight: "100 900", style: "normal" },
-    { path: "../public/fonts/inter-italic-300.woff2", weight: "300", style: "italic" },
-    { path: "../public/fonts/inter-italic-500.woff2", weight: "500", style: "italic" },
-  ],
-  variable: "--font-inter",
+const display = Ancizar_Serif({
+  subsets: ["latin"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  variable: "--font-display",
   display: "swap",
-  preload: true,
-  fallback: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+  fallback: ["Iowan Old Style", "Palatino Linotype", "Georgia", "serif"],
+});
+
+/* Darker Grotesque runs the interface: body, labels, buttons, nav. */
+const sans = Darker_Grotesque({
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-sans",
+  display: "swap",
+  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
 });
 
 export const metadata: Metadata = {
@@ -50,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>

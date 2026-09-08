@@ -50,7 +50,18 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-inter);
+  /*
+    Darker Grotesque sets smaller on the body than Inter did at the same
+    nominal size, so the text ramp below is bumped ~12% to keep the optical
+    size the blocks were designed around. Display sizes are untouched: those
+    render in Ancizar Serif, whose x-height already matches.
+  */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.625rem;
 
   --color-ground: var(--ground);
   --color-surface: var(--surface);
@@ -75,7 +86,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
+    /* Darker Grotesque reads thin at 400; 500 is its regular. */
+    font-weight: 500;
+    line-height: 1.55;
     background-color: var(--ground);
     color: var(--ink);
   }
@@ -94,15 +108,15 @@
   h4,
   h5,
   h6 {
-    letter-spacing: -0.025em;
+    font-family: var(--font-display), Georgia, serif;
+    /* The serif carries its weight at 400. Anything heavier reads clumsy. */
+    font-weight: 400;
+    letter-spacing: -0.02em;
   }
 
-  h1 {
-    letter-spacing: -0.03em;
-  }
-
+  h1,
   h2 {
-    letter-spacing: -0.028em;
+    letter-spacing: -0.022em;
   }
 
   ::selection {
@@ -118,13 +132,21 @@
 
 /*
   The brand signature. "my" and "yours" carry the whole idea of ownership,
-  so they sit in Inter italic against the heavier roman around them.
-  Italic needs marginally more room than the roman, hence the softer tracking.
+  so they sit in Ancizar Serif italic, exactly as the logo sets "My" against
+  the grotesque "Dentist".
 */
 .sig {
+  font-family: var(--font-display), Georgia, serif;
   font-style: italic;
-  font-weight: 300;
-  letter-spacing: -0.018em;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+}
+
+/* Opt a non-heading element into the display serif. */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 @media (prefers-reduced-motion: reduce) {
