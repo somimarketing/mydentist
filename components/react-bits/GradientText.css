@@ -1,0 +1,52 @@
+/*
+  React Bits GradientText styles. Two deliberate departures for a hero
+  headline: no backdrop blur (it would print a soft rectangle over the video)
+  and no pointer cursor or centering, since this wraps left-aligned text.
+  Overflow stays visible so italic descenders are never clipped.
+*/
+.animated-gradient-text {
+  position: relative;
+  display: flex;
+  max-width: fit-content;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 1.25rem;
+  transition: box-shadow 0.5s ease-out;
+}
+
+.animated-gradient-text.with-border {
+  padding: 0.35rem 0.75rem;
+  overflow: hidden;
+}
+
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gradient-overlay::before {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--charcoal, #343333);
+  z-index: -1;
+}
+
+.text-content {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
