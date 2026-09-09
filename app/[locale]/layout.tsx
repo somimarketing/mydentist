@@ -1,28 +1,44 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Ancizar_Serif, Darker_Grotesque } from "next/font/google";
-import Script from "next/script";
-import { notFound } from "next/navigation";
-import { getDictionary, isLocale, locales, ogLocale, otherLocale, type Locale } from "@/lib/i18n";
-import { site } from "@/lib/site";
 import "../globals.css";
+import { notFound } from "next/navigation";
+import { LocaleProvider } from "@/lib/i18n/context";
+import {
+  getDictionary,
+  htmlLang,
+  isLocale,
+  locales,
+  ogLocale,
+  otherLocale,
+  type Locale,
+} from "@/lib/i18n";
+import { site } from "@/lib/site";
 
-const ancizar = Ancizar_Serif({
+
+/*
+  Two families, straight off the brand board.
+
+  Ancizar Serif carries every headline and the "my" / "yours" signature.
+  That italic is the logo's own move: serif-italic "My" against the heavier
+  grotesque "Dentist". Using it in the copy makes the page and the mark read
+  as one thing.
+*/
+const display = Ancizar_Serif({
   subsets: ["latin"],
   weight: "variable",
   style: ["normal", "italic"],
+  variable: "--font-display",
   display: "swap",
-  variable: "--font-ancizar",
   fallback: ["Iowan Old Style", "Palatino Linotype", "Georgia", "serif"],
-  adjustFontFallback: true,
 });
 
-const grotesque = Darker_Grotesque({
+/* Darker Grotesque runs the interface: body, labels, buttons, nav. */
+const sans = Darker_Grotesque({
   subsets: ["latin"],
   weight: "variable",
+  variable: "--font-sans",
   display: "swap",
-  variable: "--font-grotesque",
   fallback: ["Helvetica Neue", "Arial", "sans-serif"],
-  adjustFontFallback: true,
 });
 
 type Params = Promise<{ locale: string }>;
@@ -35,60 +51,66 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   const locale: Locale = raw;
-  const dict = getDictionary(locale);
-  const other = otherLocale(locale);
-  const ogImage = `/og/og-${locale}-1200x630.jpg`;
+  const t = getDictionary(locale);
 
   return {
     metadataBase: new URL(site.url),
-    title: dict.meta.title,
-    description: dict.meta.description,
+    title: t.meta.title,
+    description: t.meta.description,
     alternates: {
       canonical: `/${locale}`,
+      /* x-default points at Spanish: the clinic is in Sonora. */
       languages: { en: "/en", es: "/es", "x-default": "/es" },
     },
     openGraph: {
       type: "website",
       siteName: site.name,
-      title: dict.meta.title,
-      description: dict.meta.description,
       url: `/${locale}`,
+      title: t.meta.ogTitle,
+      description: t.meta.ogDescription,
       locale: ogLocale[locale],
-      alternateLocale: [ogLocale[other]],
-      images: [{ url: ogImage, width: 1200, height: 630, alt: dict.meta.ogAlt }],
+      alternateLocale: [ogLocale[otherLocale(locale)]],
     },
-    twitter: {
-      card: "summary_large_image",
-      title: dict.meta.title,
-      description: dict.meta.description,
-      images: [ogImage],
-    },
-    robots: { index: true, follow: true },
   };
 }
 
-export const viewport: Viewport = {
-  themeColor: "#343333",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e8e8e4" },
+    { media: "(prefers-color-scheme: dark)", color: "#343333" },
+  ],
 };
 
-/** Marks the logo intro as already played for this tab, before first paint. */
-const introScript = `document.documentElement.classList.add("js");try{if(sessionStorage.getItem("md-intro")){document.documentElement.dataset.intro="done"}else{sessionStorage.setItem("md-intro","1")}}catch(e){}`;
+/*
+  Sets the theme before first paint so there is no flash, and respects the
+  visitor's system setting until they choose for themselves.
+*/
+const themeInit = `(function(){try{var s=localStorage.getItem("md-theme");var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark");}catch(e){}})();`;
 
-export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Params }) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Params;
+}) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
   return (
-    <html lang={locale} className={`${ancizar.variable} ${grotesque.variable}`}>
+    <html
+      lang={htmlLang[locale]}
+      className={`${display.variable} ${sans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        <Script id="md-intro" strategy="beforeInteractive">
-          {introScript}
-        </Script>
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
-      <body className="min-h-svh bg-cotton font-sans text-charcoal antialiased">{children}</body>
+      <body className="antialiased bg-ground text-ink">
+        <LocaleProvider locale={locale} dictionary={getDictionary(locale)}>
+          {children}
+        </LocaleProvider>
+      </body>
     </html>
   );
 }

@@ -1,82 +1,55 @@
-import { notFound } from "next/navigation";
-import { Nav } from "@/components/layout/Nav";
-import { Footer } from "@/components/layout/Footer";
-import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
-import { Hero } from "@/components/sections/Hero";
-import { TrustStrip } from "@/components/sections/TrustStrip";
-import { Services } from "@/components/sections/Services";
-import { Why } from "@/components/sections/Why";
-import { BeforeAfter } from "@/components/sections/BeforeAfter";
-import { Doctors } from "@/components/sections/Doctors";
-import { Process } from "@/components/sections/Process";
-import { LocaleBlock } from "@/components/sections/LocaleBlock";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { Location } from "@/components/sections/Location";
-import { Faq } from "@/components/sections/Faq";
-import { FinalCta } from "@/components/sections/FinalCta";
-import { getDictionary, isLocale } from "@/lib/i18n";
-import { site, telLink, whatsappLink } from "@/lib/site";
+import { Header1 } from "@/components/ui/header";
+import { MobileCta } from "@/components/ui/mobile-cta";
+import Hero9 from "@/components/blocks/hero-9";
+import SocialProof8 from "@/components/blocks/social-proof-8";
+import Features7 from "@/components/blocks/features-7";
+import HowItWorks6 from "@/components/blocks/how-it-works-6";
+import Comparison2 from "@/components/blocks/comparison-2";
+import Showcase6 from "@/components/blocks/showcase-6";
+import Stats11 from "@/components/blocks/stats-11";
+import About1 from "@/components/blocks/about-1";
+import SocialProof16 from "@/components/blocks/social-proof-16";
+import Pricing1 from "@/components/blocks/pricing-1";
+import Faq4 from "@/components/blocks/faq-4";
+import Cta2 from "@/components/blocks/cta-2";
+import Contact3 from "@/components/blocks/contact-3";
+import Footer2 from "@/components/blocks/footer-2";
 
-type Params = Promise<{ locale: string }>;
-
-export default async function LandingPage({ params }: { params: Params }) {
-  const { locale } = await params;
-  if (!isLocale(locale)) notFound();
-
-  const dict = getDictionary(locale);
-  const wa = whatsappLink(dict.meta.whatsappMessage);
-  const waFollowUp = whatsappLink(dict.meta.whatsappFollowUp);
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Dentist",
-    name: site.name,
-    url: `${site.url}/${locale}`,
-    telephone: `+${site.phone}`,
-    email: site.email,
-    image: `${site.url}/og/og-${locale}-1200x630.jpg`,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: site.address.street,
-      addressLocality: "San Carlos",
-      addressRegion: "Sonora",
-      postalCode: "85506",
-      addressCountry: "MX",
-    },
-    openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "19:00" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "14:00" },
-    ],
-    employee: site.doctors.map((d) => ({ "@type": "Person", name: d.name, jobTitle: "Dentist", telephone: `+${d.phone}`, email: d.email })),
-    sameAs: [site.social.instagram, site.social.facebook],
-  };
-
+/**
+ * MyDentist, San Carlos
+ *
+ * Composed with the React Bits Landing Builder, harmonized into the
+ * MyDentist design system.
+ *
+ * The wrapper below sets `--rb-section-min-h: 0px`, which lets content
+ * sections take their natural height instead of each filling the viewport.
+ * Remove it and every section reverts to full-screen, which is the correct
+ * behaviour when a block is used on its own.
+ */
+export default function Page() {
   return (
     <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-md focus:bg-cotton focus:px-4 focus:py-2 focus:text-charcoal"
+      <Header1 />
+      <main
+        className="w-full pb-[84px] md:pb-0"
+        style={{ "--rb-section-min-h": "0px" } as React.CSSProperties}
       >
-        {locale === "en" ? "Skip to content" : "Ir al contenido"}
-      </a>
-      <Nav locale={locale} nav={dict.nav} whatsappHref={wa} />
-      <main id="main" className="pb-[76px] md:pb-0">
-        <Hero hero={dict.hero} whatsappHref={wa} />
-        <TrustStrip items={dict.trust} label={locale === "en" ? "Clinic at a glance" : "El consultorio en números"} />
-        <Services data={dict.services} whatsappHref={wa} />
-        <Why data={dict.why} />
-        <BeforeAfter data={dict.beforeAfter} />
-        <Doctors data={dict.doctors} whatsappMessage={dict.meta.whatsappMessage} />
-        <Process data={dict.process} />
-        <LocaleBlock data={dict.localeBlock} whatsappHref={wa} />
-        <Testimonials data={dict.testimonials} />
-        <Location locale={locale} data={dict.location} whatsappHref={wa} />
-        <Faq data={dict.faq} />
-        <FinalCta locale={locale} data={dict.finalCta} whatsappHref={wa} whatsappFollowUpHref={waFollowUp} />
+        <Hero9 />
+        <SocialProof8 />
+        <Features7 />
+        <HowItWorks6 />
+        <Comparison2 />
+        <Showcase6 />
+        <Stats11 />
+        <About1 />
+        <SocialProof16 />
+        <Pricing1 />
+        <Faq4 />
+        <Cta2 />
+        <Contact3 />
+        <Footer2 />
       </main>
-      <Footer locale={locale} dict={dict} whatsappHref={wa} />
-      <MobileCtaBar labels={dict.mobileBar} whatsappHref={wa} telHref={telLink()} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <MobileCta />
     </>
   );
 }

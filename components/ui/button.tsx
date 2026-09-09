@@ -1,78 +1,61 @@
-import Link from "next/link";
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+
 import { cn } from "@/lib/utils";
-import { ArrowIcon } from "@/components/icons";
 
-type Variant = "primary" | "secondary" | "link";
-type Tone = "light" | "dark";
+/*
+  Same API as the shadcn button, repainted in MyDentist tokens so the header
+  never introduces a second color vocabulary.
+*/
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-charcoal text-cotton hover:bg-charcoal/90 dark:bg-cotton dark:text-charcoal dark:hover:bg-cotton/90",
+        destructive:
+          "bg-slate text-cotton hover:bg-slate/90 dark:bg-powder dark:text-charcoal dark:hover:bg-powder/90",
+        outline:
+          "border border-line-strong bg-transparent text-ink hover:bg-accent-soft/40 dark:hover:bg-cotton/10",
+        secondary:
+          "bg-accent-soft text-charcoal hover:bg-accent-soft/80 dark:text-charcoal",
+        ghost: "text-ink hover:bg-accent-soft/40 dark:hover:bg-cotton/10",
+        link: "text-accent underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
 
-const baseClass =
-  "inline-flex min-h-12 items-center justify-center gap-2.5 rounded-md px-6 font-sans text-ui font-bold tracking-[0.005em] transition-[background-color,color,border-color,transform,opacity] duration-500 ease-out-expo";
-
-function variantClass(variant: Variant, tone: Tone) {
-  if (variant === "primary") {
-    return tone === "dark"
-      ? "bg-cotton text-charcoal hover:bg-powder"
-      : "bg-charcoal text-cotton hover:bg-slate";
-  }
-  if (variant === "secondary") {
-    return tone === "dark"
-      ? "border border-cotton/40 text-cotton hover:border-cotton hover:bg-cotton/5"
-      : "border border-charcoal/30 text-charcoal hover:border-charcoal hover:bg-charcoal/5";
-  }
-  return cn(
-    "min-h-0 gap-1.5 rounded-none px-0 underline-offset-[6px] hover:underline",
-    tone === "dark" ? "text-cotton" : "text-charcoal",
-  );
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
 
-type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
-  href: string;
-  variant?: Variant;
-  tone?: Tone;
-  icon?: ReactNode;
-  arrow?: boolean;
-  external?: boolean;
-};
-
-export function ButtonLink({
-  href,
-  variant = "primary",
-  tone = "light",
-  icon,
-  arrow,
-  external,
-  className,
-  children,
-  ...rest
-}: LinkProps) {
-  const cls = cn(baseClass, variantClass(variant, tone), className);
-  const content = (
-    <>
-      {icon}
-      <span>{children}</span>
-      {arrow ? <ArrowIcon className="h-[1.1em] w-[1.1em]" /> : null}
-    </>
-  );
-  if (external || href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:")) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
     return (
-      <a href={href} className={cls} {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} {...rest}>
-        {content}
-      </a>
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
     );
-  }
-  return (
-    <Link href={href} className={cls} {...rest}>
-      {content}
-    </Link>
-  );
-}
+  },
+);
+Button.displayName = "Button";
 
-type BtnProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: Variant;
-  tone?: Tone;
-};
-
-export function Button({ variant = "primary", tone = "light", className, ...rest }: BtnProps) {
-  return <button className={cn(baseClass, variantClass(variant, tone), "disabled:opacity-60", className)} {...rest} />;
-}
+export { Button, buttonVariants };
