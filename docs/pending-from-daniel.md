@@ -1,59 +1,107 @@
 # Pending from Daniel
 
-The single source of truth for every [DATO] on the site. Nothing here is invented. Every line below is a real figure, name, photo or link the page needs before launch, with the file where it drops in. Search the codebase for `[DATO]` to find each placeholder.
+Every `[DATO]` on the site in one list. Nothing here is invented: each line is
+a real figure, name, photo or link the page needs before launch.
 
-## Prices and comparisons
-File: components/blocks/pricing-1.tsx, components/blocks/comparison-2.tsx
-- Single implant, USD, plus the typical US/Canada price for the struck line
-- Full arch / All-on-4, USD, plus the US/Canada price
-- Crown, USD, plus the US/Canada price
-- Clear aligners, USD, plus the US/Canada price. Or confirm pricing is case by case
-- Financing: offered or not, and the terms. Until confirmed the toggle stays hidden (FINANCING_AVAILABLE = false in pricing-1.tsx)
+**All copy now lives in two files:** `lib/i18n/en.ts` and `lib/i18n/es.ts`.
+Search either for `[DATO]`. A figure usually has to be filled in both, and the
+two files are type-checked against each other, so a missing key fails the
+build rather than shipping a blank.
+
+Both languages are live but they are **not translations of each other**. English
+sells to US and Canadian patients; Spanish sells to families in San Carlos,
+Guaymas and Empalme. Some answers differ by audience, and that is on purpose.
+
+## Prices
+`lib/i18n/*.ts` → `pricing.plans`, `compare.rows`
+
+- Single implant, full arch / All-on-4, crown, clear aligners.
+- English needs the USD price **and** the typical US or Canada price for the
+  struck-through comparison line. That comparison is the whole English pitch.
+- Spanish needs the peso price **and** the monthly payment.
+- Financing: does it exist, how many months, which cards, any interest.
+  Until confirmed, `FINANCING_AVAILABLE = false` in `pricing-1.tsx` keeps the
+  toggle hidden, and the Spanish comparison table is the only place monthly
+  payments appear.
 
 ## Trip and timing
-File: components/blocks/comparison-2.tsx, features-7.tsx, faq-4.tsx
-- Trips required and days per stay for a standard implant case
-- Wait to start, from first message to first appointment
-- Whether aligner check-ins can be remote
+`compare.rows`, `proof`, `faq`
+
+- Trips required and days per stay for a standard implant case.
+- Wait from first message to first appointment.
+- Whether aligner check-ins can be remote.
+- Clinic hours, including whether Saturday is open (the Spanish page leans on
+  "cita esta misma semana" and Saturday hours).
 
 ## Warranty
-File: how-it-works-6.tsx, comparison-2.tsx, pricing-1.tsx, faq-4.tsx
-- Years, on what (implant, crown, materials), what voids it
-- Whether you coordinate with a dentist near the patient at home
+`how.steps`, `compare.rows`, `pricing.plans`, `faq`
+
+- Years, on what (implant, crown, materials), and what voids it.
+- Whether you coordinate with a dentist near a patient who has flown home.
 
 ## Credentials and materials
-File: faq-4.tsx, features-7.tsx
-- Daniel's schools, years practicing, certifications, associations
-- His partner's name, role and credentials
-- Sterilization protocol standard you follow
-- Implant systems and lab names used
+`faq`, `dentists.roles`
+
+- Daniel's schools, years practising, certifications, associations.
+- Carolina's degree, specialty and any certifications. Her role currently
+  reads "general and family dentistry, clinic partner" and the Spanish page
+  credits her with the children's care. Confirm or correct both.
+- Sterilization protocol standard you follow.
+- Implant systems and lab names used.
 
 ## Proof numbers
-File: components/blocks/stats-11.tsx
-- Implants placed, and since what year
-- Years the clinic has operated in San Carlos
-- Percent of patients from the US and Canada, last 12 months
-- Clinic founding year for the footer EST. line (footer-2.tsx)
+`stats.items`, `footer.est`
+
+- Implants placed, and since what year.
+- Years the clinic has operated in San Carlos.
+- English: percent of patients from the US and Canada, last 12 months.
+- Spanish: how many families are regular patients.
+- Founding year for the footer EST. line.
 
 ## People and photos
-File: about-1.tsx, social-proof-8.tsx, social-proof-16.tsx, showcase-6.tsx, features-7.tsx, how-it-works-6.tsx, cta-2.tsx
-- Real photos of Daniel, his partner, and staff
-- Three patient quotes with name, city, photo and written permission (social-proof-8)
-- One featured quote plus four reviews with name, city and permission (social-proof-16)
-- Four before/after cases with treatment, city and date (showcase-6)
-- Clinic and San Carlos photography for the three proof rows, four step cards, and the six-image cursor trail
-- Cities to list under "Trusted by patients from" (social-proof-16)
+Every block. Photos live in `public/images/` as `ph-1` … `ph-10`
+(plus `-sq` square crops) and are stock placeholders.
+
+- Real photos of Daniel, Carolina, and any staff.
+- Four before/after cases with treatment, city and date (`cases.items`).
+- Clinic and San Carlos photography for the three proof rows, the four step
+  cards, and the six-image cursor trail in the closing block.
+- Cities to list under "Trusted by patients from" / "Pacientes de"
+  (`wall.cities`).
+
+## Reviews
+`reviewsCarousel.items`, `wall`
+
+- English uses five real Google reviews, verbatim. Nothing needed unless you
+  want different ones.
+- **Spanish has only two.** Both are real reviews from Spanish-speaking
+  patients, restored to Spanish. Ask patients from the region to leave a
+  review and this side gets stronger; until then the carousel shows two
+  rather than padding with invented ones.
+- Written permission to publish names alongside the quotes.
 
 ## Contact and links
-File: every block, plus components/ui/header.tsx
-- WhatsApp number as a wa.me link
-- Booking calendar link
-- Clinic phone number
-- Clinic address
-- Instagram URL
-- Travel logistics: drive time from the Arizona border, nearest airport (faq-4.tsx)
+`lib/site.ts`
 
-## Decisions flagged for Daniel
-1. Financing toggle. Repurposed from monthly/yearly to Pay in full / Financing. Hidden until a real plan exists.
-2. "Trusted by patients from" city list. Shown with [DATO] tags. Hide the block if no true list exists at launch.
-3. "See more cases" currently points to the contact block until a gallery exists.
+Confirmed and already live: WhatsApp +52 33 1606 8212, the Aurora 299
+address, both dentists' numbers and emails.
+
+Still open:
+- Booking calendar link. Until one exists, every "book a consult" button
+  opens WhatsApp with a prefilled message. Same for "see more cases", which
+  has no gallery to point at.
+- Instagram URL. `links.instagram` is `null` and the icon falls back to
+  WhatsApp.
+- Clinic landline, if it is different from the WhatsApp number.
+- Travel logistics for the English FAQ: drive time from the Arizona border
+  and the nearest airport.
+
+## Decisions already made, worth a look
+1. **The comparison table is different in each language.** English compares
+   San Carlos against a typical US or Canada clinic. Spanish compares paying
+   in full against paying monthly, because the US comparison means nothing to
+   a local family.
+2. **Spanish is the default language.** `/` sends a visitor to `/es` unless
+   their browser asks for English. The clinic is in Sonora.
+3. **Financing toggle** is repurposed from the stock monthly/yearly switch and
+   stays hidden until a real plan exists.

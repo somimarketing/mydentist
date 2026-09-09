@@ -1,56 +1,78 @@
-# Untitled landing page
+# MyDentist, San Carlos
 
-Generated with the [React Bits Pro](https://pro.reactbits.dev) Landing Builder.
-
-## Getting started
+Bilingual landing page for a dental clinic in San Carlos, Sonora. Next.js App
+Router, Tailwind v4, React Bits Pro blocks.
 
 ```bash
 npm install
-npm run dev
+npm run dev   # http://localhost:3000 redirects to /es or /en
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Two audiences, two pitches
 
-## What's inside
+`/en` and `/es` are not translations of each other.
 
-| File | Block |
+- **English** sells dental tourism to US and Canadian patients. Their
+  decision turns on whether a clinic in Mexico is safe, whether they will be
+  flying back and forth, and how the price compares to their quote at home.
+- **Spanish** sells to families in San Carlos, Guaymas and Empalme. They
+  already trust the idea of a dentist. What stops them is cost, not knowing
+  what they will be charged, and finding an hour without missing work.
+
+Where this shows up most is the comparison table: in English it compares
+MyDentist against a typical US clinic, in Spanish it compares paying in full
+against paying monthly.
+
+## Where things live
+
+| What | Where |
 | --- | --- |
-| `components/blocks/hero-9.tsx` | Hero9 |
-| `components/blocks/social-proof-8.tsx` | SocialProof8 |
-| `components/blocks/features-7.tsx` | Features7 |
-| `components/blocks/how-it-works-6.tsx` | HowItWorks6 |
-| `components/blocks/comparison-2.tsx` | Comparison2 |
-| `components/blocks/showcase-6.tsx` | Showcase6 |
-| `components/blocks/stats-11.tsx` | Stats11 |
-| `components/blocks/about-1.tsx` | About1 |
-| `components/blocks/social-proof-16.tsx` | SocialProof16 |
-| `components/blocks/pricing-1.tsx` | Pricing1 |
-| `components/blocks/faq-4.tsx` | Faq4 |
-| `components/blocks/cta-2.tsx` | Cta2 |
-| `components/blocks/contact-3.tsx` | Contact3 |
-| `components/blocks/footer-2.tsx` | Footer2 |
+| All copy, both languages | `lib/i18n/en.ts`, `lib/i18n/es.ts` |
+| Clinic facts (phone, address, dentists) | `lib/site.ts` |
+| WhatsApp deep links | `lib/i18n/links.ts` (`useLinks()`) |
+| Unconfirmed figures | search `[DATO]`, see `docs/pending-from-daniel.md` |
+| Page composition | `app/[locale]/page.tsx` |
+| Locale routing | `middleware.ts`, `lib/i18n/config.ts` |
+| Blocks | `components/blocks/` |
+| Photos | `public/images/` (`ph-1` … `ph-10`, `-sq` = square) |
+| Hero video | `public/video/` (1080 desktop, 960 mobile, poster still) |
+| Logo | `public/logo/` (horizontal, stacked, icon; black, white, currentcolor) |
 
-Each block is a standalone, self-contained component. It takes no props: edit
-the file directly to change copy, styling or layout.
+`en.ts` defines the copy and derives the `Dictionary` type. `es.ts` is typed
+against it, so a missing or misnamed key fails the build instead of shipping a
+blank. Every block reads its own slice through `useCopy()`.
 
-## Section heights
+## Adding or changing copy
 
-`app/page.tsx` sets `--rb-section-min-h: 0px` on the page wrapper. Blocks that
-would otherwise fill the viewport (`min-h-[var(--rb-section-min-h,100vh)]`)
-collapse to their natural height when composed into a page. Use a block on its
-own (outside that wrapper) and it reverts to full-screen, which is what a
-standalone hero or 404 page wants.
+Edit both dictionaries. Nothing else. No block contains a language.
 
-## Dependencies
+To add a key: add it to `en.ts`, then TypeScript will tell you `es.ts` is
+missing it.
 
-- `gsap`
-- `lucide-react`
-- `motion`
-- `next`
-- `react`
-- `react-dom`
+## Type
 
-## Tailwind
+Two families, off the brand board:
 
-This project uses Tailwind CSS v4 with the PostCSS plugin. There is no
-`tailwind.config`: configuration lives in `app/globals.css`.
+- **Ancizar Serif** for every headline, and for the italic signature: "my
+  dentist", "Tu sonrisa", "My Dentist". That italic is the logo's own move.
+- **Darker Grotesque** for body, labels, buttons and nav.
+
+Both load through `next/font/google` as variable fonts. Darker Grotesque sets
+smaller than a normal grotesque at the same nominal size, so the `xs`–`2xl`
+text tokens in `globals.css` are bumped about 12% to compensate.
+
+## Colour
+
+Five brand colours and nothing else, in `app/globals.css`. The fixed scale
+(`--charcoal`, `--cotton`, `--powder`, `--slate`, `--bone`) never changes; the
+semantic tokens (`--ground`, `--ink`, `--accent`, `--line`) flip with `.dark`.
+
+## Before launch
+
+1. Fill the `[DATO]` figures. `docs/pending-from-daniel.md` is the list, and
+   it says which file each one lives in.
+2. Swap the stock photos in `public/images/` for real clinic photography.
+3. Add a booking calendar link and an Instagram URL to `lib/site.ts`. Until
+   then every booking CTA opens WhatsApp, which is a reasonable default.
+4. Set `NEXT_PUBLIC_SITE_URL` so canonical, hreflang and OpenGraph URLs are
+   absolute.
