@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Instagram, MessageCircle } from "lucide-react";
-import { site, links, messages, whatsappUrl } from "@/lib/site";
+import { site } from "@/lib/site";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 interface TeamMember {
   id: number;
@@ -18,26 +20,9 @@ interface About1Props {
   displayProgressIndicators?: boolean;
 }
 
-/* Names and WhatsApp numbers are confirmed. [DATO] Real photos of both
-   dentists, plus any further staff, still to come from Daniel. */
-const TEAM_MEMBERS: TeamMember[] = [
-  {
-    id: 1,
-    name: site.doctors[0].name,
-    role: "Implant and aesthetic dentistry",
-    image: "/images/ph-4.jpg",
-    whatsapp: whatsappUrl(messages.general, site.doctors[0].phone),
-    instagram: links.instagram ?? whatsappUrl(messages.general, site.doctors[0].phone),
-  },
-  {
-    id: 2,
-    name: site.doctors[1].name,
-    role: "General and family dentistry, clinic partner",
-    image: "/images/ph-1.jpg",
-    whatsapp: whatsappUrl(messages.general, site.doctors[1].phone),
-    instagram: links.instagram ?? whatsappUrl(messages.general, site.doctors[1].phone),
-  },
-];
+/* Names and WhatsApp numbers are confirmed; roles come from lib/i18n.
+   [DATO] Real photos of both dentists, plus any further staff. */
+const DENTIST_ART = ["/images/ph-4.jpg", "/images/ph-1.jpg"];
 
 const CAROUSEL_CONFIG = {
   autoPlayInterval: 5000,
@@ -49,9 +34,25 @@ const CAROUSEL_CONFIG = {
 
 const CAROUSEL_HEIGHT = 450;
 
+/* Names, numbers and photos are fixed; only the roles are localized. */
+function useTeam(): TeamMember[] {
+  const { t } = useCopy();
+  const L = useLinks();
+  return site.doctors.map((doc, i) => ({
+    id: i + 1,
+    name: doc.name,
+    role: doc.id === "daniel" ? t.dentists.roles.daniel : t.dentists.roles.carolina,
+    image: DENTIST_ART[i % DENTIST_ART.length],
+    whatsapp: L.doctor(doc.phone),
+    instagram: L.instagram ?? L.doctor(doc.phone),
+  }));
+}
+
 export default function About1({
   displayProgressIndicators = true,
 }: About1Props = {}) {
+  const TEAM_MEMBERS = useTeam();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [resetKey, setResetKey] = useState(0);
 
@@ -111,6 +112,8 @@ function TeamMemberList({
   activeIndex: number;
   onIndexChange: (index: number) => void;
 }) {
+  const TEAM_MEMBERS = useTeam();
+
   return (
     <div className="lg:col-span-3 order-2 lg:order-1">
       <div className="space-y-4">
@@ -146,6 +149,8 @@ function TeamMemberList({
 }
 
 function Header() {
+  const { t } = useCopy();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -154,10 +159,10 @@ function Header() {
       className="mb-8"
     >
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-ink mb-1">
-        Meet your dentists
+        {t.dentists.headline}
       </h2>
       <p className="text-base text-ink-soft">
-        The people who will actually treat you.
+        {t.dentists.support}
       </p>
     </motion.div>
   );
@@ -310,6 +315,8 @@ function ProgressIndicators({
   activeIndex: number;
   onIndexChange: (index: number) => void;
 }) {
+  const TEAM_MEMBERS = useTeam();
+
   return (
     <div className="flex items-center gap-2 mt-6">
       {TEAM_MEMBERS.map((_, index) => {

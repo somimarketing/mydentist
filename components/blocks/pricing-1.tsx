@@ -9,9 +9,10 @@ import {
   useTransform,
 } from "motion/react";
 import { useState, useRef } from "react";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 /* [DATO] Real clinic links once Daniel confirms them. */
-const BOOKING_URL = "#contact";
 
 /* [DATO] DECISION FOR DANIEL. The stock block has a monthly / yearly toggle,
    which does not fit one-time dental work. It is repurposed here as
@@ -86,9 +87,9 @@ const MovingBorder = ({
   );
 };
 
-/* [DATO] Every price and feature figure below is a placeholder until Daniel
-   confirms it. The US comparison line under each price is the whole
-   business, so it stays visible with [DATO] in place. */
+/* [DATO] Every price and feature figure lives in lib/i18n and stays a
+   placeholder until Daniel confirms it. The second price line under each
+   card is the whole business, so it stays visible with [DATO] in place. */
 type Plan = {
   name: string;
   blurb: string;
@@ -99,48 +100,6 @@ type Plan = {
   cta: string;
 };
 
-const PLANS: Plan[] = [
-  {
-    name: "Single implant",
-    blurb: "One tooth, replaced for good.",
-    priceFull: "$[DATO]",
-    priceFinancing: "$[DATO]",
-    usPrice: "$[DATO]",
-    features: [
-      "Premium implant brand [DATO]",
-      "Crown included [DATO]",
-      "[DATO]-year warranty",
-    ],
-    cta: "Book your consult",
-  },
-  {
-    name: "Full arch / All-on-4",
-    blurb: "A full arch of fixed teeth, planned around one stay.",
-    priceFull: "$[DATO]",
-    priceFinancing: "$[DATO]",
-    usPrice: "$[DATO]",
-    features: [
-      "[DATO] implants per arch",
-      "Fixed, non-removable teeth [DATO]",
-      "[DATO]-year warranty",
-    ],
-    cta: "Book your consult",
-  },
-  {
-    name: "Clear aligners",
-    blurb: "A custom smile plan. Pricing depends on your case.",
-    priceFull: "$[DATO]",
-    priceFinancing: "$[DATO]",
-    usPrice: "$[DATO]",
-    features: [
-      "Full treatment plan [DATO]",
-      "Remote check-ins [DATO]",
-      "Retainers included [DATO]",
-    ],
-    cta: "Schedule a call",
-  },
-];
-
 function PayToggle({
   financing,
   onChange,
@@ -148,15 +107,16 @@ function PayToggle({
   financing: boolean;
   onChange: (v: boolean) => void;
 }) {
+  const { t } = useCopy();
   if (!FINANCING_AVAILABLE) return null;
   return (
     <div className="flex items-center gap-2">
       <span className="text-xs font-medium text-ink">
-        {financing ? "Financing" : "Pay in full"}
+        {financing ? t.pricing.financingToggle.financing : t.pricing.financingToggle.full}
       </span>
       <button
         onClick={() => onChange(!financing)}
-        aria-label="Toggle financing"
+        aria-label={t.pricing.financingToggle.label}
         aria-pressed={financing}
         className={`relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer ${
           financing ? "bg-accent" : "bg-line"
@@ -173,6 +133,7 @@ function PayToggle({
 }
 
 function Price({ plan, financing }: { plan: Plan; financing: boolean }) {
+  const { t } = useCopy();
   const price = financing ? plan.priceFinancing : plan.priceFull;
   return (
     <div className="mb-6">
@@ -181,10 +142,16 @@ function Price({ plan, financing }: { plan: Plan; financing: boolean }) {
         <span className="text-3xl sm:text-4xl font-bold text-ink tabular-nums">
           {price}
         </span>
-        <span className="text-ink-soft text-sm">USD</span>
+        <span className="text-ink-soft text-sm">{t.pricing.currency}</span>
       </div>
       <p className="mt-1 text-sm text-ink-soft">
-        vs <s className="tabular-nums">{plan.usPrice}</s> in the US
+        {t.pricing.compare.prefix}{" "}
+        {t.pricing.compare.strike ? (
+          <s className="tabular-nums">{plan.usPrice}</s>
+        ) : (
+          <span className="tabular-nums">{plan.usPrice}</span>
+        )}{" "}
+        {t.pricing.compare.suffix}
       </p>
     </div>
   );
@@ -207,6 +174,11 @@ const primaryBtn =
   "w-full px-6 py-3 rounded-lg bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal font-medium text-sm sm:text-base hover:bg-charcoal/90 dark:hover:bg-cotton/90 transition-colors duration-200 text-center block";
 
 export default function Pricing1() {
+  const L = useLinks();
+  const BOOKING_URL = L.booking;
+  const { t } = useCopy();
+  const PLANS: Plan[] = t.pricing.plans;
+
   const [implantFinancing, setImplantFinancing] = useState(false);
   const [archFinancing, setArchFinancing] = useState(false);
   const [alignerFinancing, setAlignerFinancing] = useState(false);
@@ -226,10 +198,10 @@ export default function Pricing1() {
           className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-ink leading-tight mb-2">
-            Clear pricing, in US dollars.
+            {t.pricing.headline}
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-ink-soft max-w-2xl mx-auto">
-            What you would pay at home, and what you pay here.
+            {t.pricing.support}
           </p>
         </motion.div>
 
@@ -259,10 +231,10 @@ export default function Pricing1() {
               <div className="flex items-start gap-2 sm:gap-3">
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-ink mb-1">
-                    Free virtual consult before you travel.
+                    {t.pricing.consultNote}
                   </h3>
                   <div className="flex items-center gap-2 text-ink-soft">
-                    <span className="text-xs">No cost, no pressure.</span>
+                    <span className="text-xs">{t.pricing.consultSub}</span>
                     <Info className="w-4 h-4" aria-hidden="true" />
                   </div>
                 </div>
@@ -271,7 +243,7 @@ export default function Pricing1() {
                 href={BOOKING_URL}
                 className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal font-medium text-sm hover:bg-charcoal/90 dark:hover:bg-cotton/90 transition-colors duration-200 text-center"
               >
-                Book your consult
+                {t.common.bookConsult}
               </a>
             </div>
           </div>

@@ -1,34 +1,16 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useCopy } from "@/lib/i18n/context";
 
-/* [DATO] Clinic photography replaces the placeholder art. Every number in
-   the copy stays [DATO] until Daniel confirms it. */
-const sections = [
-  {
-    title: "One trip. One new smile.",
-    body: [
-      "Most implant cases are completed in [DATO] visits over a single stay. We plan it so you fly once.",
-    ],
-    image: "/images/ph-10.jpg",
-  },
-  {
-    title: "The same brands your dentist at home uses.",
-    body: [
-      "[DATO] implant systems and [DATO] labs. World-class materials, San Carlos price.",
-    ],
-    image: "/images/ph-8.jpg",
-  },
-  {
-    title: "You talk to the dentist. Not a call center.",
-    body: [
-      "Daniel answers your questions directly, in English, before and after you travel.",
-    ],
-    image: "/images/ph-9.jpg",
-  },
-];
+/* [DATO] Clinic photography replaces the placeholder art. Copy lives in
+   lib/i18n; every number in it stays [DATO] until Daniel confirms it. */
+const IMAGES = ["/images/ph-10.jpg", "/images/ph-8.jpg", "/images/ph-9.jpg"];
 
 export default function Features7() {
+  const { t } = useCopy();
+  const sections = t.proof.map((row, i) => ({ ...row, image: IMAGES[i % IMAGES.length] }));
+
   return (
     <section
       id="why"
@@ -64,14 +46,9 @@ export default function Features7() {
                 <h3 className="text-3xl sm:text-4xl font-medium text-ink leading-tight">
                   {s.title}
                 </h3>
-                {s.body.map((p, pi) => (
-                  <p
-                    key={pi}
-                    className="text-sm sm:text-base text-ink-soft leading-relaxed"
-                  >
-                    {p}
-                  </p>
-                ))}
+                <p className="text-sm sm:text-base text-ink-soft leading-relaxed">
+                  {s.body}
+                </p>
               </div>
             </motion.div>
           );

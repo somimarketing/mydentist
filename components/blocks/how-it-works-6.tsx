@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { Camera, Video, Plane, Smile } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useCopy } from "@/lib/i18n/context";
 
 type Step = {
   title: string;
@@ -19,32 +20,13 @@ type Step = {
 };
 
 /* [DATO] Step photography from the clinic and San Carlos replaces the
-   placeholder art. The warranty term is [DATO] until Daniel confirms it. */
-const steps: Step[] = [
-  {
-    title: "Send us your case",
-    copy: "A few photos and your questions. That is all we need to start.",
-    image: "/images/ph-8.jpg",
-    icon: Camera,
-  },
-  {
-    title: "Free video consult",
-    copy: "Meet Daniel face to face, in English, before you book anything. No cost.",
-    image: "/images/ph-9.jpg",
-    icon: Video,
-  },
-  {
-    title: "Come to San Carlos",
-    copy: "A short drive or flight from Arizona. We handle the plan, you handle the trip.",
-    image: "/images/ph-3.jpg",
-    icon: Plane,
-  },
-  {
-    title: "Leave with your smile",
-    copy: "Walk out with treatment done and a [DATO]-year warranty in hand.",
-    image: "/images/ph-6.jpg",
-    icon: Smile,
-  },
+   placeholder art. Copy comes from lib/i18n; the warranty term stays [DATO]
+   until Daniel confirms it. */
+const STEP_ART: { image: string; icon: LucideIcon }[] = [
+  { image: "/images/ph-8.jpg", icon: Camera },
+  { image: "/images/ph-9.jpg", icon: Video },
+  { image: "/images/ph-3.jpg", icon: Plane },
+  { image: "/images/ph-6.jpg", icon: Smile },
 ];
 
 function Node({
@@ -133,6 +115,13 @@ function Card({ step, side }: { step: Step; side: "left" | "right" }) {
 }
 
 export default function HowItWorks6() {
+  const { t } = useCopy();
+  const steps: Step[] = t.how.steps.map((step, i) => ({
+    title: step.title,
+    copy: step.body,
+    image: STEP_ART[i % STEP_ART.length].image,
+    icon: STEP_ART[i % STEP_ART.length].icon,
+  }));
   const ref = useRef<HTMLDivElement>(null);
   const firstNodeRef = useRef<HTMLDivElement>(null);
   const lastNodeRef = useRef<HTMLDivElement>(null);
@@ -197,7 +186,7 @@ export default function HowItWorks6() {
           transition={{ duration: 0.4 }}
           className="text-xs tracking-[0.2em] text-ink-soft uppercase"
         >
-          How it works
+          {t.how.eyebrow}
         </motion.p>
 
         <motion.h2
@@ -207,7 +196,7 @@ export default function HowItWorks6() {
           transition={{ duration: 0.5 }}
           className="mt-6 text-3xl sm:text-5xl md:text-6xl font-medium text-ink text-center leading-[1.05] max-w-xl"
         >
-          Four steps from your first message to your new smile
+          {t.how.headline}
         </motion.h2>
 
         <motion.p
@@ -217,8 +206,7 @@ export default function HowItWorks6() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-5 max-w-sm text-center text-base text-ink-soft"
         >
-          A calm, planned trip. You talk to the dentist at every step, not a
-          call center.
+          {t.how.support}
         </motion.p>
 
         <div ref={ref} className="relative mt-20 sm:mt-28 w-full">

@@ -3,14 +3,18 @@
 import { motion } from "motion/react";
 import { Instagram, MessageCircle } from "lucide-react";
 import { links } from "@/lib/site";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 /* Real clinic links. Booking opens WhatsApp until a calendar exists. */
-const WHATSAPP_URL = links.whatsapp;
-const BOOKING_URL = links.booking;
-/* [DATO] Instagram handle not confirmed; falls back to WhatsApp. */
-const INSTAGRAM_URL = links.instagram ?? links.whatsapp;
 
 export default function Footer2() {
+  const L = useLinks();
+  const WHATSAPP_URL = L.whatsapp;
+  const BOOKING_URL = L.booking;
+  const INSTAGRAM_URL = L.instagram ?? L.whatsapp;
+  const { t } = useCopy();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -94,7 +98,7 @@ export default function Footer2() {
                 {/* Tooth mark, masked so it inherits the ink color. */}
                 <span
                   role="img"
-                  aria-label="MyDentist mark"
+                  aria-label={t.footer.mark}
                   className="block bg-current text-ink h-10 w-10 sm:h-12 sm:w-12 mb-5"
                   style={{
                     maskImage: "url(/logo/mydentist-icon-currentcolor.svg)",
@@ -112,7 +116,7 @@ export default function Footer2() {
                   <span className="sig">My</span>Dentist
                 </h2>
                 <p className="mt-2 text-xl font-medium text-ink sm:text-2xl md:text-3xl">
-                  San Carlos
+                  {t.footer.city}
                 </p>
               </motion.div>
 
@@ -124,14 +128,14 @@ export default function Footer2() {
                   href={BOOKING_URL}
                   className="transition-colors hover:text-accent"
                 >
-                  BOOK YOUR CONSULT
+                  {t.footer.bookConsult}
                 </a>
                 <span className="text-ink-soft">·</span>
                 <a
                   href={WHATSAPP_URL}
                   className="transition-colors hover:text-accent"
                 >
-                  WHATSAPP
+                  {t.footer.whatsapp}
                 </a>
               </motion.div>
 
@@ -142,14 +146,14 @@ export default function Footer2() {
                 <a
                   href={INSTAGRAM_URL}
                   className="text-ink transition-colors hover:text-accent"
-                  aria-label="Instagram"
+                  aria-label={t.footer.instagram}
                 >
                   <Instagram className="h-6 w-6 sm:h-7 sm:w-7" />
                 </a>
                 <a
                   href={WHATSAPP_URL}
                   className="text-ink transition-colors hover:text-accent"
-                  aria-label="WhatsApp"
+                  aria-label={t.common.whatsapp}
                 >
                   <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7" />
                 </a>
@@ -160,13 +164,15 @@ export default function Footer2() {
                 className="flex w-full flex-col items-center justify-between gap-6 border-t border-line pt-8 text-center sm:flex-row sm:text-left md:pt-10 px-4 sm:px-0"
               >
                 <div className="text-xs text-ink-soft sm:text-sm">
-                  <p>© 2026 MyDentist. All rights reserved.</p>
+                  <p>
+                    © {new Date().getFullYear()} MyDentist. {t.footer.rights}
+                  </p>
                 </div>
 
                 <div className="text-xs text-ink-soft sm:text-right sm:text-sm tracking-wider">
-                  <p>DENTAL &amp; AESTHETIC</p>
-                  <p>SAN CARLOS, SONORA</p>
-                  <p>EST. [DATO]</p>
+                  <p>{t.footer.tagline}</p>
+                  <p>{t.footer.place}</p>
+                  <p>{t.footer.est}</p>
                 </div>
               </motion.div>
             </motion.div>

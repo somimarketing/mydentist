@@ -8,6 +8,7 @@ const digits = (v: string) => v.replace(/\D/g, "");
 
 export const site = {
   name: "MyDentist",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mydentist.mx",
   city: "San Carlos, Sonora",
 
   /** Primary booking channel. */

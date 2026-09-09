@@ -2,51 +2,19 @@
 
 import { motion, type Variants } from "motion/react";
 import { BadgeCheck, Star } from "lucide-react";
+import { useCopy } from "@/lib/i18n/context";
 
 /* [DATO] A strong quote from a US or Canada patient, with permission.
    Name and city confirmed by Daniel. Placeholder art until real photos. */
-const featured = {
-  quote:
-    "I found Dr. Daniel to be THE BEST dentist I have ever had work on my teeth. He is thorough and thoughtful in his explanation of what he feels is the right way to help you retain your healthy teeth.",
-  name: "Brenda Chadwell",
-  role: "Google review",
-  avatar: "/images/ph-2-sq.jpg",
-};
-
-/* [DATO] Cities appear only once there are real patients to back them. */
-const cities = ["Phoenix, AZ [DATO]", "Tucson, AZ [DATO]", "Calgary, AB [DATO]"];
-
-/* [DATO] Four real reviews, styled like Google reviews: name and city
-   instead of a handle, five stars, and the text as written. */
-const posts = [
-  {
-    name: "Al Dadswell",
-    city: "Google review",
-    date: "",
-    text: "Just finished my annual dentist visit with Dr Daniel. Fantastic service and amazing results. Worth checking him and his wife Dr Carolina for your next visit.",
-    avatar: "/images/ph-7-sq.jpg",
-  },
-  {
-    name: "Cherie Mollison",
-    city: "Fowlerville, Michigan",
-    date: "Dec 2024",
-    text: "We are so happy Daniel is active with the San Carlos Rotary and proud that he and Carolina do charity dental care. They are dedicated to their patients, two of whom we met.",
-    avatar: "/images/ph-10-sq.jpg",
-  },
-  {
-    name: "Elsa Noelia Ruiz Suchilt",
-    city: "Google review",
-    date: "",
-    text: "Thank you so much for your attention, Dr. Carolina. I'm very happy with my teeth whitening!",
-    avatar: "/images/ph-1-sq.jpg",
-  },
-  {
-    name: "Guillermo Soberon",
-    city: "Google review",
-    date: "",
-    text: "Excellent service, kind and professional team with a very comfortable and enjoyable atmosphere.",
-    avatar: "/images/ph-5-sq.jpg",
-  },
+/* Avatars are placeholders and cycle independently of the copy, so a
+   locale with fewer real reviews still gets an image for each one.
+   [DATO] Real patient photos, with written permission. */
+const FEATURED_AVATAR = "/images/ph-2-sq.jpg";
+const POST_AVATARS = [
+  "/images/ph-7-sq.jpg",
+  "/images/ph-10-sq.jpg",
+  "/images/ph-1-sq.jpg",
+  "/images/ph-5-sq.jpg",
 ];
 
 const panel: Variants = {
@@ -73,10 +41,12 @@ const card: Variants = {
 };
 
 function Stars({ className = "" }: { className?: string }) {
+  const { t } = useCopy();
+
   return (
     <div
       role="img"
-      aria-label="Rated 5 out of 5 stars"
+      aria-label={t.wall.ratingLabel}
       className={`flex items-center gap-1 ${className}`}
     >
       {[0, 1, 2, 3, 4].map((star) => (
@@ -87,6 +57,22 @@ function Stars({ className = "" }: { className?: string }) {
 }
 
 export default function SocialProof16() {
+  const { t } = useCopy();
+  const featured = {
+    quote: t.wall.featured.quote,
+    name: t.wall.featured.name,
+    role: t.wall.featured.meta,
+    avatar: FEATURED_AVATAR,
+  };
+  const cities = t.wall.cities;
+  const posts = t.wall.items.map((item, i) => ({
+    name: item.name,
+    city: item.meta,
+    date: item.date,
+    text: item.quote,
+    avatar: POST_AVATARS[i % POST_AVATARS.length],
+  }));
+
   return (
     <section
       id="reviews"
@@ -121,7 +107,7 @@ export default function SocialProof16() {
           </div>
           <div className="mt-10 pt-8">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-powder/80">
-              Trusted by patients from
+              {t.wall.citiesLabel}
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-3">
               {cities.map((city) => (
@@ -175,7 +161,7 @@ export default function SocialProof16() {
               </p>
               <div className="mt-5 flex items-center justify-between gap-6 pt-4 text-ink-soft">
                 <Stars className="text-accent" />
-                <span className="text-xs">Google review</span>
+                <span className="text-xs">{t.wall.googleReview}</span>
               </div>
             </motion.article>
           ))}

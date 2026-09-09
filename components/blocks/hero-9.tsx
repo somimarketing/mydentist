@@ -5,12 +5,17 @@ import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
 import GradientText from "@/components/react-bits/GradientText";
 import { links } from "@/lib/site";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 /* Real clinic links. Booking opens WhatsApp until a calendar exists. */
-const WHATSAPP_URL = links.whatsapp;
-const BOOKING_URL = links.booking;
 
 export function Hero9() {
+  const L = useLinks();
+  const WHATSAPP_URL = L.whatsapp;
+  const BOOKING_URL = L.booking;
+  const { t } = useCopy();
+
   /* Browsers ignore media attributes on video sources, so the lighter
      mobile encode is chosen here. Reduced motion gets the still frame. */
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
@@ -80,9 +85,12 @@ export function Hero9() {
                   pauseOnHover={false}
                   showBorder={false}
                 >
-                  <span className="block">Say hello to</span>
+                  {t.hero.headlineLead ? (
+                    <span className="block">{t.hero.headlineLead}</span>
+                  ) : null}
                   <span className="block">
-                    <span className="sig">my</span> dentist.
+                    <span className="sig">{t.hero.headlineSig}</span>{" "}
+                    {t.hero.headlineTail}
                   </span>
                 </GradientText>
               </h1>
@@ -94,8 +102,7 @@ export function Hero9() {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="mt-8 sm:mt-10 max-w-[480px] text-lg sm:text-xl lg:text-2xl leading-snug text-cotton/90"
             >
-              World-class dental care in San Carlos. The same implants you
-              would get in the US, for a fraction of the price.
+              {t.hero.support}
             </motion.p>
 
             <motion.div
@@ -108,13 +115,13 @@ export function Hero9() {
                 href={BOOKING_URL}
                 className="inline-flex items-center justify-center rounded-md bg-cotton px-9 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg lg:text-xl font-medium text-charcoal transition-colors hover:bg-cotton/90 cursor-pointer"
               >
-                Book your consult
+                {t.common.bookConsult}
               </a>
               <a
                 href={WHATSAPP_URL}
                 className="inline-flex items-center justify-center rounded-md border border-cotton/80 bg-transparent px-9 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg lg:text-xl font-medium text-cotton transition-colors hover:bg-cotton/10 cursor-pointer"
               >
-                WhatsApp
+                {t.common.whatsapp}
               </a>
             </motion.div>
           </div>
@@ -124,7 +131,7 @@ export function Hero9() {
       {/* Scroll cue: bare arrow over the word, centered at the bottom edge. */}
       <motion.a
         href="#patients"
-        aria-label="Scroll to the next section"
+        aria-label={t.hero.scrollLabel}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.1 }}
@@ -137,7 +144,7 @@ export function Hero9() {
         >
           <ArrowDown className="w-6 h-6" strokeWidth={1.75} />
         </motion.span>
-        <span className="text-sm">Scroll</span>
+        <span className="text-sm">{t.hero.scroll}</span>
       </motion.a>
     </section>
   );

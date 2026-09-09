@@ -13,36 +13,19 @@ import { Menu, MoveRight, X, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { links } from "@/lib/site";
+import { useCopy } from "@/lib/i18n/context";
+import { otherLocale } from "@/lib/i18n/config";
+import { useLinks } from "@/lib/i18n/links";
 
 /* Real clinic links. Booking opens WhatsApp until a calendar exists.
    Until then both point at the contact block so nothing is a dead end. */
-const WHATSAPP_URL = links.whatsapp;
-const BOOKING_URL = links.booking;
 
-const navigationItems = [
-  {
-    title: "Treatments",
-    description: "Implants, crowns and aligners, planned around a single trip.",
-    items: [
-      { title: "Dental implants", href: "#pricing" },
-      { title: "Full arch, All-on-4", href: "#pricing" },
-      { title: "Crowns", href: "#pricing" },
-      { title: "Clear aligners", href: "#pricing" },
-    ],
-  },
-  {
-    title: "Why MyDentist",
-    description: "How the trip works, what it costs, and who treats you.",
-    items: [
-      { title: "How it works", href: "#how" },
-      { title: "Compare the cost", href: "#compare" },
-      { title: "Real cases", href: "#cases" },
-      { title: "Meet your dentists", href: "#dentists" },
-    ],
-  },
-  { title: "Pricing", href: "#pricing", description: "" },
-  { title: "FAQ", href: "#faq", description: "" },
-];
+type NavItem = {
+  title: string;
+  description: string;
+  href?: string;
+  items?: { title: string; href: string }[];
+};
 
 function Wordmark({ className = "" }: { className?: string }) {
   /* Masked so the mark inherits the current text color. That keeps it right
@@ -68,6 +51,22 @@ function Wordmark({ className = "" }: { className?: string }) {
 }
 
 function Header1() {
+  const L = useLinks();
+  const WHATSAPP_URL = L.whatsapp;
+  const BOOKING_URL = L.booking;
+  const { locale, t } = useCopy();
+  const other = otherLocale(locale);
+
+  /* Two dropdown groups, then the flat links. */
+  const navigationItems: NavItem[] = [
+    ...t.nav.groups.map((g) => ({
+      title: g.title,
+      description: g.description,
+      items: g.items,
+    })),
+    ...t.nav.links.map((l) => ({ title: l.title, href: l.href, description: "" })),
+  ];
+
   const [isOpen, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const [dark, setDark] = useState(false);
@@ -139,7 +138,7 @@ function Header1() {
                               </p>
                             </div>
                             <Button size="sm" className="mt-10" asChild>
-                              <a href={BOOKING_URL}>Book your consult</a>
+                              <a href={BOOKING_URL}>{t.common.bookConsult}</a>
                             </Button>
                           </div>
                           <div className="flex flex-col text-sm h-full justify-end">
@@ -165,17 +164,28 @@ function Header1() {
         </div>
 
         <div className="flex lg:justify-center">
-          <a href="#hero" aria-label="MyDentist home" className="flex items-center">
+          <a href={`/${locale}`} aria-label={t.common.home} className="flex items-center">
             <Wordmark className="h-5 sm:h-6" />
           </a>
         </div>
 
         <div className="flex justify-end w-full gap-3 sm:gap-4 items-center">
+          <Button variant="ghost" size="sm" asChild className={ghostOverVideo}>
+            <Link
+              href={`/${other}`}
+              hrefLang={other}
+              lang={other}
+              aria-label={t.common.switchLanguage}
+              className="text-[15px] font-bold uppercase tracking-[0.08em]"
+            >
+              {other}
+            </Link>
+          </Button>
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={dark ? t.common.switchToLight : t.common.switchToDark}
             className={ghostOverVideo}
           >
             {dark ? <Sun className="w-6 h-6" strokeWidth={1.6} /> : <Moon className="w-6 h-6" strokeWidth={1.6} />}
@@ -187,7 +197,7 @@ function Header1() {
               overVideo ? "bg-cotton text-charcoal hover:bg-cotton/90" : ""
             }`}
           >
-            <a href={BOOKING_URL}>Book your consult</a>
+            <a href={BOOKING_URL}>{t.common.bookConsult}</a>
           </Button>
         </div>
 
@@ -196,7 +206,7 @@ function Header1() {
             variant="ghost"
             size="icon"
             onClick={() => setOpen(!isOpen)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={isOpen ? t.common.closeMenu : t.common.openMenu}
             aria-expanded={isOpen}
             className={ghostOverVideo}
           >
@@ -235,11 +245,21 @@ function Header1() {
                 </div>
               ))}
               <div className="flex flex-col gap-3 pt-2">
+                <Button variant="ghost" asChild>
+                  <Link
+                    href={`/${other}`}
+                    hrefLang={other}
+                    lang={other}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t.common.switchLanguage}
+                  </Link>
+                </Button>
                 <Button variant="outline" asChild>
-                  <a href={WHATSAPP_URL}>WhatsApp</a>
+                  <a href={WHATSAPP_URL}>{t.common.whatsapp}</a>
                 </Button>
                 <Button asChild>
-                  <a href={BOOKING_URL}>Book your consult</a>
+                  <a href={BOOKING_URL}>{t.common.bookConsult}</a>
                 </Button>
               </div>
             </div>

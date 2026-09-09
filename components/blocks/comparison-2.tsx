@@ -3,70 +3,43 @@
 import { motion } from "motion/react";
 import { Check, X, Anchor, Crown, Smile } from "lucide-react";
 import { useState } from "react";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 /* [DATO] Booking link once Daniel confirms it. */
-const BOOKING_URL = "#contact";
 
 type Cell = string | boolean;
 type Row = { title: string; description: string; brand1: Cell; brand2: Cell };
 
+const TAB_ICONS = [Anchor, Crown, Smile];
+
 export default function Comparison2() {
-  const [selectedPlan, setSelectedPlan] = useState("implant");
+  const L = useLinks();
+  const BOOKING_URL = L.booking;
+  const { t } = useCopy();
+  const [selectedPlan, setSelectedPlan] = useState(t.compare.tabs[0].id);
 
-  /* The stock Individual / Team / Enterprise toggle maps cleanly onto the
-     three treatments a cross-border patient is actually comparing. */
-  const plans = [
-    { id: "implant", icon: Anchor, label: "Implant" },
-    { id: "crown", icon: Crown, label: "Crown" },
-    { id: "aligners", icon: Smile, label: "Aligners" },
-  ];
+  /* Tabs, rows and column headers all come from lib/i18n. In English this
+     compares San Carlos against a typical US or Canada clinic. In Spanish
+     that comparison means nothing to a local family, so the same table
+     compares paying in full against paying monthly. */
+  const plans = t.compare.tabs.map((tab, i) => ({
+    id: tab.id,
+    icon: TAB_ICONS[i % TAB_ICONS.length],
+    label: tab.label,
+  }));
 
-  /* [DATO] Every price, wait time, trip count and warranty term below is a
-     placeholder until Daniel confirms it in writing. Do not invent figures. */
-  const rows = (treatment: string): Row[] => [
-    {
-      title: "Price (USD)",
-      description: `What a ${treatment} costs, all in, before you travel`,
-      brand1: "$[DATO]",
-      brand2: "$[DATO]",
-    },
-    {
-      title: "Wait to start",
-      description: "From first message to your first appointment",
-      brand1: "[DATO]",
-      brand2: "[DATO]",
-    },
-    {
-      title: "Trips required",
-      description: "How many times you need to travel for the full treatment",
-      brand1: "[DATO]",
-      brand2: "[DATO]",
-    },
-    {
-      title: "Warranty",
-      description: "What is covered, and for how long",
-      brand1: "[DATO] years",
-      brand2: "[DATO]",
-    },
-    {
-      title: "Premium brands",
-      description: "The same implant systems and lab materials used in the US",
-      brand1: true,
-      brand2: true,
-    },
-    {
-      title: "English-speaking dentist",
-      description: "Every consult and every visit, with the dentist who treats you",
-      brand1: true,
-      brand2: "Varies",
-    },
-  ];
+  const rows = (treatment: string): Row[] =>
+    t.compare.rows.map((row) => ({
+      title: row.title,
+      description: row.description.replace("{treatment}", treatment),
+      brand1: row.ours,
+      brand2: row.theirs,
+    }));
 
-  const planData: Record<string, Row[]> = {
-    implant: rows("single implant"),
-    crown: rows("crown"),
-    aligners: rows("clear aligner treatment"),
-  };
+  const planData: Record<string, Row[]> = Object.fromEntries(
+    t.compare.tabs.map((tab) => [tab.id, rows(tab.inSentence)]),
+  );
 
   const features = planData[selectedPlan];
 
@@ -125,11 +98,10 @@ export default function Comparison2() {
           className="mb-16 text-center"
         >
           <h2 className="mb-6 text-3xl font-medium text-ink sm:text-4xl md:text-5xl lg:text-6xl text-balance">
-            MyDentist, San Carlos vs a typical US or Canada clinic
+            {t.compare.headline}
           </h2>
           <p className="mx-auto mb-6 max-w-2xl px-4 text-sm leading-relaxed text-ink-soft sm:mb-8 sm:px-0 sm:text-base md:text-lg">
-            The same treatment, the same materials, at a fraction of the cost.
-            Here is the honest comparison.
+            {t.compare.support}
           </p>
           <motion.a
             href={BOOKING_URL}
@@ -137,7 +109,7 @@ export default function Comparison2() {
             whileTap={{ scale: 0.98 }}
             className="inline-block rounded-full bg-charcoal px-8 py-4 text-base font-medium text-cotton transition-colors hover:bg-charcoal/90 dark:bg-cotton dark:text-charcoal dark:hover:bg-cotton/90"
           >
-            Book your consult
+            {t.common.bookConsult}
           </motion.a>
         </motion.div>
 
@@ -152,7 +124,7 @@ export default function Comparison2() {
             <div className="rounded-2xl bg-surface p-6 dark:bg-ground">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium text-ink">
-                  Compare treatments
+                  {t.compare.treatmentsLabel}
                 </h3>
                 <p className="text-sm text-ink-soft">
                   {plans.find((plan) => plan.id === selectedPlan)?.label}
@@ -201,7 +173,7 @@ export default function Comparison2() {
                 <div className="grid grid-cols-2 gap-px bg-line">
                   <div className="bg-surface p-6 dark:bg-ground">
                     <div className="mb-3 text-base font-bold text-ink">
-                      San Carlos
+                      {t.compare.colOurs.name}
                     </div>
                     <div className="flex items-center justify-start">
                       {renderCell(feature.brand1, true, true)}
@@ -210,7 +182,7 @@ export default function Comparison2() {
 
                   <div className="bg-surface p-6 dark:bg-ground">
                     <div className="mb-3 text-base font-bold text-ink">
-                      US / Canada
+                      {t.compare.colTheirs.name}
                     </div>
                     <div className="flex items-center justify-start">
                       {renderCell(feature.brand2, false, true)}
@@ -226,7 +198,7 @@ export default function Comparison2() {
               <div className="flex gap-6 items-center justify-between rounded-tl-3xl bg-surface p-8 dark:bg-ground">
                 <div>
                   <h3 className="mb-1 text-lg font-bold text-ink">
-                    Compare treatments
+                    {t.compare.treatmentsLabel}
                   </h3>
                   <p className="text-sm text-ink-soft">
                     {plans.find((plan) => plan.id === selectedPlan)?.label}
@@ -268,10 +240,10 @@ export default function Comparison2() {
                 />
                 <div className="relative z-10 text-center">
                   <div className="mb-1 text-2xl font-bold text-ink">
-                    San Carlos ↗
+                    {t.compare.colOurs.name} ↗
                   </div>
                   <div className="text-sm font-medium text-ink-soft uppercase tracking-wider">
-                    MyDentist
+                    {t.compare.colOurs.sub}
                   </div>
                 </div>
               </div>
@@ -279,10 +251,10 @@ export default function Comparison2() {
               <div className="rounded-tr-3xl bg-surface px-12 py-8 dark:bg-ground">
                 <div className="text-center">
                   <div className="mb-1 text-2xl font-bold text-ink">
-                    US / Canada
+                    {t.compare.colTheirs.name}
                   </div>
                   <div className="text-sm font-medium text-ink-soft uppercase tracking-wider">
-                    Typical clinic
+                    {t.compare.colTheirs.sub}
                   </div>
                 </div>
               </div>

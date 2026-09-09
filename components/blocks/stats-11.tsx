@@ -3,39 +3,27 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
+import { useCopy } from "@/lib/i18n/context";
 
-/* [DATO] Every value below is a placeholder until Daniel confirms it from
-   clinic records. The three card grounds are the cool set: Powder tint,
-   Bone tint, soft Slate tint. No warm greens or oranges. */
-const cards = [
-  {
-    title: "Implants placed",
-    label: "Since [DATO]",
-    value: "[DATO]",
-    source: "Clinic records",
-    bg: "bg-card-a",
-  },
-  {
-    title: "Years caring for smiles",
-    label: "In San Carlos",
-    value: "[DATO]",
-    source: "Practice",
-    bg: "bg-card-b",
-  },
-  {
-    title: "Patients from the US and Canada",
-    label: "Last 12 months",
-    value: "[DATO]%",
-    source: "Clinic",
-    bg: "bg-card-c",
-  },
-];
+/* [DATO] Every value comes from lib/i18n and stays a placeholder until
+   Daniel confirms it from clinic records. The three card grounds are the
+   cool set: Powder tint, Bone tint, soft Slate tint. */
+const BACKGROUNDS = ["bg-card-a", "bg-card-b", "bg-card-c"];
 
 const SHORT = 380;
 const TALL = 470;
 const CYCLE_MS = 2200;
 
 export default function Stats11() {
+  const { t } = useCopy();
+  const cards = t.stats.items.map((item, i) => ({
+    title: item.label,
+    label: item.sub,
+    value: item.value,
+    source: item.source,
+    bg: BACKGROUNDS[i % BACKGROUNDS.length],
+  }));
+
   const [active, setActive] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -69,10 +57,10 @@ export default function Stats11() {
           className="text-center"
         >
           <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-ink">
-            The numbers
+            {t.stats.headline}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-ink-soft">
-            Real results, not marketing.
+            {t.stats.support}
           </p>
         </motion.div>
 

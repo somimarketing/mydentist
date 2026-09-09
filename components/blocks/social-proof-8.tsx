@@ -7,34 +7,23 @@ import {
   useMotionValue,
   useSpring,
 } from "motion/react";
+import { useCopy } from "@/lib/i18n/context";
 
 /* Verbatim excerpts from public Google reviews of the clinic.
    Photos are stock placeholders until real patient photos arrive with permission. */
-const testimonials = [
-  {
-    quote:
-      "He is professional, kind and speaks very good English. The rest of the small team are no less amazing. My spouse is having implants and is thrilled and amazed at the care he has received to date.",
-    name: "Brenda Chadwell",
-    role: "Google review",
-    image: "/images/ph-3-sq.jpg",
-  },
-  {
-    quote:
-      "From what we have seen the office is totally up to US standards in a pleasant atmosphere. Daniel & Carolina are outstanding, caring people.",
-    name: "Bill and Cherie Mollison",
-    role: "Fowlerville, Michigan",
-    image: "/images/ph-9-sq.jpg",
-  },
-  {
-    quote:
-      "Had to have an ER dental procedure done. I saw Dr Daniel Martinez Corona. He was great!! Painless, inexpensive and competent. I recommend.",
-    name: "Mary McCarthy",
-    role: "Google review",
-    image: "/images/ph-6-sq.jpg",
-  },
-];
+/* Portraits cycle independently of the copy, so a locale with fewer real
+   reviews still gets a matching image for each one. */
+const REVIEW_ART = ["/images/ph-3-sq.jpg", "/images/ph-9-sq.jpg", "/images/ph-6-sq.jpg"];
 
 export function SocialProof8() {
+  const { t } = useCopy();
+  const testimonials = t.reviewsCarousel.items.map((item, i) => ({
+    quote: item.quote,
+    name: item.name,
+    role: item.meta,
+    image: REVIEW_ART[i % REVIEW_ART.length],
+  }));
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -94,7 +83,7 @@ export function SocialProof8() {
               className="pointer-events-none"
             >
               <div className="bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-xl whitespace-nowrap">
-                Next
+                {t.reviewsCarousel.next}
               </div>
             </motion.div>
           )}

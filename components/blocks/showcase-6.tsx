@@ -2,41 +2,20 @@
 
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 /* [DATO] Gallery link once real cases are published. Falls back to contact. */
-const CASES_URL = "#contact";
+/* [DATO] No case gallery exists yet, so this opens WhatsApp. */
 
 /* [DATO] Every card is a real patient who traveled, treated, and went home.
-   Real before/after images only, with permission. Placeholder art until then. */
-const moments = [
-  {
-    caption: "Full-arch implants · [DATO city]",
-    image: "/images/ph-3-sq.jpg",
-    date: "[DATO]",
-    tilt: -4,
-    lift: "lg:mt-12",
-  },
-  {
-    caption: "Single implant · [DATO city]",
-    image: "/images/ph-6-sq.jpg",
-    date: "[DATO]",
-    tilt: 2.5,
-    lift: "lg:mt-2",
-  },
-  {
-    caption: "Clear aligners · [DATO city]",
-    image: "/images/ph-7-sq.jpg",
-    date: "[DATO]",
-    tilt: -2,
-    lift: "lg:mt-16",
-  },
-  {
-    caption: "Crowns · [DATO city]",
-    image: "/images/ph-10-sq.jpg",
-    date: "[DATO]",
-    tilt: 3.5,
-    lift: "lg:mt-6",
-  },
+   Real before/after images only, with permission. Placeholder art until then.
+   Captions and dates come from lib/i18n. */
+const CASE_ART = [
+  { image: "/images/ph-3-sq.jpg", tilt: -4, lift: "lg:mt-12" },
+  { image: "/images/ph-6-sq.jpg", tilt: 2.5, lift: "lg:mt-2" },
+  { image: "/images/ph-7-sq.jpg", tilt: -2, lift: "lg:mt-16" },
+  { image: "/images/ph-10-sq.jpg", tilt: 3.5, lift: "lg:mt-6" },
 ];
 
 const headerVariants: Variants = {
@@ -69,6 +48,17 @@ const cardVariants: Variants = {
 };
 
 export function Showcase6() {
+  const L = useLinks();
+  const CASES_URL = L.whatsapp;
+  const { t } = useCopy();
+  const moments = t.cases.items.map((item, i) => ({
+    caption: item.label,
+    date: item.meta,
+    image: CASE_ART[i % CASE_ART.length].image,
+    tilt: CASE_ART[i % CASE_ART.length].tilt,
+    lift: CASE_ART[i % CASE_ART.length].lift,
+  }));
+
   return (
     <section
       id="cases"
@@ -84,8 +74,8 @@ export function Showcase6() {
         >
           <motion.div variants={fadeUp}>
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[0.98] text-ink text-balance">
-              Real smiles,{" "}
-              <span className="text-ink-soft">real patients.</span>
+              {t.cases.headlineLead}{" "}
+              <span className="text-ink-soft">{t.cases.headlineAccent}</span>
             </h2>
           </motion.div>
 
@@ -94,14 +84,13 @@ export function Showcase6() {
             className="lg:pt-2 lg:justify-self-end lg:max-w-sm"
           >
             <p className="text-base sm:text-lg leading-relaxed text-ink-soft text-pretty">
-              Every case here is a real patient who traveled, treated, and went
-              home. No stock photos.
+              {t.cases.support}
             </p>
             <a
               href={CASES_URL}
               className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal text-sm font-medium hover:bg-charcoal/90 dark:hover:bg-cotton/90 transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              See more cases
+              {t.cases.cta}
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </motion.div>

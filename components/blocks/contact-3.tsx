@@ -2,36 +2,31 @@
 
 import { motion } from "motion/react";
 import { MessageCircle, Video, Phone } from "lucide-react";
-import { links, site } from "@/lib/site";
+import { site } from "@/lib/site";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 /* WhatsApp and phone are the clinic's real numbers. [DATO] A booking
    calendar does not exist yet, so "book a consult" also opens WhatsApp. */
-const WHATSAPP_URL = links.whatsapp;
-const BOOKING_URL = links.booking;
-const PHONE_URL = links.phone;
 
 export default function Contact3() {
-  /* WhatsApp first. The generic Live chat and Email us labels are gone. */
-  const contactMethods = [
-    {
-      icon: MessageCircle,
-      title: "WhatsApp",
-      description: "We answer in English, usually same day.",
-      href: WHATSAPP_URL,
-    },
-    {
-      icon: Video,
-      title: "Book a free virtual consult",
-      description: "See a dentist before you fly. No cost.",
-      href: BOOKING_URL,
-    },
-    {
-      icon: Phone,
-      title: "Call the clinic",
-      description: site.phoneDisplay,
-      href: PHONE_URL,
-    },
-  ];
+  const L = useLinks();
+  const WHATSAPP_URL = L.whatsapp;
+  const BOOKING_URL = L.booking;
+  const PHONE_URL = L.phone;
+  const { t } = useCopy();
+
+  /* WhatsApp first. The generic Live chat and Email us labels are gone.
+     The phone card falls back to the real number when the dictionary
+     leaves its description empty. */
+  const icons = [MessageCircle, Video, Phone];
+  const hrefs = [WHATSAPP_URL, BOOKING_URL, PHONE_URL];
+  const contactMethods = t.contact.methods.map((m, i) => ({
+    icon: icons[i] ?? MessageCircle,
+    title: m.title,
+    description: m.description || site.phoneDisplay,
+    href: hrefs[i] ?? WHATSAPP_URL,
+  }));
 
   return (
     <section
@@ -47,7 +42,7 @@ export default function Contact3() {
             transition={{ duration: 0.4 }}
             className="mb-4 text-4xl font-medium text-ink sm:text-5xl lg:text-6xl"
           >
-            Get in touch
+            {t.contact.headline}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -56,7 +51,7 @@ export default function Contact3() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-sm sm:text-base text-ink-soft"
           >
-            Talk to the dentist who will actually treat you.
+            {t.contact.support}
           </motion.p>
         </div>
 

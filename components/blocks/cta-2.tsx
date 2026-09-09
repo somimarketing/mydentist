@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { motion } from "motion/react";
 import { links } from "@/lib/site";
+import { useCopy } from "@/lib/i18n/context";
+import { useLinks } from "@/lib/i18n/links";
 
 /* Real clinic links. Booking opens WhatsApp until a calendar exists. */
-const WHATSAPP_URL = links.whatsapp;
-const BOOKING_URL = links.booking;
 
 /* [DATO] Six clinic and smile photos replace the placeholder art. The
    six-image trail mechanic stays exactly as shipped. */
@@ -21,6 +21,10 @@ const trailImages = [
 ];
 
 export default function CTA2() {
+  const L = useLinks();
+  const WHATSAPP_URL = L.whatsapp;
+  const BOOKING_URL = L.booking;
+  const { t } = useCopy();
   const trailerRef = useRef<HTMLDivElement>(null);
   const currentImageIndex = useRef(0);
   const lastMousePos = useRef({ x: 0, y: 0 });
@@ -126,9 +130,10 @@ export default function CTA2() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <span className="sig">Your</span> new smile
+          <span className="sig">{t.finalCta.headlineSig}</span>{" "}
+          {t.finalCta.headlineRest}
           <br />
-          starts with a message.
+          {t.finalCta.headlineLine2}
         </motion.h2>
 
         <motion.a
@@ -140,7 +145,7 @@ export default function CTA2() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          Book your consult
+          {t.common.bookConsult}
         </motion.a>
       </div>
 
@@ -152,7 +157,7 @@ export default function CTA2() {
         transition={{ duration: 0.6, delay: 0.6 }}
       >
         <p className="text-xs sm:text-sm text-ink-soft uppercase tracking-wider">
-          San Carlos, Sonora
+          {t.finalCta.place}
         </p>
       </motion.div>
 
@@ -167,7 +172,7 @@ export default function CTA2() {
           href={WHATSAPP_URL}
           className="text-sm sm:text-base text-ink-soft hover:text-ink transition-colors duration-200 font-medium sm:hidden"
         >
-          WhatsApp
+          {t.common.whatsapp}
         </a>
 
         <div className="hidden sm:flex items-center gap-2">
@@ -181,14 +186,14 @@ export default function CTA2() {
             href={WHATSAPP_URL}
             className="text-sm sm:text-base text-ink-soft hover:text-ink transition-colors duration-200 font-medium"
           >
-            WhatsApp
+            {t.common.whatsapp}
           </a>
           <a
             href={BOOKING_URL}
             className={pill}
             style={{ transition: "background-color 200ms, transform 200ms, color 200ms" }}
           >
-            Book your consult
+            {t.common.bookConsult}
           </a>
         </div>
 
@@ -197,7 +202,7 @@ export default function CTA2() {
           className={`${pill} sm:hidden`}
           style={{ transition: "background-color 200ms, transform 200ms, color 200ms" }}
         >
-          Book your consult
+          {t.common.bookConsult}
         </a>
       </motion.div>
     </section>
