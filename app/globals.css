@@ -1,223 +1,291 @@
 @import "tailwindcss";
 
-@theme {
-  /* Brand tokens. Do not invent colors. */
-  --color-charcoal: #343333;
-  --color-cotton: #e8e8e4;
-  --color-powder: #b8c6cc;
-  --color-slate: #5e6572;
-  --color-bone: #c4c0bc;
+@custom-variant dark (&:where(.dark, .dark *));
 
-  --color-background: var(--color-cotton);
-  --color-foreground: var(--color-charcoal);
+/*
+  MyDentist design system.
+  Five brand colors, nothing else. Cool, desaturated, calm by decision.
+  Fixed brand scale never flips. Semantic tokens flip with .dark.
+*/
+:root {
+  /*
+    Fixed brand scale from the brand kit (Oct 2026). Deep Slate is the
+    primary now; Midnight Charcoal is body text, not the brand ground.
+  */
+  --deep-slate: #32374b; /* Deep Slate, brand.primary */
+  --slate: #5e6572; /* Slate Blue */
+  --powder: #b8c6cc; /* Powder Mist */
+  --cotton: #e8e8e4; /* Cotton White */
+  --bone: #c4c0bc; /* Bone Grey */
+  --charcoal: #343333; /* Midnight Charcoal */
+  --pure: #ffffff;
 
-  --font-display: var(--font-ancizar), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --font-sans: var(--font-grotesque), "Helvetica Neue", Arial, sans-serif;
+  /* Primitives, slate */
+  --slate-50: #f2f5f6;
+  --slate-100: #e4e9eb;
+  --slate-200: #ced8dc;
+  --slate-300: #b8c6cc;
+  --slate-400: #8e99a2;
+  --slate-500: #717985;
+  --slate-600: #5e6572;
+  --slate-700: #454b5c;
+  --slate-800: #32374b;
+  --slate-900: #1b1e2b;
 
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Primitives, neutral */
+  --neutral-0: #ffffff;
+  --neutral-50: #f4f4f1;
+  --neutral-100: #e8e8e4;
+  --neutral-150: #ddddd7;
+  --neutral-200: #d6d4d0;
+  --neutral-300: #c4c0bc;
+  --neutral-400: #9d9a97;
+  --neutral-500: #7f7d7b;
+  --neutral-600: #676563;
+  --neutral-700: #4e4d4c;
+  --neutral-800: #403e3e;
+  --neutral-900: #343333;
 
-  --text-display-xl: clamp(2.75rem, 7vw, 6.5rem);
-  --text-display-xl--line-height: 1;
-  --text-display-xl--letter-spacing: -0.02em;
-  --text-display-l: clamp(2.25rem, 4.6vw, 4.25rem);
-  --text-display-l--line-height: 1.04;
-  --text-display-l--letter-spacing: -0.02em;
-  --text-display-m: clamp(1.75rem, 3vw, 2.75rem);
-  --text-display-m--line-height: 1.12;
-  --text-display-m--letter-spacing: -0.02em;
-  --text-display-s: 1.5rem;
-  --text-display-s--line-height: 1.2;
-  --text-display-s--letter-spacing: -0.015em;
+  /* Semantic, light theme (Cotton) */
+  --ground: var(--neutral-100); /* surface.canvas */
+  --surface: var(--neutral-50); /* surface.raised */
+  --brand: var(--deep-slate); /* surface.brand */
+  --brand-soft: var(--powder); /* surface.brand-soft */
+  --ink: var(--charcoal); /* text.primary */
+  --ink-brand: var(--deep-slate); /* text.brand, headlines */
+  --ink-soft: var(--slate); /* text.secondary */
+  --on-brand: var(--cotton); /* text.on-brand */
+  --on-brand-muted: var(--powder); /* text.on-brand-muted */
+  --accent: var(--deep-slate); /* brand.primary */
+  --accent-soft: var(--powder); /* brand.accent, <= 10% */
+  --warm: var(--bone); /* brand.warm */
+  --line: var(--bone); /* border.default */
+  --line-strong: color-mix(in srgb, var(--bone) 55%, var(--slate));
+  --focus: var(--slate); /* focus.ring */
 
-  --text-body-l: 1.375rem;
-  --text-body-l--line-height: 1.5;
-  --text-body: 1.1875rem;
-  --text-body--line-height: 1.6;
-  --text-ui: 1.0625rem;
-  --text-ui--line-height: 1.4;
-  --text-caption: 0.9375rem;
-  --text-caption--line-height: 1.5;
-  --text-eyebrow: 0.8125rem;
-  --text-eyebrow--line-height: 1;
-  --text-eyebrow--letter-spacing: 0.16em;
+  /* Stats cards: three cool grounds, no new hue */
+  --card-a: #d6e0e4;
+  --card-b: #e0ddd8;
+  --card-c: #cdd5dd;
+}
 
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+.dark {
+  /* Semantic, dark theme (Deep Slate) */
+  --ground: var(--deep-slate);
+  --surface: var(--slate-700);
+  --brand: var(--slate-900);
+  --brand-soft: var(--slate-700);
+  --ink: var(--cotton);
+  --ink-brand: var(--cotton);
+  --ink-soft: var(--powder);
+  --on-brand: var(--cotton);
+  --on-brand-muted: var(--powder);
+  --accent: var(--powder);
+  --accent-soft: var(--slate-700);
+  --warm: var(--bone);
+  --line: var(--slate);
+  --line-strong: color-mix(in srgb, var(--powder) 35%, var(--slate));
+  --focus: var(--powder);
+
+  --card-a: #3f4a4e;
+  --card-b: #45423e;
+  --card-c: #3a444c;
+}
+
+@theme inline {
+  /*
+    Bogart (Zetafonts) via Adobe Fonts, kit fql3xen. The whole system is one
+    family: 400 text, 500 small headings, 600 display and headlines, 700 for
+    short punch lines. Thin, Extralight, Light, Extrabold and Black are not
+    used. Bogart has no italic on Adobe Fonts; the Cita style falls back to a
+    synthesised slant until the Zetafonts/Fontspring italic is licensed.
+  */
+  --font-sans: "bogart", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-display: var(--font-sans);
+
+  /*
+    Text ramp retuned for Bogart. The brand kit's own px values: Body 18,
+    Body L 22, Body S 15, Label 13. Body never goes below 16.
+  */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.625rem;
+
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-ink: var(--ink);
+  --color-ink-brand: var(--ink-brand);
+  --color-ink-soft: var(--ink-soft);
+  --color-on-brand: var(--on-brand);
+  --color-on-brand-muted: var(--on-brand-muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-warm: var(--warm);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-deep-slate: var(--deep-slate);
+  --color-charcoal: var(--charcoal);
+  --color-cotton: var(--cotton);
+  --color-powder: var(--powder);
+  --color-slate: var(--slate);
+  --color-bone: var(--bone);
+
+  --color-card-a: var(--card-a);
+  --color-card-b: var(--card-b);
+  --color-card-c: var(--card-c);
+
+  /*
+    Aliases for the AI-SaaS template's own token names, mapped onto the
+    MyDentist system. The template's markup compiles unchanged and comes out
+    in Deep Slate on Cotton, so there is no find-and-replace to drift out of
+    sync when a block is updated from upstream.
+  */
+  --color-background: var(--ground);
+  --color-foreground: var(--ink);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--ink-soft);
+  --color-border: var(--line);
+  --color-ring: var(--focus);
+  --color-accent-light: var(--powder);
+  --color-accent-foreground: var(--on-brand);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.6;
+    background-color: var(--ground);
+    color: var(--ink);
   }
 
   body {
-    background: var(--color-cotton);
-    color: var(--color-charcoal);
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: var(--text-body);
-    line-height: var(--text-body--line-height);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    margin: 0;
+  }
+
+  /*
+    Headlines carry slightly negative tracking, body stays normal.
+    Set once here instead of per block.
+  */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    /* Headlines are Semibold 600 across the system. */
+    font-weight: 600;
+    color: var(--ink-brand);
+    letter-spacing: -0.02em;
+  }
+
+  /* Tracking closes up as the size grows, per the brand kit's scale. */
+  h1 {
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    letter-spacing: -0.03em;
   }
 
   ::selection {
-    background: var(--color-powder);
-    color: var(--color-charcoal);
+    background-color: var(--accent);
+    color: var(--ground);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-slate);
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-
-  .on-dark :focus-visible {
-    outline-color: var(--color-cotton);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
   }
 }
 
-@utility eyebrow {
-  font-family: var(--font-sans);
-  font-size: var(--text-eyebrow);
-  line-height: 1;
-  letter-spacing: var(--text-eyebrow--letter-spacing);
+/*
+  The accent word in a display line. Bogart has no italic on Adobe Fonts, so
+  the brand kit's own device is used instead: the accent phrase drops to
+  Powder Mist against the Deep Slate around it, exactly as the campaign
+  artwork sets "casa" and "written price".
+*/
+.sig {
+  color: var(--ink-soft);
+  font-weight: inherit;
+}
+
+.on-dark .sig,
+.sig-on-dark {
+  color: var(--on-brand-muted);
+}
+
+/* Swash initial, approved for the logotype and display only. Never in body. */
+.swash {
+  font-feature-settings: "ss01" 1, "swsh" 1;
+}
+
+/* Opt a non-heading element into display treatment. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Brand kit label styles. */
+.label-caps {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
   text-transform: uppercase;
-  font-weight: 700;
 }
 
-@utility hairline {
-  border-color: color-mix(in oklab, var(--color-bone) 70%, transparent);
-}
-
-/* Duotone image treatment: charcoal shadows, powder highlights. */
-@utility duotone {
-  position: relative;
-  background-color: var(--color-powder);
-  overflow: hidden;
-  isolation: isolate;
-}
-.duotone > img {
-  filter: grayscale(1) contrast(1.05);
-  mix-blend-mode: multiply;
-}
-.duotone::after {
-  content: "";
+/*
+  Utility classes the template's markup relies on, defined here in brand
+  terms so the imported blocks need no edits to behave correctly.
+*/
+.skip-to-content {
   position: absolute;
-  inset: 0;
-  background: var(--color-charcoal);
-  mix-blend-mode: lighten;
-  pointer-events: none;
+  top: 1rem;
+  left: -9999px;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--focus);
+  border-radius: 0.375rem;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
 }
 
-/* Logo intro: the icon draws on, then fills. 1.5s, once per session. */
-.logo-intro .logo-outline {
-  opacity: 0;
-}
-@media (prefers-reduced-motion: no-preference) {
-  html:not([data-intro="done"]) .logo-intro .logo-outline {
-    opacity: 1;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation:
-      logo-draw 900ms var(--ease-out-expo) forwards,
-      logo-outline-out 300ms ease-out 1200ms forwards;
-  }
-  html:not([data-intro="done"]) .logo-intro .logo-fill {
-    opacity: 0;
-    animation: logo-fill 600ms ease-out 900ms forwards;
-  }
+.skip-to-content:focus {
+  left: 1rem;
 }
 
-@keyframes logo-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes logo-fill {
-  to {
-    opacity: 1;
-  }
-}
-@keyframes logo-outline-out {
-  to {
-    opacity: 0;
-  }
+.focus-ring:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
-/* Native date input: keep the palette. */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0.6;
-  cursor: pointer;
+/* The hero composer owns its own focus treatment on the card around it. */
+.no-focus-ring:focus-visible {
+  outline: none;
 }
 
-/* Accordion (Radix) height animation. */
-@keyframes accordion-down {
-  from {
-    height: 0;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
-}
-@keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
-}
-@utility animate-accordion-down {
-  animation: accordion-down 500ms var(--ease-out-expo);
-}
-@utility animate-accordion-up {
-  animation: accordion-up 400ms var(--ease-out-expo);
-}
 
-/* Before/after range input: the whole figure is the track, the thumb is invisible. */
-.compare-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 44px;
-  height: 100%;
-  background: transparent;
-  cursor: ew-resize;
-}
-.compare-range::-moz-range-thumb {
-  width: 44px;
-  height: 100%;
-  border: 0;
-  background: transparent;
-  cursor: ew-resize;
-}
-
-/* Scroll reveal. Static when JS is off or motion is reduced. */
-@media (prefers-reduced-motion: no-preference) {
-  .js .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 700ms var(--ease-out-expo),
-      transform 700ms var(--ease-out-expo);
-  }
-  .js .reveal.is-shown {
-    opacity: 1;
-    transform: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

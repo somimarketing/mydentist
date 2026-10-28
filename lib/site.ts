@@ -1,74 +1,93 @@
 /**
- * Single place for every real-world fact about the clinic.
- * Swap these before launch (see README "What to swap").
+ * Real clinic facts, from the brand kit (October 2026) and the business card.
+ * Anything still unconfirmed stays as PENDING in lib/i18n and is listed in
+ * docs/pending-from-daniel.md.
  */
-const digits = (v: string | undefined, fallback: string) =>
-  (v ?? fallback).replace(/\D/g, "");
+
+const digits = (v: string) => v.replace(/\D/g, "");
 
 export const site = {
   name: "MyDentist",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mydentist.mx",
-  whatsapp: digits(process.env.NEXT_PUBLIC_WHATSAPP, "523316068212"),
-  phone: digits(process.env.NEXT_PUBLIC_PHONE, "523316068212"),
-  phoneDisplay: "+52 33 1606 8212",
-  email: "daniel_mcn88@hotmail.com",
-  doctors: [
-    {
-      id: "daniel",
-      name: "Dr. Daniel Martínez Corona",
-      shortName: "Dr. Daniel",
-      phone: "523316068212",
-      phoneDisplay: "+52 33 1606 8212",
-      email: "daniel_mcn88@hotmail.com",
-    },
-    {
-      id: "carolina",
-      name: "Dra. Carolina García Albelais",
-      shortName: "Dra. Carolina",
-      phone: "523331915965",
-      phoneDisplay: "+52 33 3191 5965",
-      email: "carogarcia.albelais@gmail.com",
-    },
-  ],
+  /** The logo lockup is always MyDentist / SAN CARLOS. */
+  place: "San Carlos",
+  descriptor: "Implant & Cosmetic Center",
+  city: "San Carlos, Sonora",
+  /** MyDentist is the rebrand of Smile Makers. Same team, same clinic. */
+  formerName: "Smile Makers",
+
+  /**
+   * Two lines. The Arizona number is the one US and Canadian patients call;
+   * the Mexican number is the local one. WhatsApp runs on the Mexican line.
+   */
+  phoneUs: digits("+1 520-422-8097"),
+  phoneUsDisplay: "+1 520-422-8097",
+  phoneMx: digits("+52 331-606-8212"),
+  phoneMxDisplay: "+52 331-606-8212",
+
+  /** WhatsApp is the booking channel, on the Mexican line. */
+  whatsapp: digits("+52 331-606-8212"),
+
   address: {
     street: "Aurora 299",
     area: "Sector Crestón, Ranchito Campestre",
     city: "85506 San Carlos, Sonora",
     country: "México",
+    /** Google geocodes this string for the map link. */
+    query: "Aurora 299, Sector Crestón, Ranchito Campestre, 85506 San Carlos, Sonora, México",
   },
-  /** Google geocodes this string for the embed and the "open in maps" link. */
-  mapQuery: "Aurora 299, Sector Crestón, Ranchito Campestre, 85506 San Carlos, Sonora, México",
-  mapZoom: 16,
-  social: {
-    instagram: "https://instagram.com/mydentist.sc",
-    facebook: "https://facebook.com/mydentist.sc",
-  },
-  /** 24h, local time (America/Hermosillo, no DST). */
-  hours: [
-    { days: "mon-fri", open: "09:00", close: "19:00" },
-    { days: "sat", open: "09:00", close: "14:00" },
-    { days: "sun", open: null, close: null },
-  ] as const,
+
+  /** Driving time quoted in the brand kit's own hero copy. */
+  fromTucson: "four hours",
+
+  /**
+   * Three specialists. Specialties are the brand kit's, which correct the
+   * earlier guesses: Daniel is prosthodontics and implants, Carolina is
+   * orthodontics, Giselle is endodontics.
+   */
+  doctors: [
+    {
+      id: "daniel",
+      prefix: "Dr.",
+      name: "Daniel Martínez",
+      fullName: "Dr. Daniel Martínez",
+      shortName: "Dr. Martínez",
+      /** PENDING Direct line per doctor not confirmed; all use the clinic's. */
+      phone: digits("+52 331-606-8212"),
+      email: "daniel_mcn88@hotmail.com",
+    },
+    {
+      id: "carolina",
+      prefix: "Dra.",
+      name: "Carolina García",
+      fullName: "Dra. Carolina García",
+      shortName: "Dra. García",
+      phone: digits("+52 331-606-8212"),
+      email: "carogarcia.albelais@gmail.com",
+    },
+    {
+      id: "giselle",
+      prefix: "Dra.",
+      name: "Giselle Fernanda Ochoa García",
+      fullName: "Dra. Giselle Fernanda Ochoa García",
+      shortName: "Dra. Ochoa",
+      phone: digits("+52 331-606-8212"),
+      /** PENDING Email not in the brand kit. */
+      email: "",
+    },
+  ],
 } as const;
 
-export function mapEmbedUrl(lang: "en" | "es") {
-  return `https://maps.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&z=${site.mapZoom}&hl=${lang}&output=embed`;
-}
+export type DoctorId = (typeof site.doctors)[number]["id"];
 
-export function mapLink() {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`;
-}
-
-export function whatsappLink(message: string, number: string = site.whatsapp) {
+export function whatsappUrl(message: string, number: string = site.whatsapp) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
-export function doctorById(id: (typeof site.doctors)[number]["id"]) {
-  const doc = site.doctors.find((d) => d.id === id);
-  if (!doc) throw new Error(`Unknown doctor id ${id}`);
-  return doc;
+export function telUrl(number: string) {
+  return `tel:+${number}`;
 }
 
-export function telLink() {
-  return `tel:+${site.phone}`;
+export function mapUrl() {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address.query)}`;
 }

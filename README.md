@@ -1,88 +1,133 @@
-# MyDentist San Carlos
+# MyDentist, San Carlos
 
-Bilingual (EN/ES) landing page for MyDentist, San Carlos, Sonora. Next.js 15 App Router, TypeScript strict, Tailwind v4, Radix (shadcn-style accordion), zod server action.
-
-The two locales are two different pitches, not a translation:
-
-- `/en` speaks to US and Canadian dental-tourism patients: safety, credentials, USD pricing vs US averages, one-trip treatment, travel logistics.
-- `/es` speaks to Sonoran families: mensualidades sin intereses, cita la misma semana, niños, seguros, WhatsApp.
-
-## Run
+Bilingual landing page for MyDentist, the Implant & Cosmetic Center (formerly
+Smile Makers) in San Carlos, Sonora. Three specialists: prosthodontics and
+implants, orthodontics, endodontics. Next.js App Router, Tailwind v4, built
+on the AI-SaaS template and rebuilt to the brand.
 
 ```bash
 npm install
-cp .env.example .env.local   # then edit
-npm run dev                  # http://localhost:3000 redirects to /en or /es by Accept-Language
-npm run build && npm start
-npm run typecheck && npm run lint
+npm run dev   # http://localhost:3000 redirects to /es or /en
 ```
 
-Measured on the production build (Lighthouse 12, Chromium): performance 95 to 96 mobile and 100 desktop, accessibility 100, best practices 100, SEO 100, zero console warnings on both locales.
+## Two audiences, two pitches
 
-## What to swap before launch
+`/en` and `/es` are not translations of each other.
+
+- **English** sells dental tourism to US and Canadian patients. Their
+  decision turns on whether a clinic in Mexico is safe, whether they will be
+  flying back and forth, and how the price compares to their quote at home.
+- **Spanish** sells to families in San Carlos, Guaymas and Empalme. They
+  already trust the idea of a dentist. What stops them is cost, not knowing
+  what they will be charged, and finding an hour without missing work.
+
+Where this shows up most is the comparison table: in English it compares
+MyDentist against a typical US clinic, in Spanish it compares paying in full
+against paying monthly.
+
+## Where things live
 
 | What | Where |
-|---|---|
-| WhatsApp number | `NEXT_PUBLIC_WHATSAPP` in `.env.local` (digits only, `52` + 10 digits). Fallback lives in `lib/site.ts`. |
-| Phone for `tel:` links and the display string | `NEXT_PUBLIC_PHONE` and `site.phoneDisplay` in `lib/site.ts` |
-| Public URL for canonical, hreflang, OpenGraph, sitemap | `NEXT_PUBLIC_SITE_URL` |
-| Street address, email, social links | `site.address`, `site.email`, `site.social` in `lib/site.ts` |
-| Map location | `site.mapQuery` in `lib/site.ts` (an address string Google geocodes; the embed and the "Open in Google Maps" link both read it) |
-| Opening hours (also feeds the JSON-LD) | `site.hours` in `lib/site.ts` and the `openingHoursSpecification` block in `app/[locale]/page.tsx` |
-| Form delivery | `deliver()` in `app/actions/booking.ts` (marked `TODO`). Wire Resend, a CRM webhook, a Sheet, or the WhatsApp Business API. Validation, honeypot and success/error states are already done. |
-| Prefilled WhatsApp messages | `meta.whatsappMessage` and `meta.whatsappFollowUp` in `lib/i18n/en.ts` and `lib/i18n/es.ts` |
-| All copy | `lib/i18n/en.ts` and `lib/i18n/es.ts`. The shape is enforced by `lib/i18n/types.ts`, so a missing key fails `npm run typecheck`. |
-| Logo | `components/brand/LogoIcon.tsx` (three path constants) and `components/brand/Logo.tsx` (wordmark). `app/icon.svg` is the favicon. |
-| React Bits Pro blocks | Add `REACTBITS_LICENSE_KEY` to `.env.local`; registries are already configured in `components.json`. Then `npx shadcn@latest add @reactbits-pro/<block>`. |
+| --- | --- |
+| All copy, both languages | `lib/i18n/en.ts`, `lib/i18n/es.ts` |
+| Clinic facts (phone, address, dentists) | `lib/site.ts` |
+| WhatsApp deep links | `lib/i18n/links.ts` (`useLinks()`) |
+| What the clinic still owes us | `docs/pending-from-daniel.md` |
+| Page composition | `app/[locale]/page.tsx` |
+| Locale routing | `middleware.ts`, `lib/i18n/config.ts` |
+| Sections | `components/site/` |
+| Photos | `public/images/` (`ph-1` … `ph-10`, `-sq` = square) |
+| Hero video | `public/video/` (1080 desktop, 960 mobile, poster still) |
+| Logo | `public/logo/` (horizontal, stacked, icon; black, white, currentcolor) |
 
-## Images
+`en.ts` defines the copy and derives the `Dictionary` type. `es.ts` is typed
+against it, so a missing or misnamed key fails the build instead of shipping a
+blank. Every block reads its own slice through `useCopy()`.
 
-Placeholders live in `public/placeholder/` and are neutral tonal fills in the brand palette. Replace each file keeping the same name, or change the `src` in the dictionaries. After swapping, regenerate width, height and blur data:
+## Adding or changing copy
 
-```bash
-npm run placeholders -- --manifest-only
-```
+Edit both dictionaries. Nothing else. No block contains a language.
 
-(`npm run placeholders` without the flag regenerates the placeholder fills themselves.)
+To add a key: add it to `en.ts`, then TypeScript will tell you `es.ts` is
+missing it.
 
-| File | Size | Used for |
-|---|---|---|
-| `hero-clinic-2400x1600.jpg` | 2400 x 1600 | Hero, duotoned to charcoal/powder by CSS (any photo works, the treatment is applied on render) |
-| `why-sterilization-1600x1200.jpg` | 1600 x 1200 | EN "Why" block 1 |
-| `why-one-trip-1600x1200.jpg` | 1600 x 1200 | EN "Why" block 2 |
-| `why-location-1600x1200.jpg` | 1600 x 1200 | EN "Why" block 3 |
-| `why-schedule-1600x1200.jpg` | 1600 x 1200 | ES "Why" block 1 |
-| `why-payments-1600x1200.jpg` | 1600 x 1200 | ES "Why" block 2 |
-| `why-family-1600x1200.jpg` | 1600 x 1200 | ES "Why" block 3 |
-| `ba-veneers-before/after-1200x900.jpg` | 1200 x 900 | Before/after case 1 |
-| `ba-implant-before/after-1200x900.jpg` | 1200 x 900 | Before/after case 2 |
-| `ba-whitening-before/after-1200x900.jpg` | 1200 x 900 | Before/after case 3 |
-| `doctor-daniel-portrait-1200x1500.jpg` and `doctor-carolina-portrait-1200x1500.jpg` | 1200 x 1500 | Doctor portraits (rendered grayscale) |
-| `public/og/og-en-1200x630.jpg`, `og-es-1200x630.jpg` | 1200 x 630 | OpenGraph / Twitter cards per locale |
+## What came from the template, and what did not
 
-The "Why" photos are duotoned by the `.duotone` utility in `app/globals.css`, so a real photo drops into the palette automatically.
+The page is built on the AI-SaaS landing template. Its structure, its GSAP
+scroll gallery, its WebGL card bulge and its drag carousel are all still here.
+Three things were cut rather than restyled, because no colour would have made
+them true:
 
-## Structure
+- **The WebGL fluid cursor and the ambient gradient blob.** Both were doing
+  the job a real image should do. The clinic's own footage sits behind the
+  hero copy instead.
+- **The competitor bar charts.** Every number in them was invented, and the
+  clinic has no benchmark it can stand behind.
+- **The wall of client logos.** A clinic has no logos to show, and inventing
+  them would be a lie about who its patients are.
 
-```
-app/[locale]/           layout (fonts, metadata, hreflang), page, privacidad, not-found
-app/actions/booking.ts  typed server action with zod
-lib/i18n/               config, types, en.ts, es.ts, services.ts
-lib/site.ts             every real-world fact about the clinic
-lib/images.ts           generated image manifest (dimensions + blur)
-components/brand/       LogoIcon, Logo, LogoIntro (draw-on animation)
-components/layout/      Nav, LanguageToggle, MobileCtaBar, Footer, Section
-components/sections/    one file per page section
-components/forms/       BookingForm (useActionState)
-components/motion/      Reveal (IntersectionObserver + CSS, reduced-motion safe)
-middleware.ts           / redirects to /en or /es by Accept-Language
-```
+Two more were repointed rather than removed. The hero's AI prompt box is now
+the WhatsApp composer: whatever a patient types is handed to WhatsApp as the
+opening message, so the dentist opens the thread already knowing what they
+want. The three product-preset cards are now the three doctors.
 
-## Facts that were assumed and should be confirmed
+The template's own token names (`background`, `foreground`, `muted`, `border`,
+`ring`, `accent-foreground`) are aliased onto the MyDentist system at the
+bottom of `globals.css`, so imported markup compiles unchanged and comes out
+in Deep Slate on Cotton. Update a block from upstream and it stays on brand.
 
-- Trust strip numbers (12 years, 4,000+ patients, 5-year guarantee).
-- EN price table: US ranges are published national averages; MyDentist "from" prices are placeholders.
-- Both doctors' credentials in both dictionaries (Dra. García Albelais's are generic placeholders; Dr. Martínez Corona's residency and memberships are unverified).
-- Payment plan terms (3, 6, 12 months), accepted insurers, guarantee terms in the FAQ.
-- Testimonials are written as samples and should be replaced with real, consented reviews.
-- Travel times (Hermosillo 90 min, Nogales 4.5 h) are approximate.
+The build is checked against the Somi Web No-Go list: no em dashes, no purple,
+no glassmorphism, no ambient orbs, no dot grids, no fake logos, no hover-nudge
+arrows, no emoji. The nine Lucide icons left are functional affordances
+(carousel arrows, accordion toggle, theme toggle, checklist ticks), not a
+decorative icon grid.
+
+## Type
+
+One family, per the October 2026 brand kit: **Bogart**, set in Deep Slate,
+used for headlines and body alike. It loads from an Adobe Fonts web kit
+(`fql3xen`, wired up in `app/[locale]/layout.tsx`), not from `next/font`.
+
+Two consequences worth knowing:
+
+- **The kit has a domain allowlist.** The production domain has to be on it or
+  the page silently falls back to the serif stack in `--font-sans`. The
+  fallback is deliberate and looks fine; it is just not the brand.
+- **Bogart has no italic on Adobe Fonts.** The accent phrase in a headline
+  (`.sig`) therefore shifts colour to Powder Mist rather than sloping. The
+  `.swash` class turns on `ss01` / `swsh` where a flourish is wanted.
+
+Bogart sets larger than a grotesque at the same nominal size, so the
+`xs` to `2xl` text tokens in `globals.css` are set against it directly.
+
+## Colour
+
+Deep Slate `#32374B` on Cotton `#E8E8E4`, in `app/globals.css`. The primitive
+slate and neutral scales never change; the semantic tokens (`--ground`,
+`--surface`, `--brand`, `--ink`, `--ink-brand`, `--accent`, `--line`,
+`--on-brand`) flip between the light Cotton theme and the `.dark` Deep Slate
+theme.
+
+## What is deliberately not on the page
+
+No figure the clinic has not confirmed. Where a number is still pending
+(prices, warranty term, trip count, licence numbers) the copy promises it **in
+writing, before treatment** instead of guessing. Empty values degrade rather
+than print half a sentence: an empty `pricing.currency` drops the unit, an
+empty `usPrice` drops the comparison line, an empty `licenseLabel` or
+`footer.est` renders nothing at all. Fill them and they reappear.
+
+`docs/pending-from-daniel.md` is the list, in priority order.
+
+## Before launch
+
+1. Add the production domain to the Adobe Fonts kit `fql3xen`, or Bogart will
+   not load.
+2. Fill the prices. That is item 1 in `docs/pending-from-daniel.md` and the
+   single biggest lift available to this page.
+3. Swap the stock photos in `public/images/` for real clinic photography, and
+   drop in the production logo SVG.
+4. Add a booking calendar link and an Instagram URL to `lib/site.ts`. Until
+   then every booking CTA opens WhatsApp, which is a reasonable default.
+5. Set `NEXT_PUBLIC_SITE_URL` so canonical, hreflang and OpenGraph URLs are
+   absolute.
