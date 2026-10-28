@@ -42,6 +42,8 @@ export const es: Dictionary = {
     closeMenu: "Cerrar menú",
     home: "MyDentist, ir al inicio",
     switchLanguage: "View this page in English",
+    drag: "Arrastra",
+    skipToContent: "Ir al contenido",
   },
 
   nav: {
@@ -87,10 +89,45 @@ export const es: Dictionary = {
     scrollLabel: "Ir a la siguiente sección",
   },
 
+  /*
+    El compositor del hero. En la plantilla original era una caja de prompt de
+    IA; aquí es la puerta de entrada del consultorio. Lo que el visitante
+    escribe se le pasa a WhatsApp como primer mensaje, así que lo primero que
+    ve el doctor son las palabras del paciente, no un formulario.
+  */
+  composer: {
+    placeholder:
+      "Cuéntanos qué traes. Un diente que falta, un presupuesto que quieres comparar, un dolor que no se quita.",
+    chips: [
+      "Implante",
+      "Arcada completa",
+      "Ortodoncia",
+      "Limpieza",
+      "Me duele",
+    ],
+    send: "Enviar por WhatsApp",
+    sendLabel: "Enviar este mensaje al consultorio por WhatsApp",
+    note: "Llega directo al consultorio por WhatsApp. Te contesta un dentista, no un robot.",
+    chipsLabel: "Lo que más nos escriben",
+  },
+
+  /* La única línea de display entre el hero y la galería. */
+  reveal: {
+    line: "Aquí te conocen por tu nombre, no por un número de expediente.",
+  },
+
+  /* La galería con scroll. Arte de relleno hasta que lleguen las fotos reales. */
+  gallery: {
+    eyebrow: "Por dentro",
+    headline: "Cómo es una visita de verdad",
+    support: "San Carlos, Sonora.",
+  },
+
   /* Reseñas de Google en español. Solo hay dos por ahora: no se inventa una
      tercera. Pendiente: pedir reseña a los pacientes de la región. */
   reviewsCarousel: {
-    next: "Siguiente",
+    next: "Siguiente reseña",
+    previous: "Reseña anterior",
     items: [
       {
         quote:

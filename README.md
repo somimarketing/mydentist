@@ -1,9 +1,9 @@
 # MyDentist, San Carlos
 
-Bilingual landing page for MyDentist — Implant & Cosmetic Center (formerly
+Bilingual landing page for MyDentist, the Implant & Cosmetic Center (formerly
 Smile Makers) in San Carlos, Sonora. Three specialists: prosthodontics and
-implants, orthodontics, endodontics. Next.js App Router, Tailwind v4, React
-Bits Pro blocks.
+implants, orthodontics, endodontics. Next.js App Router, Tailwind v4, built
+on the AI-SaaS template and rebuilt to the brand.
 
 ```bash
 npm install
@@ -35,7 +35,7 @@ against paying monthly.
 | What the clinic still owes us | `docs/pending-from-daniel.md` |
 | Page composition | `app/[locale]/page.tsx` |
 | Locale routing | `middleware.ts`, `lib/i18n/config.ts` |
-| Blocks | `components/blocks/` |
+| Sections | `components/site/` |
 | Photos | `public/images/` (`ph-1` … `ph-10`, `-sq` = square) |
 | Hero video | `public/video/` (1080 desktop, 960 mobile, poster still) |
 | Logo | `public/logo/` (horizontal, stacked, icon; black, white, currentcolor) |
@@ -50,6 +50,37 @@ Edit both dictionaries. Nothing else. No block contains a language.
 
 To add a key: add it to `en.ts`, then TypeScript will tell you `es.ts` is
 missing it.
+
+## What came from the template, and what did not
+
+The page is built on the AI-SaaS landing template. Its structure, its GSAP
+scroll gallery, its WebGL card bulge and its drag carousel are all still here.
+Three things were cut rather than restyled, because no colour would have made
+them true:
+
+- **The WebGL fluid cursor and the ambient gradient blob.** Both were doing
+  the job a real image should do. The clinic's own footage sits behind the
+  hero copy instead.
+- **The competitor bar charts.** Every number in them was invented, and the
+  clinic has no benchmark it can stand behind.
+- **The wall of client logos.** A clinic has no logos to show, and inventing
+  them would be a lie about who its patients are.
+
+Two more were repointed rather than removed. The hero's AI prompt box is now
+the WhatsApp composer: whatever a patient types is handed to WhatsApp as the
+opening message, so the dentist opens the thread already knowing what they
+want. The three product-preset cards are now the three doctors.
+
+The template's own token names (`background`, `foreground`, `muted`, `border`,
+`ring`, `accent-foreground`) are aliased onto the MyDentist system at the
+bottom of `globals.css`, so imported markup compiles unchanged and comes out
+in Deep Slate on Cotton. Update a block from upstream and it stays on brand.
+
+The build is checked against the Somi Web No-Go list: no em dashes, no purple,
+no glassmorphism, no ambient orbs, no dot grids, no fake logos, no hover-nudge
+arrows, no emoji. The nine Lucide icons left are functional affordances
+(carousel arrows, accordion toggle, theme toggle, checklist ticks), not a
+decorative icon grid.
 
 ## Type
 
@@ -67,7 +98,7 @@ Two consequences worth knowing:
   `.swash` class turns on `ss01` / `swsh` where a flourish is wanted.
 
 Bogart sets larger than a grotesque at the same nominal size, so the
-`xs`–`2xl` text tokens in `globals.css` are set against it directly.
+`xs` to `2xl` text tokens in `globals.css` are set against it directly.
 
 ## Colour
 
@@ -79,8 +110,8 @@ theme.
 
 ## What is deliberately not on the page
 
-No figure the clinic has not confirmed. Where a number is still pending —
-prices, warranty term, trip count, licence numbers — the copy promises it **in
+No figure the clinic has not confirmed. Where a number is still pending
+(prices, warranty term, trip count, licence numbers) the copy promises it **in
 writing, before treatment** instead of guessing. Empty values degrade rather
 than print half a sentence: an empty `pricing.currency` drops the unit, an
 empty `usPrice` drops the comparison line, an empty `licenseLabel` or

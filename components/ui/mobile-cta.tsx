@@ -18,7 +18,7 @@ export function MobileCta() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-40 md:hidden border-t border-line bg-ground/95 backdrop-blur-md px-4 pt-3"
+      className="fixed inset-x-0 bottom-0 z-40 md:hidden border-t border-line bg-ground px-4 pt-3"
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
     >
       <div className="flex gap-3">

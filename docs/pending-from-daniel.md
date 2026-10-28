@@ -14,7 +14,7 @@ Both languages are live but they are **not translations of each other**. English
 sells to US and Canadian patients; Spanish sells to families in San Carlos,
 Guaymas and Empalme. Some answers differ by audience, and that is on purpose.
 
-## 1. Prices — the highest-value item
+## 1. Prices, the highest-value item
 `lib/i18n/*.ts` → `pricing.plans`, `pricing.currency`, `compare.rows`
 
 Right now each plan card shows the **scope** of the treatment ("One tooth",
@@ -40,7 +40,7 @@ Needed for: single implant, full arch / All-on-4, crown, clear aligners.
 - Whether you coordinate with a dentist near a patient who has flown home.
 
 The English FAQ currently says the terms are named in the written plan. The
-moment the term is fixed, say it on the page — a number beats a promise.
+moment the term is fixed, say it on the page. A number beats a promise.
 
 ## 3. Credentials and licence numbers
 `dentists.licenseLabel`, `dentists.items`, `faq`
@@ -51,7 +51,7 @@ moment the term is fixed, say it on the page — a number beats a promise.
 - Years practising, certifications, associations.
 - Sterilization protocol standard the clinic follows.
 - Implant systems and lab names used. (The page says "the same systems your
-  dentist at home would" — naming the brand is stronger.)
+  dentist at home would". Naming the brand is stronger.)
 
 ## 4. Trip and timing
 `compare.rows`, `proof`, `faq`, `how.steps`
@@ -67,7 +67,7 @@ moment the term is fixed, say it on the page — a number beats a promise.
 ## 5. Proof numbers
 `stats.items`, `footer.est`
 
-The stats band now shows three things that are structurally true — three
+The stats band now shows three things that are structurally true: three
 specialists, four hours from Tucson, two languages. Swap any of them for a
 real number when you have one:
 
@@ -126,7 +126,7 @@ Still open:
    than a fake price anyway: it turns a browse into a WhatsApp conversation.
 2. **The comparison table is different in each language.** English compares
    San Carlos against a typical US or Canada clinic, and its right-hand column
-   says "Ask them" on purpose — our column is specific, theirs is a homework
+   says "Ask them" on purpose. Our column is specific, theirs is a homework
    assignment. Spanish compares paying in full against paying monthly, because
    the US comparison means nothing to a local family.
 3. **Spanish is the default language.** `/` sends a visitor to `/es` unless

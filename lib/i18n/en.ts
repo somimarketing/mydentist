@@ -41,6 +41,8 @@ export const en = {
     closeMenu: "Close menu",
     home: "MyDentist home",
     switchLanguage: "Ver esta página en español",
+    drag: "Drag",
+    skipToContent: "Skip to main content",
   },
 
   nav: {
@@ -86,9 +88,44 @@ export const en = {
     scrollLabel: "Scroll to the next section",
   },
 
+  /*
+    The hero composer. The template shipped this as an AI prompt box; here it
+    is the clinic's front door. Whatever the visitor types is handed to
+    WhatsApp as the opening message, so the first thing the dentist sees is
+    the patient's own words rather than a form submission.
+  */
+  composer: {
+    placeholder:
+      "Tell us what is going on. A missing tooth, a US quote you want checked, a pain that will not quit.",
+    chips: [
+      "Single implant",
+      "Full arch",
+      "Orthodontics",
+      "Check my US quote",
+      "Something hurts",
+    ],
+    send: "Send on WhatsApp",
+    sendLabel: "Send this message to the clinic on WhatsApp",
+    note: "Goes straight to the clinic on WhatsApp. A dentist answers, not a call centre.",
+    chipsLabel: "Common reasons people write in",
+  },
+
+  /* The one display line between the hero and the gallery. */
+  reveal: {
+    line: "The dentist who plans your case is the one who does it.",
+  },
+
+  /* The scroll-driven gallery. Placeholder art until clinic photography lands. */
+  gallery: {
+    eyebrow: "Inside the clinic",
+    headline: "What a visit actually looks like",
+    support: "San Carlos, Sonora.",
+  },
+
   /* social-proof-8: real Google reviews from US patients. */
   reviewsCarousel: {
-    next: "Next",
+    next: "Next review",
+    previous: "Previous review",
     items: [
       {
         quote:
@@ -158,7 +195,7 @@ export const en = {
   compare: {
     headline: "MyDentist, San Carlos vs a typical US or Canada clinic",
     support:
-      "The same treatment, the same materials, the same brands. The honest comparison is the one where our column is specific \u2014 so go ask them the same four questions.",
+      "The same treatment, the same materials, the same brands. The honest comparison is the one where our column is specific, so go ask them the same four questions.",
     treatmentsLabel: "Compare treatments",
     colOurs: { name: "San Carlos", sub: "MyDentist" },
     colTheirs: { name: "US / Canada", sub: "Typical clinic" },
@@ -212,7 +249,7 @@ export const en = {
     headlineLead: "What we do,",
     headlineAccent: "under one roof.",
     support:
-      "Implants, full-arch restorations, aligners and crowns \u2014 planned, placed and followed up in the same clinic, by the same doctors.",
+      "Implants, full-arch restorations, aligners and crowns. Planned, placed and followed up in the same clinic, by the same doctors.",
     cta: "Ask about your case",
     items: [
       { label: "Full-arch implants", meta: "All-on-4" },
@@ -320,7 +357,7 @@ export const en = {
   pricing: {
     headline: "Your price, in writing.",
     support:
-      "Send photos or an x-ray and we return the full plan and the full number in US dollars \u2014 before you book anything.",
+      "Send photos or an x-ray and we return the full plan and the full number in US dollars, before you book anything.",
     consultNote: "Free virtual consult before you travel.",
     consultSub: "No cost, no pressure.",
     financingToggle: { label: "Toggle financing", full: "Pay in full", financing: "Financing" },
@@ -379,7 +416,7 @@ export const en = {
     items: [
       {
         q: "Is dental care in Mexico actually safe?",
-        a: "Judge the clinic, not the country. Ask who is treating you, what brand is going in your mouth, and what happens if it fails \u2014 then ask the same of your clinic at home. Here you get all three in writing, from the specialist who does the work, before you spend a peso.",
+        a: "Judge the clinic, not the country. Ask who is treating you, what brand is going in your mouth, and what happens if it fails. Then ask the same of your clinic at home. Here you get all three in writing, from the specialist who does the work, before you spend a peso.",
       },
       {
         q: "How many trips will I need?",
@@ -387,7 +424,7 @@ export const en = {
       },
       {
         q: "How much will I really save?",
-        a: "Enough that people drive four hours for it. We will not quote you a percentage off a clinic we have never seen \u2014 send us your US quote and your x-ray, and we will send back our number beside it, in writing.",
+        a: "Enough that people drive four hours for it. We will not quote you a percentage off a clinic we have never seen. Send us your US quote and your x-ray, and we will send back our number beside it, in writing.",
       },
       {
         q: "What if something goes wrong after I fly home?",
