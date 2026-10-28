@@ -19,9 +19,9 @@ type Step = {
   icon: LucideIcon;
 };
 
-/* [DATO] Step photography from the clinic and San Carlos replaces the
-   placeholder art. Copy comes from lib/i18n; the warranty term stays [DATO]
-   until Daniel confirms it. */
+/* PENDING Step photography from the clinic and San Carlos replaces the
+   placeholder art. Copy comes from lib/i18n; the warranty term is named in
+   the written plan, not here, until Daniel confirms it. */
 const STEP_ART: { image: string; icon: LucideIcon }[] = [
   { image: "/images/ph-8.jpg", icon: Camera },
   { image: "/images/ph-9.jpg", icon: Video },
@@ -72,7 +72,7 @@ function Node({
         className={`relative grid place-items-center h-12 w-12 rounded-full transition-colors duration-300 ${
           reached
             ? "bg-accent text-ground"
-            : "bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal"
+            : "bg-brand text-on-brand dark:bg-cotton dark:text-brand"
         }`}
       >
         <Icon className="h-5 w-5" />
@@ -194,7 +194,7 @@ export default function HowItWorks6() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-6 text-3xl sm:text-5xl md:text-6xl font-medium text-ink text-center leading-[1.05] max-w-xl"
+          className="mt-6 text-3xl sm:text-5xl md:text-6xl font-semibold text-ink text-center leading-[1.05] max-w-xl"
         >
           {t.how.headline}
         </motion.h2>

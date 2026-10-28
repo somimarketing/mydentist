@@ -11,6 +11,7 @@ interface TeamMember {
   id: number;
   name: string;
   role: string;
+  bio: string;
   image: string;
   whatsapp: string;
   instagram: string;
@@ -21,8 +22,8 @@ interface About1Props {
 }
 
 /* Names and WhatsApp numbers are confirmed; roles come from lib/i18n.
-   [DATO] Real photos of both dentists, plus any further staff. */
-const DENTIST_ART = ["/images/ph-4.jpg", "/images/ph-1.jpg"];
+   PENDING Real photos of both dentists, plus any further staff. */
+const DENTIST_ART = ["/images/ph-4.jpg", "/images/ph-1.jpg", "/images/ph-2.jpg"];
 
 const CAROUSEL_CONFIG = {
   autoPlayInterval: 5000,
@@ -38,14 +39,20 @@ const CAROUSEL_HEIGHT = 450;
 function useTeam(): TeamMember[] {
   const { t } = useCopy();
   const L = useLinks();
-  return site.doctors.map((doc, i) => ({
-    id: i + 1,
-    name: doc.name,
-    role: doc.id === "daniel" ? t.dentists.roles.daniel : t.dentists.roles.carolina,
-    image: DENTIST_ART[i % DENTIST_ART.length],
-    whatsapp: L.doctor(doc.phone),
-    instagram: L.instagram ?? L.doctor(doc.phone),
-  }));
+  /* The dictionary drives the order, so a locale can never fall out of step
+     with site.doctors. Specialty and bio come from the brand kit. */
+  return t.dentists.items.map((entry, i) => {
+    const doc = site.doctors.find((d) => d.id === entry.id) ?? site.doctors[i];
+    return {
+      id: i + 1,
+      name: doc.fullName,
+      role: entry.specialty,
+      bio: entry.bio,
+      image: DENTIST_ART[i % DENTIST_ART.length],
+      whatsapp: L.doctor(doc.phone),
+      instagram: L.instagram ?? L.doctor(doc.phone),
+    };
+  });
 }
 
 export default function About1({
@@ -158,7 +165,7 @@ function Header() {
       transition={{ duration: 0.5 }}
       className="mb-8"
     >
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-ink mb-1">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-ink mb-1">
         {t.dentists.headline}
       </h2>
       <p className="text-base text-ink-soft">
@@ -285,7 +292,13 @@ function CardContent({
       <h3 className={`font-bold text-ink mb-1 ${titleClasses}`}>
         {member.name}
       </h3>
-      <p className={`text-ink/80 mb-4 ${roleClasses}`}>{member.role}</p>
+      <p className={`text-ink/80 ${roleClasses}`}>{member.role}</p>
+      {isActive ? (
+        <p className="mt-2 max-w-[46ch] text-sm text-ink/70 leading-relaxed">
+          {member.bio}
+        </p>
+      ) : null}
+      <div className="mb-4" />
 
       {/* WhatsApp and Instagram instead of the stock GitHub and Mail. */}
       <div className="flex items-center gap-2 sm:gap-3">

@@ -6,17 +6,19 @@
  * really cost against my quote at home. Every section answers one of those.
  *
  * This file is the shape the Spanish dictionary must satisfy, so keep it
- * complete. [DATO] marks a real figure only Daniel can confirm; see
- * docs/pending-from-daniel.md. Never replace one with an invented number.
+ * complete. Nothing here states a figure the clinic has not confirmed: where
+ * a number is still pending, the copy promises a written quote instead of
+ * guessing. docs/pending-from-daniel.md lists what to drop in once Daniel
+ * confirms it. Never replace one of those with an invented number.
  */
 export const en = {
   meta: {
-    title: "MyDentist | Implants and dental care in San Carlos, Mexico",
+    title: "MyDentist San Carlos | Implant & Cosmetic Center in Sonora, Mexico",
     description:
-      "World-class implants, crowns and clear aligners in San Carlos, Sonora. The same treatment you would get in the US, for a fraction of the price. Free virtual consult in English before you travel.",
-    ogTitle: "MyDentist | Implants and dental care in San Carlos, Mexico",
+      "Implants, orthodontics and endodontics from three specialists in San Carlos, Sonora, four hours from Tucson. Every treatment starts with a plan you can read and a written price.",
+    ogTitle: "MyDentist San Carlos | Implant & Cosmetic Center",
     ogDescription:
-      "The same implants you would get in the US, for a fraction of the price. A short drive from Arizona.",
+      "Implants with a clear plan and a written price. Three specialists, four hours from Tucson.",
   },
 
   /** Prefilled WhatsApp openers, written as the visitor would type them. */
@@ -28,7 +30,8 @@ export const en = {
   },
 
   common: {
-    bookConsult: "Book your consult",
+    /* The brand kit's own button label. */
+    bookConsult: "Book on WhatsApp",
     whatsapp: "WhatsApp",
     freeInEnglish: "Free, in English",
     messageTheClinic: "Message the clinic",
@@ -44,38 +47,41 @@ export const en = {
     groups: [
       {
         title: "Treatments",
-        description: "Implants, crowns and aligners, planned around a single trip.",
+        description: "Implants, orthodontics and endodontics, planned around one trip.",
         items: [
           { title: "Dental implants", href: "#pricing" },
           { title: "Full arch, All-on-4", href: "#pricing" },
-          { title: "Crowns", href: "#pricing" },
-          { title: "Clear aligners", href: "#pricing" },
+          { title: "Orthodontics", href: "#pricing" },
+          { title: "Root canals", href: "#pricing" },
         ],
       },
       {
-        title: "Why MyDentist",
-        description: "How the trip works, what it costs, and who treats you.",
+        title: "Doctors",
+        description: "Three specialists, and how the trip actually works.",
         items: [
+          { title: "Meet the doctors", href: "#dentists" },
           { title: "How it works", href: "#how" },
           { title: "Compare the cost", href: "#compare" },
           { title: "Real cases", href: "#cases" },
-          { title: "Meet your dentists", href: "#dentists" },
         ],
       },
     ],
     links: [
-      { title: "Pricing", href: "#pricing" },
-      { title: "FAQ", href: "#faq" },
+      { title: "Prices", href: "#pricing" },
+      { title: "Visit us", href: "#faq" },
     ],
   },
 
   hero: {
-    /* Three parts so the signature italic can sit anywhere in the line. */
-    headlineLead: "Say hello to",
-    headlineSig: "my",
-    headlineTail: "dentist.",
+    /* The brand kit's own hero. The accent phrase drops to Powder Mist,
+       which is how the kit sets a display line, since Bogart has no italic. */
+    eyebrow: "Implant & Cosmetic Center · San Carlos, Sonora",
+    headlineLead: "Implants with a clear plan",
+    headlineSig: "and a written price.",
+    headlineTail: "",
     support:
-      "World-class dental care in San Carlos. The same implants you would get in the US, for a fraction of the price.",
+      "Personal care from three specialists, four hours from Tucson. Every treatment starts with a plan you can read.",
+    secondary: "Meet the doctors",
     scroll: "Scroll",
     scrollLabel: "Scroll to the next section",
   },
@@ -110,17 +116,17 @@ export const en = {
     {
       title: "One trip. One new smile.",
       body:
-        "Most implant cases are completed in [DATO] visits over a single stay. We plan it so you fly once.",
+        "We plan implant cases around a single stay whenever the case allows, and tell you the exact number of days before you book a flight.",
     },
     {
       title: "The same brands your dentist at home uses.",
       body:
-        "[DATO] implant systems and [DATO] labs. World-class materials, San Carlos price.",
+        "We place the same implant systems and use the same lab materials your dentist at home would. World-class work, San Carlos price.",
     },
     {
-      title: "You talk to the dentist. Not a call center.",
+      title: "Three specialists, under one roof.",
       body:
-        "Daniel answers your questions directly, in English, before and after you travel.",
+        "Prosthodontics, orthodontics and endodontics in the same clinic, so your case never gets handed off to a stranger across town.",
     },
   ],
 
@@ -136,15 +142,15 @@ export const en = {
       },
       {
         title: "Free video consult",
-        body: "Meet Daniel face to face, in English, before you book anything. No cost.",
+        body: "Meet your specialist face to face, in English, before you book anything. No cost.",
       },
       {
         title: "Come to San Carlos",
-        body: "A short drive or flight from Arizona. We handle the plan, you handle the trip.",
+        body: "Four hours from Tucson by road. We send you the route, the parking and where to stay. You just drive.",
       },
       {
         title: "Leave with your smile",
-        body: "Walk out with treatment done and a [DATO]-year warranty in hand.",
+        body: "Walk out with the work done, your aftercare in writing, and your dentist\u2019s own WhatsApp.",
       },
     ],
   },
@@ -152,7 +158,7 @@ export const en = {
   compare: {
     headline: "MyDentist, San Carlos vs a typical US or Canada clinic",
     support:
-      "The same treatment, the same materials, at a fraction of the cost. Here is the honest comparison.",
+      "The same treatment, the same materials, the same brands. The honest comparison is the one where our column is specific \u2014 so go ask them the same four questions.",
     treatmentsLabel: "Compare treatments",
     colOurs: { name: "San Carlos", sub: "MyDentist" },
     colTheirs: { name: "US / Canada", sub: "Typical clinic" },
@@ -163,29 +169,29 @@ export const en = {
     ],
     rows: [
       {
-        title: "Price (USD)",
+        title: "Your price",
         /* {treatment} is replaced with the selected tab's inSentence. */
         description: "What a {treatment} costs, all in, before you travel",
-        ours: "$[DATO]",
-        theirs: "$[DATO]",
+        ours: "In writing, up front",
+        theirs: "Ask them",
       },
       {
-        title: "Wait to start",
-        description: "From first message to your first appointment",
-        ours: "[DATO]",
-        theirs: "[DATO]",
+        title: "Who plans your case",
+        description: "The person who decides what gets done, and does it",
+        ours: "The specialist treating you",
+        theirs: "Ask them",
       },
       {
-        title: "Trips required",
-        description: "How many times you need to travel for the full treatment",
-        ours: "[DATO]",
-        theirs: "[DATO]",
+        title: "Specialists on site",
+        description: "Whether your case gets referred out mid-treatment",
+        ours: "Prostho, ortho, endo",
+        theirs: "Ask them",
       },
       {
-        title: "Warranty",
-        description: "What is covered, and for how long",
-        ours: "[DATO] years",
-        theirs: "[DATO]",
+        title: "Getting here",
+        description: "What it takes to reach the chair",
+        ours: "Four hours from Tucson",
+        theirs: "Around the corner",
       },
       {
         title: "Premium brands",
@@ -203,47 +209,74 @@ export const en = {
   },
 
   cases: {
-    headlineLead: "Real smiles,",
-    headlineAccent: "real patients.",
+    headlineLead: "What we do,",
+    headlineAccent: "under one roof.",
     support:
-      "Every case here is a real patient who traveled, treated, and went home. No stock photos.",
-    cta: "See more cases",
+      "Implants, full-arch restorations, aligners and crowns \u2014 planned, placed and followed up in the same clinic, by the same doctors.",
+    cta: "Ask about your case",
     items: [
-      { label: "Full-arch implants · [DATO city]", meta: "[DATO]" },
-      { label: "Single implant · [DATO city]", meta: "[DATO]" },
-      { label: "Clear aligners · [DATO city]", meta: "[DATO]" },
-      { label: "Crowns · [DATO city]", meta: "[DATO]" },
+      { label: "Full-arch implants", meta: "All-on-4" },
+      { label: "Single implant", meta: "Crown included" },
+      { label: "Clear aligners", meta: "Orthodontics" },
+      { label: "Crowns & veneers", meta: "Cosmetic" },
     ],
   },
 
   stats: {
-    headline: "The numbers",
-    support: "Real results, not marketing.",
+    headline: "The short version",
+    support: "What you are actually driving to.",
     items: [
-      { label: "Implants placed", sub: "Since [DATO]", value: "[DATO]", source: "Clinic records" },
-      { label: "Years caring for smiles", sub: "In San Carlos", value: "[DATO]", source: "Practice" },
       {
-        label: "Patients from the US and Canada",
-        sub: "Last 12 months",
-        value: "[DATO]%",
+        label: "Specialists, one clinic",
+        sub: "Under one roof",
+        value: "3",
+        source: "MyDentist San Carlos",
+      },
+      {
+        label: "Hours from Tucson",
+        sub: "By road",
+        value: "4",
+        source: "Drive time",
+      },
+      {
+        label: "Languages, every visit",
+        sub: "English and Spanish",
+        value: "2",
         source: "Clinic",
       },
     ],
   },
 
   dentists: {
-    headline: "Meet your dentists",
-    support: "The people who will actually treat you.",
-    roles: {
-      daniel: "Implant and aesthetic dentistry",
-      carolina: "General and family dentistry, clinic partner",
-    },
+    headline: "Three doctors, one standard of care.",
+    support: "Prosthodontics, orthodontics and endodontics in one place.",
+    /* Rendered only when filled. Licence numbers and universities for all
+       three are still pending; see docs/pending-from-daniel.md. */
+    licenseLabel: "",
+    bookWith: "Book with",
+    items: [
+      {
+        id: "daniel",
+        specialty: "Prosthodontics & implants",
+        bio: "Rebuilds complete smiles with implants and fixed prosthetics. Plans every case in writing, in a single consultation.",
+      },
+      {
+        id: "carolina",
+        specialty: "Orthodontics",
+        bio: "Braces and clear aligners for children and adults, with close follow-up at every visit.",
+      },
+      {
+        id: "giselle",
+        specialty: "Endodontics",
+        bio: "Root canal treatment with a minimally invasive technique, to keep your natural tooth.",
+      },
+    ],
   },
 
   /* social-proof-16: one featured quote plus a wall of reviews. */
   wall: {
     citiesLabel: "Trusted by patients from",
-    cities: ["Phoenix, AZ [DATO]", "Tucson, AZ [DATO]", "Calgary, AB [DATO]"],
+    cities: ["Arizona", "Michigan", "Sonora"],
     ratingLabel: "Rated 5 out of 5 stars",
     googleReview: "Google review",
     featured: {
@@ -285,52 +318,54 @@ export const en = {
   },
 
   pricing: {
-    headline: "Clear pricing, in US dollars.",
-    support: "What you would pay at home, and what you pay here.",
+    headline: "Your price, in writing.",
+    support:
+      "Send photos or an x-ray and we return the full plan and the full number in US dollars \u2014 before you book anything.",
     consultNote: "Free virtual consult before you travel.",
     consultSub: "No cost, no pressure.",
     financingToggle: { label: "Toggle financing", full: "Pay in full", financing: "Financing" },
-    currency: "USD",
-    /* Second line under the price. Struck through in English because it is
-       the price the visitor is beating. */
+    /* Empty hides the unit beside the headline figure, and an empty usPrice
+       hides the comparison line under it. Both come back the day Daniel
+       confirms real numbers. */
+    currency: "",
     compare: { prefix: "vs", suffix: "in the US", strike: true },
     plans: [
       {
         name: "Single implant",
         blurb: "One tooth, replaced for good.",
-        priceFull: "$[DATO]",
-        priceFinancing: "$[DATO]",
-        usPrice: "$[DATO]",
+        priceFull: "One tooth",
+        priceFinancing: "One tooth",
+        usPrice: "",
         features: [
-          "Premium implant brand [DATO]",
-          "Crown included [DATO]",
-          "[DATO]-year warranty",
+          "Implant, abutment and crown",
+          "Planned in one consult",
+          "Quoted in writing before you travel",
         ],
         cta: "Book your consult",
       },
       {
         name: "Full arch / All-on-4",
         blurb: "A full arch of fixed teeth, planned around one stay.",
-        priceFull: "$[DATO]",
-        priceFinancing: "$[DATO]",
-        usPrice: "$[DATO]",
+        priceFull: "Full arch",
+        priceFinancing: "Full arch",
+        usPrice: "",
         features: [
-          "[DATO] implants per arch",
-          "Fixed, non-removable teeth [DATO]",
-          "[DATO]-year warranty",
+          "Fixed teeth, not a removable plate",
+          "Planned around a single stay",
+          "Quoted in writing before you travel",
         ],
         cta: "Book your consult",
       },
       {
         name: "Clear aligners",
         blurb: "A custom smile plan. Pricing depends on your case.",
-        priceFull: "$[DATO]",
-        priceFinancing: "$[DATO]",
-        usPrice: "$[DATO]",
+        priceFull: "Custom plan",
+        priceFinancing: "Custom plan",
+        usPrice: "",
         features: [
-          "Full treatment plan [DATO]",
-          "Remote check-ins [DATO]",
-          "Retainers included [DATO]",
+          "Braces or clear aligners",
+          "Checked by Dr. Carolina at every visit",
+          "Quoted in writing before you travel",
         ],
         cta: "Schedule a call",
       },
@@ -344,36 +379,36 @@ export const en = {
     items: [
       {
         q: "Is dental care in Mexico actually safe?",
-        a: "Yes, when the clinic holds itself to the standard you expect at home. We follow [DATO] sterilization protocols, Daniel holds [DATO] credentials, and we place the same implant brands used in the US, [DATO].",
+        a: "Judge the clinic, not the country. Ask who is treating you, what brand is going in your mouth, and what happens if it fails \u2014 then ask the same of your clinic at home. Here you get all three in writing, from the specialist who does the work, before you spend a peso.",
       },
       {
         q: "How many trips will I need?",
-        a: "[DATO]. We plan around one stay whenever the case allows, and tell you exactly how many days you need before you book anything.",
+        a: "We plan around one stay whenever the case allows. You get the exact number of days, and the exact number of visits, before you book a flight or a room.",
       },
       {
         q: "How much will I really save?",
-        a: "Roughly [DATO] versus a US clinic, with no hidden fees. You get your full quote in writing before you travel.",
+        a: "Enough that people drive four hours for it. We will not quote you a percentage off a clinic we have never seen \u2014 send us your US quote and your x-ray, and we will send back our number beside it, in writing.",
       },
       {
         q: "What if something goes wrong after I fly home?",
-        a: "Every treatment carries a [DATO]-year warranty, and we coordinate with a dentist near you if follow-up is needed [DATO].",
+        a: "You message the doctor who treated you, directly, on WhatsApp. We tell you what we cover and for how long in the same written plan you get before treatment starts, and we will talk to a dentist near you if one needs to see it.",
       },
       {
-        q: "Do you speak English?",
-        a: "Yes. Every consult and every visit is in English, with Daniel himself, not a call center.",
+        q: "Does an implant hurt?",
+        a: "With local anaesthetic most people feel only pressure, not pain. We talk you through each step before it happens, and you decide the pace.",
       },
       {
         q: "How do I get to San Carlos?",
-        a: "[DATO] from the Arizona border by car, or fly into [DATO]. We tell you the simplest route for where you are coming from.",
+        a: "Four hours from Tucson by road, straight down Mexico 15. Tell us where you are coming from and we will send the route, the border crossing and where to stay.",
       },
     ],
   },
 
   finalCta: {
     /* Rendered as: <sig>{headlineSig}</sig> {headlineRest} / {headlineLine2} */
-    headlineSig: "Your",
-    headlineRest: "new smile",
-    headlineLine2: "starts with a message.",
+    headlineSig: "Smile here.",
+    headlineRest: "",
+    headlineLine2: "Save there.",
     place: "San Carlos, Sonora",
   },
 
@@ -387,18 +422,21 @@ export const en = {
       },
       {
         title: "Book a free virtual consult",
-        description: "See a dentist before you fly. No cost.",
+        description: "Meet your specialist before you fly. No cost.",
       },
       { title: "Call the clinic", description: "" },
     ],
   },
 
   footer: {
+    /* Smile Makers is now MyDentist San Carlos. Same team, same clinic. */
+    rebrand: "Smile Makers is now MyDentist San Carlos.",
+    descriptor: "Implant & Cosmetic Center",
     city: "San Carlos",
     rights: "All rights reserved.",
-    tagline: "DENTAL & AESTHETIC",
+    tagline: "IMPLANT & COSMETIC CENTER",
     place: "SAN CARLOS, SONORA",
-    est: "EST. [DATO]",
+    est: "",
     bookConsult: "BOOK YOUR CONSULT",
     whatsapp: "WHATSAPP",
     instagram: "Instagram",

@@ -5,8 +5,9 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { useCopy } from "@/lib/i18n/context";
 
-/* [DATO] Every value comes from lib/i18n and stays a placeholder until
-   Daniel confirms it from clinic records. The three card grounds are the
+/* Every value comes from lib/i18n. Nothing here is a figure the clinic has
+   not confirmed; the pending ones live in docs/pending-from-daniel.md. The
+   three card grounds are the
    cool set: Powder tint, Bone tint, soft Slate tint. */
 const BACKGROUNDS = ["bg-card-a", "bg-card-b", "bg-card-c"];
 
@@ -94,11 +95,11 @@ export default function Stats11() {
                   </span>
                   <div className="flex flex-col gap-2">
                     {c.label && (
-                      <span className="text-2xl sm:text-3xl font-medium">
+                      <span className="text-2xl sm:text-3xl font-semibold">
                         {c.label}
                       </span>
                     )}
-                    <span className="text-3xl sm:text-4xl md:text-5xl font-medium tabular-nums">
+                    <span className="text-3xl sm:text-4xl md:text-5xl font-semibold tabular-nums">
                       {c.value}
                     </span>
                     <span className="mt-4 inline-flex items-center gap-1 text-xs sm:text-sm font-bold">

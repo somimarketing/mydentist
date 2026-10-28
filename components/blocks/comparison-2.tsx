@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useCopy } from "@/lib/i18n/context";
 import { useLinks } from "@/lib/i18n/links";
 
-/* [DATO] Booking link once Daniel confirms it. */
+/* PENDING Booking link once Daniel confirms it. */
 
 type Cell = string | boolean;
 type Row = { title: string; description: string; brand1: Cell; brand2: Cell };
@@ -97,7 +97,7 @@ export default function Comparison2() {
           transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <h2 className="mb-6 text-3xl font-medium text-ink sm:text-4xl md:text-5xl lg:text-6xl text-balance">
+          <h2 className="mb-6 text-3xl font-semibold text-ink sm:text-4xl md:text-5xl lg:text-6xl text-balance">
             {t.compare.headline}
           </h2>
           <p className="mx-auto mb-6 max-w-2xl px-4 text-sm leading-relaxed text-ink-soft sm:mb-8 sm:px-0 sm:text-base md:text-lg">
@@ -107,7 +107,7 @@ export default function Comparison2() {
             href={BOOKING_URL}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-block rounded-full bg-charcoal px-8 py-4 text-base font-medium text-cotton transition-colors hover:bg-charcoal/90 dark:bg-cotton dark:text-charcoal dark:hover:bg-cotton/90"
+            className="inline-block rounded-full bg-brand px-8 py-4 text-base font-semibold text-cotton transition-colors hover:bg-brand/90 dark:bg-cotton dark:text-brand dark:hover:bg-cotton/90"
           >
             {t.common.bookConsult}
           </motion.a>
@@ -123,7 +123,7 @@ export default function Comparison2() {
           <div className="flex flex-col gap-4 lg:hidden">
             <div className="rounded-2xl bg-surface p-6 dark:bg-ground">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-ink">
+                <h3 className="text-lg font-semibold text-ink">
                   {t.compare.treatmentsLabel}
                 </h3>
                 <p className="text-sm text-ink-soft">
@@ -142,7 +142,7 @@ export default function Comparison2() {
                       aria-pressed={selectedPlan === plan.id}
                       className={`flex h-12 w-12 items-center justify-center rounded-xl transition-colors cursor-pointer ${
                         selectedPlan === plan.id
-                          ? "bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal"
+                          ? "bg-brand text-on-brand dark:bg-cotton dark:text-brand"
                           : "bg-accent-soft/40 text-ink-soft dark:bg-surface"
                       }`}
                     >
@@ -217,7 +217,7 @@ export default function Comparison2() {
                         aria-pressed={selectedPlan === plan.id}
                         className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors cursor-pointer ${
                           selectedPlan === plan.id
-                            ? "bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal"
+                            ? "bg-brand text-on-brand dark:bg-cotton dark:text-brand"
                             : "bg-accent-soft/40 text-ink-soft hover:bg-accent-soft/70 dark:bg-surface dark:hover:bg-cotton/10"
                         }`}
                       >

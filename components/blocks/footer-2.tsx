@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { Instagram, MessageCircle } from "lucide-react";
-import { links } from "@/lib/site";
 import { useCopy } from "@/lib/i18n/context";
 import { useLinks } from "@/lib/i18n/links";
 
@@ -34,8 +33,8 @@ export default function Footer2() {
   };
 
   return (
-    <footer className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 bg-charcoal">
-      {/* [DATO] A still from the hero footage holds this until a clinic or
+    <footer className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 bg-brand">
+      {/* PENDING A still from the hero footage holds this until a clinic or
           San Carlos photo is chosen. */}
       <div className="absolute inset-0 h-full w-full">
         <img
@@ -43,7 +42,7 @@ export default function Footer2() {
           alt=""
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-charcoal/30" />
+        <div className="absolute inset-0 bg-brand/30" />
       </div>
 
       <div className="relative">
@@ -115,7 +114,7 @@ export default function Footer2() {
                 <h2 className="text-4xl font-bold text-ink sm:text-5xl md:text-6xl lg:text-7xl">
                   <span className="sig">My</span>Dentist
                 </h2>
-                <p className="mt-2 text-xl font-medium text-ink sm:text-2xl md:text-3xl">
+                <p className="mt-2 text-xl font-semibold text-ink sm:text-2xl md:text-3xl">
                   {t.footer.city}
                 </p>
               </motion.div>
@@ -172,7 +171,7 @@ export default function Footer2() {
                 <div className="text-xs text-ink-soft sm:text-right sm:text-sm tracking-wider">
                   <p>{t.footer.tagline}</p>
                   <p>{t.footer.place}</p>
-                  <p>{t.footer.est}</p>
+                  {t.footer.est ? <p>{t.footer.est}</p> : null}
                 </div>
               </motion.div>
             </motion.div>

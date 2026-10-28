@@ -9,17 +9,19 @@ import type { Dictionary } from "./en";
  * Por eso el argumento cambia: precio por escrito, mensualidades, cita esta
  * misma semana y atención para toda la familia.
  *
- * Español de Sonora, con "tú". [DATO] marca un dato que solo Daniel puede
- * confirmar; ver docs/pending-from-daniel.md. Nunca se inventa una cifra.
+ * Español de Sonora, con "tú". Ninguna cifra aquí está inventada: donde
+ * todavía falta el dato, el copy promete el precio por escrito en lugar de
+ * adivinarlo. En docs/pending-from-daniel.md está la lista de lo que entra
+ * el día que Daniel lo confirme.
  */
 export const es: Dictionary = {
   meta: {
-    title: "MyDentist | Dentista en San Carlos, Sonora, para toda la familia",
+    title: "MyDentist San Carlos | Implantes, ortodoncia y endodoncia en Sonora",
     description:
-      "Dentista en San Carlos, Sonora. Cita esta misma semana, precio por escrito desde la primera consulta y mensualidades sin intereses. Agenda por WhatsApp con el Dr. Daniel y la Dra. Carolina.",
-    ogTitle: "MyDentist | Dentista en San Carlos, Sonora",
+      "Tres especialistas en San Carlos, Sonora: prostodoncia e implantes, ortodoncia y endodoncia. Un plan claro, por escrito, desde la primera visita. Agenda por WhatsApp.",
+    ogTitle: "MyDentist San Carlos | Implant & Cosmetic Center",
     ogDescription:
-      "Cita esta misma semana, precio claro desde la primera consulta y mensualidades sin intereses. Agenda por WhatsApp.",
+      "Sonrisas que se sienten en casa. Tres especialistas que te conocen por tu nombre.",
   },
 
   whatsapp: {
@@ -29,7 +31,8 @@ export const es: Dictionary = {
   },
 
   common: {
-    bookConsult: "Agenda tu cita",
+    /* La etiqueta de botón del brand kit. */
+    bookConsult: "Agendar por WhatsApp",
     whatsapp: "WhatsApp",
     freeInEnglish: "Te contestamos hoy",
     messageTheClinic: "Escríbele al consultorio",
@@ -45,44 +48,47 @@ export const es: Dictionary = {
     groups: [
       {
         title: "Tratamientos",
-        description: "Limpieza, resinas, coronas, ortodoncia e implantes.",
+        description: "Implantes, ortodoncia y endodoncia en un solo lugar.",
         items: [
-          { title: "Limpieza y revisión", href: "#pricing" },
-          { title: "Resinas y coronas", href: "#pricing" },
-          { title: "Ortodoncia", href: "#pricing" },
           { title: "Implantes dentales", href: "#pricing" },
+          { title: "Arcada completa", href: "#pricing" },
+          { title: "Ortodoncia", href: "#pricing" },
+          { title: "Endodoncia", href: "#pricing" },
         ],
       },
       {
-        title: "Por qué MyDentist",
-        description: "Cómo funciona, cuánto cuesta y quién te atiende.",
+        title: "Doctores",
+        description: "Tres especialistas, y cómo funciona tu tratamiento.",
         items: [
+          { title: "Conoce a los doctores", href: "#dentists" },
           { title: "Cómo funciona", href: "#how" },
           { title: "Planes de pago", href: "#compare" },
           { title: "Casos reales", href: "#cases" },
-          { title: "Conoce a tus dentistas", href: "#dentists" },
         ],
       },
     ],
     links: [
       { title: "Precios", href: "#pricing" },
-      { title: "Preguntas", href: "#faq" },
+      { title: "Visítanos", href: "#faq" },
     ],
   },
 
   hero: {
-    /* El itálico cae en "Tu", igual que el logo pone "My" en serif itálica. */
-    headlineLead: "",
-    headlineSig: "Tu",
-    headlineTail: "sonrisa, en buenas manos.",
+    /* Frase aprobada del brand kit. La segunda mitad baja a Powder Mist,
+       que es como el kit marca el acento en una línea display. */
+    eyebrow: "Implant & Cosmetic Center · San Carlos, Sonora",
+    headlineLead: "Tu sonrisa,",
+    headlineSig: "en buenas manos.",
+    headlineTail: "",
     support:
-      "Dentista en San Carlos para toda la familia. Cita esta misma semana, precio por escrito desde la primera consulta y mensualidades sin intereses.",
+      "Tres especialistas que te conocen por tu nombre. Un plan claro, por escrito, desde la primera visita.",
+    secondary: "Conoce a los doctores",
     scroll: "Baja",
     scrollLabel: "Ir a la siguiente sección",
   },
 
   /* Reseñas de Google en español. Solo hay dos por ahora: no se inventa una
-     tercera. [DATO] Pedir a los pacientes de la región que dejen reseña. */
+     tercera. Pendiente: pedir reseña a los pacientes de la región. */
   reviewsCarousel: {
     next: "Siguiente",
     items: [
@@ -113,9 +119,9 @@ export const es: Dictionary = {
         "Te decimos el costo completo desde la primera cita. Nada de que luego vemos, y nada que no te hayamos dicho.",
     },
     {
-      title: "Toda la familia con el mismo dentista.",
+      title: "Tres especialistas, un solo consultorio.",
       body:
-        "Agendamos a tus hijos, a ti y a tus papás el mismo día, para que hagas un solo viaje.",
+        "Prostodoncia, ortodoncia y endodoncia en el mismo lugar. Tu caso no se pasa a otro consultorio ni a otra ciudad.",
     },
   ],
 
@@ -134,7 +140,7 @@ export const es: Dictionary = {
       },
       {
         title: "Eliges cómo pagar",
-        body: "De contado o a mensualidades sin intereses [DATO]. Lo dejamos claro antes de empezar.",
+        body: "De contado o diferido. Te decimos las opciones que hay y cuánto queda cada una antes de empezar.",
       },
       {
         title: "Tratamiento y seguimiento",
@@ -151,9 +157,9 @@ export const es: Dictionary = {
   compare: {
     headline: "Lo que cuesta, y cómo lo puedes pagar",
     support:
-      "Pagar a meses no cambia el precio, ni el material, ni la garantía. Aquí está el desglose.",
+      "Cómo pagues no cambia el precio, ni el material, ni quién te atiende. Y el número completo lo sabes antes de empezar.",
     treatmentsLabel: "Elige tratamiento",
-    colOurs: { name: "A mensualidades", sub: "Sin intereses" },
+    colOurs: { name: "Diferido", sub: "Según tu caso" },
     colTheirs: { name: "De contado", sub: "Un solo pago" },
     tabs: [
       { id: "implant", label: "Implante", inSentence: "implante" },
@@ -164,32 +170,26 @@ export const es: Dictionary = {
       {
         title: "Precio total",
         description: "Lo que pagas por tu {treatment}, todo incluido",
-        ours: "$[DATO]",
-        theirs: "$[DATO]",
+        ours: "El mismo",
+        theirs: "El mismo",
+      },
+      {
+        title: "Cuándo lo sabes",
+        description: "En qué momento te dicen el número completo",
+        ours: "Antes de empezar, por escrito",
+        theirs: "Antes de empezar, por escrito",
       },
       {
         title: "Mensualidad",
         description: "Cuánto te toca cada mes",
-        ours: "$[DATO]",
+        ours: "Te la calculamos en la consulta",
         theirs: "No aplica",
       },
       {
-        title: "Intereses",
-        description: "Cuánto más pagas por diferirlo",
-        ours: "Sin intereses [DATO]",
-        theirs: "No aplica",
-      },
-      {
-        title: "Plazo",
-        description: "En cuántos meses lo terminas de pagar",
-        ours: "[DATO] meses",
-        theirs: "Un solo pago",
-      },
-      {
-        title: "Garantía",
-        description: "Qué cubre y por cuánto tiempo",
-        ours: "[DATO] años",
-        theirs: "[DATO] años",
+        title: "Quién te atiende",
+        description: "Quién planea tu caso y quién lo hace",
+        ours: "El mismo especialista",
+        theirs: "El mismo especialista",
       },
       {
         title: "Mismo material, mismo doctor",
@@ -201,46 +201,73 @@ export const es: Dictionary = {
   },
 
   cases: {
-    headlineLead: "Sonrisas reales,",
-    headlineAccent: "pacientes de aquí.",
+    headlineLead: "Lo que hacemos,",
+    headlineAccent: "en un solo lugar.",
     support:
-      "Cada caso es de un paciente de la región, atendido en este consultorio. Nada de fotos de banco.",
-    cta: "Ver más casos",
+      "Implantes, arcada completa, ortodoncia y coronas. Se planea, se hace y se le da seguimiento en el mismo consultorio, con los mismos doctores.",
+    cta: "Pregunta por tu caso",
     items: [
-      { label: "Implantes de arcada completa · [DATO ciudad]", meta: "[DATO]" },
-      { label: "Implante unitario · [DATO ciudad]", meta: "[DATO]" },
-      { label: "Ortodoncia · [DATO ciudad]", meta: "[DATO]" },
-      { label: "Coronas · [DATO ciudad]", meta: "[DATO]" },
+      { label: "Implantes de arcada completa", meta: "All-on-4" },
+      { label: "Implante unitario", meta: "Corona incluida" },
+      { label: "Ortodoncia", meta: "Brackets y alineadores" },
+      { label: "Coronas y carillas", meta: "Estética" },
     ],
   },
 
   stats: {
-    headline: "Los números",
-    support: "Resultados, no publicidad.",
+    headline: "En corto",
+    support: "Lo que encuentras aquí.",
     items: [
-      { label: "Implantes colocados", sub: "Desde [DATO]", value: "[DATO]", source: "Expediente del consultorio" },
-      { label: "Años cuidando sonrisas", sub: "En San Carlos", value: "[DATO]", source: "Consultorio" },
       {
-        label: "Familias que se atienden aquí",
-        sub: "Últimos 12 meses",
-        value: "[DATO]",
+        label: "Especialistas, un consultorio",
+        sub: "En un solo lugar",
+        value: "3",
+        source: "MyDentist San Carlos",
+      },
+      {
+        label: "Minutos desde Guaymas",
+        sub: "Por carretera",
+        value: "20",
+        source: "Trayecto",
+      },
+      {
+        label: "Idiomas en cada visita",
+        sub: "Español e inglés",
+        value: "2",
         source: "Consultorio",
       },
     ],
   },
 
   dentists: {
-    headline: "Conoce a tus dentistas",
-    support: "Ellos te atienden en cada cita.",
-    roles: {
-      daniel: "Implantes y odontología estética",
-      carolina: "Odontología general y familiar, socia del consultorio",
-    },
+    headline: "Tres doctores, una misma atención",
+    support: "Prostodoncia, ortodoncia y endodoncia en un solo lugar.",
+    /* Se muestra solo si trae texto. Faltan cédulas y universidades de los
+       tres; ver docs/pending-from-daniel.md. */
+    licenseLabel: "",
+    bookWith: "Agendar con",
+    items: [
+      {
+        id: "daniel",
+        specialty: "Prostodoncia e implantes",
+        bio: "Rehabilita sonrisas completas con implantes y prótesis fijas. Planea cada caso por escrito y en una sola consulta.",
+      },
+      {
+        id: "carolina",
+        specialty: "Ortodoncia",
+        bio: "Brackets y alineadores transparentes para niños y adultos, con seguimiento cercano en cada visita.",
+      },
+      {
+        id: "giselle",
+        specialty: "Endodoncia",
+        bio: "Tratamientos de conducto con técnica mínimamente invasiva para conservar tu diente natural.",
+      },
+    ],
   },
 
   wall: {
     citiesLabel: "Pacientes de",
-    cities: ["San Carlos [DATO]", "Guaymas [DATO]", "Empalme [DATO]"],
+    cities: ["San Carlos", "Guaymas", "Empalme"],
     ratingLabel: "5 de 5 estrellas",
     googleReview: "Reseña de Google",
     featured: {
@@ -261,52 +288,53 @@ export const es: Dictionary = {
   },
 
   pricing: {
-    headline: "Precios claros, sin letras chiquitas.",
-    support: "Lo que cuesta, y en cuántos meses lo puedes pagar.",
+    headline: "Tu precio, por escrito.",
+    support:
+      "Mándanos una foto por WhatsApp. Te damos el plan completo y el número completo antes de que te sientes en el sillón.",
     consultNote: "Primera revisión con radiografía.",
     consultSub: "Te decimos el precio antes de venir.",
     financingToggle: { label: "Ver mensualidades", full: "De contado", financing: "A meses" },
-    currency: "MXN",
-    /* En español la segunda línea no es un precio que se está venciendo,
-       es la mensualidad. Sin tachar. */
-    compare: { prefix: "o", suffix: "al mes sin intereses [DATO]", strike: false },
+    /* Vacío esconde la unidad junto a la cifra, y un usPrice vacío esconde la
+       línea de abajo. Las dos regresan el día que Daniel confirme los montos. */
+    currency: "",
+    compare: { prefix: "o", suffix: "al mes", strike: false },
     plans: [
       {
         name: "Implante dental",
         blurb: "Recupera el diente que perdiste, para siempre.",
-        priceFull: "$[DATO]",
-        priceFinancing: "$[DATO] al mes",
-        usPrice: "$[DATO] al mes",
+        priceFull: "Un diente",
+        priceFinancing: "Un diente",
+        usPrice: "",
         features: [
-          "Implante de marca premium [DATO]",
-          "Corona incluida [DATO]",
-          "[DATO] años de garantía",
+          "Implante, pilar y corona",
+          "Se planea en una sola consulta",
+          "Precio por escrito antes de empezar",
         ],
         cta: "Agenda tu cita",
       },
       {
         name: "Arcada completa",
         blurb: "Dientes fijos otra vez, planeados en 3D.",
-        priceFull: "$[DATO]",
-        priceFinancing: "$[DATO] al mes",
-        usPrice: "$[DATO] al mes",
+        priceFull: "Arcada completa",
+        priceFinancing: "Arcada completa",
+        usPrice: "",
         features: [
-          "[DATO] implantes por arcada",
-          "Dientes fijos, no removibles [DATO]",
-          "[DATO] años de garantía",
+          "Dientes fijos, no una placa que se quita",
+          "Se planea para que vengas lo menos posible",
+          "Precio por escrito antes de empezar",
         ],
         cta: "Agenda tu cita",
       },
       {
         name: "Ortodoncia",
         blurb: "Brackets o alineadores. El precio depende de tu caso.",
-        priceFull: "$[DATO]",
-        priceFinancing: "$[DATO] al mes",
-        usPrice: "$[DATO] al mes",
+        priceFull: "Plan a tu medida",
+        priceFinancing: "Plan a tu medida",
+        usPrice: "",
         features: [
-          "Plan completo de tratamiento [DATO]",
-          "Citas de control incluidas [DATO]",
-          "Retenedores incluidos [DATO]",
+          "Brackets o alineadores transparentes",
+          "La Dra. Carolina te revisa en cada cita",
+          "Precio por escrito antes de empezar",
         ],
         cta: "Pregunta por tu caso",
       },
@@ -320,35 +348,35 @@ export const es: Dictionary = {
     items: [
       {
         q: "¿Cuánto cuesta la consulta?",
-        a: "La revisión con radiografía tiene un precio fijo, y te lo decimos por WhatsApp antes de que vengas. [DATO] Confirmar el monto y si se descuenta del tratamiento.",
+        a: "La revisión con radiografía tiene un precio fijo y te lo decimos por WhatsApp antes de que vengas, para que nadie llegue con una sorpresa. De esa consulta sales con el plan completo y el precio por escrito.",
       },
       {
         q: "¿Puedo pagar a mensualidades?",
-        a: "[DATO]. Cuando quede confirmado el plan, aquí va el número de meses, con qué tarjetas y si lleva intereses. El precio total no cambia por diferirlo.",
+        a: "En la consulta te decimos qué opciones de pago aplican a tu caso y cuánto queda cada una. El precio total no cambia según cómo pagues, y lo tienes por escrito antes de empezar.",
       },
       {
         q: "¿Aceptan seguros dentales?",
-        a: "[DATO]. Mándanos una foto de tu póliza por WhatsApp y te decimos qué cubre y cuánto te tocaría pagar, antes de empezar.",
+        a: "Mándanos una foto de tu póliza por WhatsApp. Te decimos qué te cubre y cuánto te tocaría pagar a ti, antes de empezar el tratamiento.",
       },
       {
         q: "¿Qué tan rápido me pueden dar cita?",
-        a: "Casi siempre esta misma semana, y el mismo día si traes dolor. Escríbenos por WhatsApp y te decimos las horas que quedan libres. [DATO] Confirmar el horario del consultorio.",
+        a: "Casi siempre esta misma semana, y el mismo día si traes dolor. Escríbenos por WhatsApp y te decimos las horas que quedan libres hoy.",
       },
       {
-        q: "¿Atienden niños? ¿Desde qué edad?",
-        a: "Sí. La primera visita es solo para que conozcan el consultorio y se suban al sillón sin miedo. La Dra. Carolina lleva la parte de niños y trabaja con calma, sin prisa y sin regaños.",
+        q: "¿Duele un implante?",
+        a: "Con anestesia local, la mayoría siente solo presión, no dolor. Te explicamos cada paso antes de hacerlo y tú marcas el ritmo.",
       },
       {
-        q: "¿Dan garantía?",
-        a: "Sí, por escrito. [DATO] Años y qué cubre en coronas, puentes, implantes y resinas. Si algo falla dentro de ese plazo, lo arreglamos aquí sin costo.",
+        q: "¿Atienden niños?",
+        a: "Sí. La Dra. Carolina lleva ortodoncia de niños y adolescentes, con seguimiento cercano en cada visita. La primera cita es para que conozcan el consultorio sin prisa.",
       },
     ],
   },
 
   finalCta: {
-    headlineSig: "Tu",
-    headlineRest: "nueva sonrisa",
-    headlineLine2: "empieza con un mensaje.",
+    headlineSig: "Nueva imagen.",
+    headlineRest: "",
+    headlineLine2: "Mismo equipo.",
     place: "San Carlos, Sonora",
   },
 
@@ -369,11 +397,13 @@ export const es: Dictionary = {
   },
 
   footer: {
+    rebrand: "Smile Makers ahora es MyDentist San Carlos.",
+    descriptor: "Implant & Cosmetic Center",
     city: "San Carlos",
     rights: "Todos los derechos reservados.",
-    tagline: "DENTAL Y ESTÉTICA",
+    tagline: "IMPLANT & COSMETIC CENTER",
     place: "SAN CARLOS, SONORA",
-    est: "EST. [DATO]",
+    est: "",
     bookConsult: "AGENDA TU CITA",
     whatsapp: "WHATSAPP",
     instagram: "Instagram",

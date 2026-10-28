@@ -4,11 +4,11 @@ import { motion, type Variants } from "motion/react";
 import { BadgeCheck, Star } from "lucide-react";
 import { useCopy } from "@/lib/i18n/context";
 
-/* [DATO] A strong quote from a US or Canada patient, with permission.
+/* PENDING A strong quote from a US or Canada patient, with permission.
    Name and city confirmed by Daniel. Placeholder art until real photos. */
 /* Avatars are placeholders and cycle independently of the copy, so a
    locale with fewer real reviews still gets an image for each one.
-   [DATO] Real patient photos, with written permission. */
+   PENDING Real patient photos, with written permission. */
 const FEATURED_AVATAR = "/images/ph-2-sq.jpg";
 const POST_AVATARS = [
   "/images/ph-7-sq.jpg",
@@ -86,10 +86,10 @@ export default function SocialProof16() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="flex flex-col rounded-3xl border border-charcoal bg-charcoal text-cotton p-8 dark:border-line dark:bg-surface sm:p-10 lg:col-span-5 lg:p-12"
+          className="flex flex-col rounded-3xl border border-brand bg-brand text-on-brand p-8 dark:border-line dark:bg-surface sm:p-10 lg:col-span-5 lg:p-12"
         >
           <Stars className="text-cotton" />
-          <blockquote className="mt-8 text-balance text-2xl font-medium leading-snug text-cotton sm:text-3xl xl:text-4xl tracking-[-0.02em]">
+          <blockquote className="mt-8 text-balance text-2xl font-semibold leading-snug text-cotton sm:text-3xl xl:text-4xl tracking-[-0.02em]">
             &ldquo;{featured.quote}&rdquo;
           </blockquote>
           <div className="mt-8 flex items-center gap-4 lg:mt-auto lg:pt-10">

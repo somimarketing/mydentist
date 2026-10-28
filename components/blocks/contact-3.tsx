@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 import { useCopy } from "@/lib/i18n/context";
 import { useLinks } from "@/lib/i18n/links";
 
-/* WhatsApp and phone are the clinic's real numbers. [DATO] A booking
+/* WhatsApp and phone are the clinic's real numbers. PENDING A booking
    calendar does not exist yet, so "book a consult" also opens WhatsApp. */
 
 export default function Contact3() {
@@ -24,7 +24,7 @@ export default function Contact3() {
   const contactMethods = t.contact.methods.map((m, i) => ({
     icon: icons[i] ?? MessageCircle,
     title: m.title,
-    description: m.description || site.phoneDisplay,
+    description: m.description || site.phoneMxDisplay,
     href: hrefs[i] ?? WHATSAPP_URL,
   }));
 
@@ -40,7 +40,7 @@ export default function Contact3() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="mb-4 text-4xl font-medium text-ink sm:text-5xl lg:text-6xl"
+            className="mb-4 text-4xl font-semibold text-ink sm:text-5xl lg:text-6xl"
           >
             {t.contact.headline}
           </motion.h2>
@@ -82,7 +82,7 @@ export default function Contact3() {
               </div>
 
               <div className="text-center">
-                <h3 className="text-base font-medium text-ink">
+                <h3 className="text-base font-semibold text-ink">
                   {method.title}
                 </h3>
                 <p className="mt-1 text-xs text-ink-soft leading-relaxed">

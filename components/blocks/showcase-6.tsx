@@ -5,12 +5,12 @@ import { ArrowUpRight } from "lucide-react";
 import { useCopy } from "@/lib/i18n/context";
 import { useLinks } from "@/lib/i18n/links";
 
-/* [DATO] Gallery link once real cases are published. Falls back to contact. */
-/* [DATO] No case gallery exists yet, so this opens WhatsApp. */
+/* PENDING Gallery link once real cases are published. Falls back to contact. */
+/* PENDING No case gallery exists yet, so this opens WhatsApp. */
 
-/* [DATO] Every card is a real patient who traveled, treated, and went home.
-   Real before/after images only, with permission. Placeholder art until then.
-   Captions and dates come from lib/i18n. */
+/* The cards name what the clinic does, not who it did it to: no card claims a
+   patient until real before/after images arrive with written permission.
+   Labels come from lib/i18n; the art here is placeholder. */
 const CASE_ART = [
   { image: "/images/ph-3-sq.jpg", tilt: -4, lift: "lg:mt-12" },
   { image: "/images/ph-6-sq.jpg", tilt: 2.5, lift: "lg:mt-2" },
@@ -88,7 +88,7 @@ export function Showcase6() {
             </p>
             <a
               href={CASES_URL}
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal text-sm font-medium hover:bg-charcoal/90 dark:hover:bg-cotton/90 transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-on-brand dark:bg-cotton dark:text-brand text-sm font-semibold hover:bg-brand/90 dark:hover:bg-cotton/90 transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               {t.cases.cta}
               <ArrowUpRight className="w-4 h-4" />

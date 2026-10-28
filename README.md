@@ -1,7 +1,9 @@
 # MyDentist, San Carlos
 
-Bilingual landing page for a dental clinic in San Carlos, Sonora. Next.js App
-Router, Tailwind v4, React Bits Pro blocks.
+Bilingual landing page for MyDentist — Implant & Cosmetic Center (formerly
+Smile Makers) in San Carlos, Sonora. Three specialists: prosthodontics and
+implants, orthodontics, endodontics. Next.js App Router, Tailwind v4, React
+Bits Pro blocks.
 
 ```bash
 npm install
@@ -30,7 +32,7 @@ against paying monthly.
 | All copy, both languages | `lib/i18n/en.ts`, `lib/i18n/es.ts` |
 | Clinic facts (phone, address, dentists) | `lib/site.ts` |
 | WhatsApp deep links | `lib/i18n/links.ts` (`useLinks()`) |
-| Unconfirmed figures | search `[DATO]`, see `docs/pending-from-daniel.md` |
+| What the clinic still owes us | `docs/pending-from-daniel.md` |
 | Page composition | `app/[locale]/page.tsx` |
 | Locale routing | `middleware.ts`, `lib/i18n/config.ts` |
 | Blocks | `components/blocks/` |
@@ -51,28 +53,50 @@ missing it.
 
 ## Type
 
-Two families, off the brand board:
+One family, per the October 2026 brand kit: **Bogart**, set in Deep Slate,
+used for headlines and body alike. It loads from an Adobe Fonts web kit
+(`fql3xen`, wired up in `app/[locale]/layout.tsx`), not from `next/font`.
 
-- **Ancizar Serif** for every headline, and for the italic signature: "my
-  dentist", "Tu sonrisa", "My Dentist". That italic is the logo's own move.
-- **Darker Grotesque** for body, labels, buttons and nav.
+Two consequences worth knowing:
 
-Both load through `next/font/google` as variable fonts. Darker Grotesque sets
-smaller than a normal grotesque at the same nominal size, so the `xs`–`2xl`
-text tokens in `globals.css` are bumped about 12% to compensate.
+- **The kit has a domain allowlist.** The production domain has to be on it or
+  the page silently falls back to the serif stack in `--font-sans`. The
+  fallback is deliberate and looks fine; it is just not the brand.
+- **Bogart has no italic on Adobe Fonts.** The accent phrase in a headline
+  (`.sig`) therefore shifts colour to Powder Mist rather than sloping. The
+  `.swash` class turns on `ss01` / `swsh` where a flourish is wanted.
+
+Bogart sets larger than a grotesque at the same nominal size, so the
+`xs`–`2xl` text tokens in `globals.css` are set against it directly.
 
 ## Colour
 
-Five brand colours and nothing else, in `app/globals.css`. The fixed scale
-(`--charcoal`, `--cotton`, `--powder`, `--slate`, `--bone`) never changes; the
-semantic tokens (`--ground`, `--ink`, `--accent`, `--line`) flip with `.dark`.
+Deep Slate `#32374B` on Cotton `#E8E8E4`, in `app/globals.css`. The primitive
+slate and neutral scales never change; the semantic tokens (`--ground`,
+`--surface`, `--brand`, `--ink`, `--ink-brand`, `--accent`, `--line`,
+`--on-brand`) flip between the light Cotton theme and the `.dark` Deep Slate
+theme.
+
+## What is deliberately not on the page
+
+No figure the clinic has not confirmed. Where a number is still pending —
+prices, warranty term, trip count, licence numbers — the copy promises it **in
+writing, before treatment** instead of guessing. Empty values degrade rather
+than print half a sentence: an empty `pricing.currency` drops the unit, an
+empty `usPrice` drops the comparison line, an empty `licenseLabel` or
+`footer.est` renders nothing at all. Fill them and they reappear.
+
+`docs/pending-from-daniel.md` is the list, in priority order.
 
 ## Before launch
 
-1. Fill the `[DATO]` figures. `docs/pending-from-daniel.md` is the list, and
-   it says which file each one lives in.
-2. Swap the stock photos in `public/images/` for real clinic photography.
-3. Add a booking calendar link and an Instagram URL to `lib/site.ts`. Until
+1. Add the production domain to the Adobe Fonts kit `fql3xen`, or Bogart will
+   not load.
+2. Fill the prices. That is item 1 in `docs/pending-from-daniel.md` and the
+   single biggest lift available to this page.
+3. Swap the stock photos in `public/images/` for real clinic photography, and
+   drop in the production logo SVG.
+4. Add a booking calendar link and an Instagram URL to `lib/site.ts`. Until
    then every booking CTA opens WhatsApp, which is a reasonable default.
-4. Set `NEXT_PUBLIC_SITE_URL` so canonical, hreflang and OpenGraph URLs are
+5. Set `NEXT_PUBLIC_SITE_URL` so canonical, hreflang and OpenGraph URLs are
    absolute.

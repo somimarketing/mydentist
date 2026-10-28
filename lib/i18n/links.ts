@@ -16,8 +16,11 @@ export function useLinks() {
     /** TODO: swap for a real booking calendar when one exists. */
     booking: whatsappUrl(t.whatsapp.consult),
     quote: whatsappUrl(t.whatsapp.quote),
-    phone: telUrl(),
-    /** [DATO] Instagram handle not confirmed. */
+    phoneUs: telUrl(site.phoneUs),
+    phoneMx: telUrl(site.phoneMx),
+    /** Default call link: the Mexican line. */
+    phone: telUrl(site.phoneMx),
+    /** PENDING Instagram handle not confirmed. */
     instagram: null as string | null,
     /** Per-doctor WhatsApp, same language. */
     doctor: (phone: string) => whatsappUrl(t.whatsapp.general, phone),

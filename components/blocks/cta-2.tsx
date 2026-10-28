@@ -3,13 +3,12 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { motion } from "motion/react";
-import { links } from "@/lib/site";
 import { useCopy } from "@/lib/i18n/context";
 import { useLinks } from "@/lib/i18n/links";
 
 /* Real clinic links. Booking opens WhatsApp until a calendar exists. */
 
-/* [DATO] Six clinic and smile photos replace the placeholder art. The
+/* PENDING Six clinic and smile photos replace the placeholder art. The
    six-image trail mechanic stays exactly as shipped. */
 const trailImages = [
   "/images/ph-1.jpg",
@@ -109,7 +108,7 @@ export default function CTA2() {
 
   /* Pills: Ink with an Accent hover, both modes. */
   const pill =
-    "px-4 sm:px-6 py-2 sm:py-2.5 rounded-[5px] bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal font-medium text-sm sm:text-base hover:bg-accent hover:text-ground dark:hover:bg-accent dark:hover:text-ground hover:scale-105";
+    "px-4 sm:px-6 py-2 sm:py-2.5 rounded-[5px] bg-brand text-on-brand dark:bg-cotton dark:text-brand font-semibold text-sm sm:text-base hover:bg-accent hover:text-ground dark:hover:bg-accent dark:hover:text-ground hover:scale-105";
 
   return (
     <section
@@ -124,7 +123,7 @@ export default function CTA2() {
 
       <div className="flex flex-col items-center justify-center h-full px-4 sm:px-6 lg:px-8">
         <motion.h2
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-ink text-center mb-8 sm:mb-10 text-balance"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-ink text-center mb-8 sm:mb-10 text-balance"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -138,7 +137,7 @@ export default function CTA2() {
 
         <motion.a
           href={BOOKING_URL}
-          className="px-8 sm:px-10 py-4 rounded-md bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal font-medium text-base sm:text-lg hover:bg-charcoal/90 dark:hover:bg-cotton/90"
+          className="px-8 sm:px-10 py-4 rounded-md bg-brand text-on-brand dark:bg-cotton dark:text-brand font-semibold text-base sm:text-lg hover:bg-brand/90 dark:hover:bg-cotton/90"
           style={{ transition: "background-color 200ms, transform 200ms" }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

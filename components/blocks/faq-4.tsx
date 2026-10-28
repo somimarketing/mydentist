@@ -6,8 +6,8 @@ import { Plus, Minus } from "lucide-react";
 import { useCopy } from "@/lib/i18n/context";
 
 /* Six objection killers, one per fear a cross-border patient has before
-   booking a flight. [DATO] marks every number and credential that Daniel
-   still has to confirm. Nothing here is invented. */
+   booking a flight. No answer states a figure the clinic has not confirmed:
+   where one is still pending, the answer promises it in writing instead. */
 
 
 export default function Faq4() {
@@ -59,7 +59,7 @@ export default function Faq4() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl font-medium text-ink leading-[1.05]"
+              className="text-4xl sm:text-5xl font-semibold text-ink leading-[1.05]"
             >
               {t.faq.headline}
             </motion.h2>

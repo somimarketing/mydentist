@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Ancizar_Serif, Darker_Grotesque } from "next/font/google";
 import "../globals.css";
 import { notFound } from "next/navigation";
 import { LocaleProvider } from "@/lib/i18n/context";
@@ -14,32 +13,13 @@ import {
 } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
-
 /*
-  Two families, straight off the brand board.
-
-  Ancizar Serif carries every headline and the "my" / "yours" signature.
-  That italic is the logo's own move: serif-italic "My" against the heavier
-  grotesque "Dentist". Using it in the copy makes the page and the mark read
-  as one thing.
+  Bogart (Zetafonts) is the whole type system, served from the brand's own
+  Adobe Fonts kit. It is not on Google Fonts, so next/font cannot host it;
+  the kit is loaded as a stylesheet and preconnected so it is not a render
+  blocker. Swap FONT_KIT_ID if the kit is ever recreated.
 */
-const display = Ancizar_Serif({
-  subsets: ["latin"],
-  weight: "variable",
-  style: ["normal", "italic"],
-  variable: "--font-display",
-  display: "swap",
-  fallback: ["Iowan Old Style", "Palatino Linotype", "Georgia", "serif"],
-});
-
-/* Darker Grotesque runs the interface: body, labels, buttons, nav. */
-const sans = Darker_Grotesque({
-  subsets: ["latin"],
-  weight: "variable",
-  variable: "--font-sans",
-  display: "swap",
-  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
-});
+const FONT_KIT_ID = "fql3xen";
 
 type Params = Promise<{ locale: string }>;
 
@@ -77,7 +57,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export const viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#e8e8e4" },
-    { media: "(prefers-color-scheme: dark)", color: "#343333" },
+    { media: "(prefers-color-scheme: dark)", color: "#32374B" },
   ],
 };
 
@@ -98,12 +78,11 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
 
   return (
-    <html
-      lang={htmlLang[locale]}
-      className={`${display.variable} ${sans.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang={htmlLang[locale]} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="" />
+        <link rel="preconnect" href="https://p.typekit.net" crossOrigin="" />
+        <link rel="stylesheet" href={`https://use.typekit.net/${FONT_KIT_ID}.css`} />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body className="antialiased bg-ground text-ink">

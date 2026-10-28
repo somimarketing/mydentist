@@ -3,8 +3,8 @@
 import { motion } from "motion/react";
 import { useCopy } from "@/lib/i18n/context";
 
-/* [DATO] Clinic photography replaces the placeholder art. Copy lives in
-   lib/i18n; every number in it stays [DATO] until Daniel confirms it. */
+/* PENDING Clinic photography replaces the placeholder art. Copy lives in
+   lib/i18n and states no figure the clinic has not confirmed. */
 const IMAGES = ["/images/ph-10.jpg", "/images/ph-8.jpg", "/images/ph-9.jpg"];
 
 export default function Features7() {
@@ -43,7 +43,7 @@ export default function Features7() {
               <div
                 className={`flex flex-col gap-3 ${flipped ? "md:order-1" : ""}`}
               >
-                <h3 className="text-3xl sm:text-4xl font-medium text-ink leading-tight">
+                <h3 className="text-3xl sm:text-4xl font-semibold text-ink leading-tight">
                   {s.title}
                 </h3>
                 <p className="text-sm sm:text-base text-ink-soft leading-relaxed">

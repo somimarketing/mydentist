@@ -12,7 +12,6 @@ import {
 import { Menu, MoveRight, X, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { links } from "@/lib/site";
 import { useCopy } from "@/lib/i18n/context";
 import { otherLocale } from "@/lib/i18n/config";
 import { useLinks } from "@/lib/i18n/links";
@@ -120,7 +119,7 @@ function Header1() {
                   ) : (
                     <>
                       <NavigationMenuTrigger
-                        className={`font-medium text-[17px] px-2 ${
+                        className={`font-semibold text-[17px] px-2 ${
                           overVideo
                             ? "hover:bg-cotton/15 focus:bg-cotton/15 data-[state=open]:bg-cotton/15"
                             : ""
@@ -194,7 +193,7 @@ function Header1() {
             asChild
             size="lg"
             className={`hidden md:inline-flex h-[52px] px-7 text-[17px] ${
-              overVideo ? "bg-cotton text-charcoal hover:bg-cotton/90" : ""
+              overVideo ? "bg-cotton text-brand hover:bg-cotton/90" : ""
             }`}
           >
             <a href={BOOKING_URL}>{t.common.bookConsult}</a>

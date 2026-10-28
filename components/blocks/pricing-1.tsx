@@ -12,9 +12,9 @@ import { useState, useRef } from "react";
 import { useCopy } from "@/lib/i18n/context";
 import { useLinks } from "@/lib/i18n/links";
 
-/* [DATO] Real clinic links once Daniel confirms them. */
+/* PENDING Real clinic links once Daniel confirms them. */
 
-/* [DATO] DECISION FOR DANIEL. The stock block has a monthly / yearly toggle,
+/* PENDING DECISION FOR DANIEL. The stock block has a monthly / yearly toggle,
    which does not fit one-time dental work. It is repurposed here as
    "Pay in full / Financing". Until Daniel confirms a financing plan exists,
    both states are equal and the toggle stays hidden. Flip this to true and
@@ -87,9 +87,10 @@ const MovingBorder = ({
   );
 };
 
-/* [DATO] Every price and feature figure lives in lib/i18n and stays a
-   placeholder until Daniel confirms it. The second price line under each
-   card is the whole business, so it stays visible with [DATO] in place. */
+/* Every figure lives in lib/i18n. Until Daniel confirms real numbers the
+   headline slot carries the scope of the treatment and the promise is the
+   written quote; an empty currency or usPrice drops the unit and the
+   comparison line rather than printing half a sentence. */
 type Plan = {
   name: string;
   blurb: string;
@@ -135,6 +136,9 @@ function PayToggle({
 function Price({ plan, financing }: { plan: Plan; financing: boolean }) {
   const { t } = useCopy();
   const price = financing ? plan.priceFinancing : plan.priceFull;
+  /* The headline slot carries a real figure once Daniel confirms one, and the
+     scope of the treatment until then. Empty currency and usPrice drop the
+     unit and the comparison line rather than printing a stray "vs". */
   return (
     <div className="mb-6">
       <p className="text-ink-soft text-sm sm:text-base mb-4">{plan.blurb}</p>
@@ -142,17 +146,21 @@ function Price({ plan, financing }: { plan: Plan; financing: boolean }) {
         <span className="text-3xl sm:text-4xl font-bold text-ink tabular-nums">
           {price}
         </span>
-        <span className="text-ink-soft text-sm">{t.pricing.currency}</span>
+        {t.pricing.currency ? (
+          <span className="text-ink-soft text-sm">{t.pricing.currency}</span>
+        ) : null}
       </div>
-      <p className="mt-1 text-sm text-ink-soft">
-        {t.pricing.compare.prefix}{" "}
-        {t.pricing.compare.strike ? (
-          <s className="tabular-nums">{plan.usPrice}</s>
-        ) : (
-          <span className="tabular-nums">{plan.usPrice}</span>
-        )}{" "}
-        {t.pricing.compare.suffix}
-      </p>
+      {plan.usPrice ? (
+        <p className="mt-1 text-sm text-ink-soft">
+          {t.pricing.compare.prefix}{" "}
+          {t.pricing.compare.strike ? (
+            <s className="tabular-nums">{plan.usPrice}</s>
+          ) : (
+            <span className="tabular-nums">{plan.usPrice}</span>
+          )}{" "}
+          {t.pricing.compare.suffix}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -171,7 +179,7 @@ function FeatureList({ items }: { items: string[] }) {
 }
 
 const primaryBtn =
-  "w-full px-6 py-3 rounded-lg bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal font-medium text-sm sm:text-base hover:bg-charcoal/90 dark:hover:bg-cotton/90 transition-colors duration-200 text-center block";
+  "w-full px-6 py-3 rounded-lg bg-brand text-on-brand dark:bg-cotton dark:text-brand font-semibold text-sm sm:text-base hover:bg-brand/90 dark:hover:bg-cotton/90 transition-colors duration-200 text-center block";
 
 export default function Pricing1() {
   const L = useLinks();
@@ -197,7 +205,7 @@ export default function Pricing1() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-ink leading-tight mb-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-ink leading-tight mb-2">
             {t.pricing.headline}
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-ink-soft max-w-2xl mx-auto">
@@ -241,7 +249,7 @@ export default function Pricing1() {
               </div>
               <a
                 href={BOOKING_URL}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal font-medium text-sm hover:bg-charcoal/90 dark:hover:bg-cotton/90 transition-colors duration-200 text-center"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-brand text-on-brand dark:bg-cotton dark:text-brand font-semibold text-sm hover:bg-brand/90 dark:hover:bg-cotton/90 transition-colors duration-200 text-center"
               >
                 {t.common.bookConsult}
               </a>

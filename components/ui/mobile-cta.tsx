@@ -2,7 +2,6 @@
 
 import { MessageCircle } from "lucide-react";
 import { useCopy } from "@/lib/i18n/context";
-import { links } from "@/lib/site";
 import { useLinks } from "@/lib/i18n/links";
 
 /* Real clinic links. Booking opens WhatsApp until a calendar exists. */
@@ -25,14 +24,14 @@ export function MobileCta() {
       <div className="flex gap-3">
         <a
           href={WHATSAPP_URL}
-          className="flex h-12 flex-1 items-center justify-center gap-2 rounded-md border border-line-strong text-ink text-[15px] font-medium"
+          className="flex h-12 flex-1 items-center justify-center gap-2 rounded-md border border-line-strong text-ink text-[15px] font-semibold"
         >
           <MessageCircle className="h-4 w-4" strokeWidth={1.75} />
           {t.common.whatsapp}
         </a>
         <a
           href={BOOKING_URL}
-          className="flex h-12 flex-[1.3] items-center justify-center rounded-md bg-charcoal text-cotton text-[15px] font-medium dark:bg-cotton dark:text-charcoal"
+          className="flex h-12 flex-[1.3] items-center justify-center rounded-md bg-brand text-on-brand text-[15px] font-semibold dark:bg-cotton dark:text-brand"
         >
           {t.common.bookConsult}
         </a>

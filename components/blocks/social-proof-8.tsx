@@ -82,7 +82,7 @@ export function SocialProof8() {
               }}
               className="pointer-events-none"
             >
-              <div className="bg-charcoal text-cotton dark:bg-cotton dark:text-charcoal px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-xl whitespace-nowrap">
+              <div className="bg-brand text-on-brand dark:bg-cotton dark:text-brand px-5 py-2 rounded-full text-sm font-semibold flex items-center gap-2 shadow-xl whitespace-nowrap">
                 {t.reviewsCarousel.next}
               </div>
             </motion.div>
@@ -134,7 +134,7 @@ export function SocialProof8() {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <h4 className="text-xl font-medium text-ink mb-1">
+                    <h4 className="text-xl font-semibold text-ink mb-1">
                       {testimonials[currentIndex].name}
                     </h4>
                     <p className="text-ink-soft text-base">

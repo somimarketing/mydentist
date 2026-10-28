@@ -1,7 +1,7 @@
 /**
- * Real clinic facts. Everything here is confirmed.
- * Anything still unconfirmed stays as [DATO] in the blocks and is listed
- * in docs/pending-from-daniel.md.
+ * Real clinic facts, from the brand kit (October 2026) and the business card.
+ * Anything still unconfirmed stays as PENDING in lib/i18n and is listed in
+ * docs/pending-from-daniel.md.
  */
 
 const digits = (v: string) => v.replace(/\D/g, "");
@@ -9,11 +9,24 @@ const digits = (v: string) => v.replace(/\D/g, "");
 export const site = {
   name: "MyDentist",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mydentist.mx",
+  /** The logo lockup is always MyDentist / SAN CARLOS. */
+  place: "San Carlos",
+  descriptor: "Implant & Cosmetic Center",
   city: "San Carlos, Sonora",
+  /** MyDentist is the rebrand of Smile Makers. Same team, same clinic. */
+  formerName: "Smile Makers",
 
-  /** Primary booking channel. */
-  whatsapp: digits("+52 33 1606 8212"),
-  phoneDisplay: "+52 33 1606 8212",
+  /**
+   * Two lines. The Arizona number is the one US and Canadian patients call;
+   * the Mexican number is the local one. WhatsApp runs on the Mexican line.
+   */
+  phoneUs: digits("+1 520-422-8097"),
+  phoneUsDisplay: "+1 520-422-8097",
+  phoneMx: digits("+52 331-606-8212"),
+  phoneMxDisplay: "+52 331-606-8212",
+
+  /** WhatsApp is the booking channel, on the Mexican line. */
+  whatsapp: digits("+52 331-606-8212"),
 
   address: {
     street: "Aurora 299",
@@ -24,59 +37,57 @@ export const site = {
     query: "Aurora 299, Sector Crestón, Ranchito Campestre, 85506 San Carlos, Sonora, México",
   },
 
+  /** Driving time quoted in the brand kit's own hero copy. */
+  fromTucson: "four hours",
+
+  /**
+   * Three specialists. Specialties are the brand kit's, which correct the
+   * earlier guesses: Daniel is prosthodontics and implants, Carolina is
+   * orthodontics, Giselle is endodontics.
+   */
   doctors: [
     {
       id: "daniel",
-      name: "Dr. Daniel Martínez Corona",
-      shortName: "Dr. Daniel",
-      phone: digits("+52 33 1606 8212"),
-      phoneDisplay: "+52 33 1606 8212",
+      prefix: "Dr.",
+      name: "Daniel Martínez",
+      fullName: "Dr. Daniel Martínez",
+      shortName: "Dr. Martínez",
+      /** PENDING Direct line per doctor not confirmed; all use the clinic's. */
+      phone: digits("+52 331-606-8212"),
       email: "daniel_mcn88@hotmail.com",
     },
     {
       id: "carolina",
-      name: "Dra. Carolina García Albelais",
-      shortName: "Dra. Carolina",
-      phone: digits("+52 33 3191 5965"),
-      phoneDisplay: "+52 33 3191 5965",
+      prefix: "Dra.",
+      name: "Carolina García",
+      fullName: "Dra. Carolina García",
+      shortName: "Dra. García",
+      phone: digits("+52 331-606-8212"),
       email: "carogarcia.albelais@gmail.com",
+    },
+    {
+      id: "giselle",
+      prefix: "Dra.",
+      name: "Giselle Fernanda Ochoa García",
+      fullName: "Dra. Giselle Fernanda Ochoa García",
+      shortName: "Dra. Ochoa",
+      phone: digits("+52 331-606-8212"),
+      /** PENDING Email not in the brand kit. */
+      email: "",
     },
   ],
 } as const;
 
-/** Deep-links WhatsApp with the message already typed. */
+export type DoctorId = (typeof site.doctors)[number]["id"];
+
 export function whatsappUrl(message: string, number: string = site.whatsapp) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
-export function telUrl(number: string = site.whatsapp) {
+export function telUrl(number: string) {
   return `tel:+${number}`;
 }
 
 export function mapUrl() {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address.query)}`;
 }
-
-/**
- * The prefilled openers. English only for now; the Spanish set lands with
- * the /es route.
- */
-export const messages = {
-  general: "Hi MyDentist, I'd like to ask about treatment in San Carlos.",
-  consult:
-    "Hi MyDentist, I'd like to book a free virtual consult in English before I travel.",
-  quote:
-    "Hi MyDentist, I'd like a written quote. I can send photos or an x-ray.",
-} as const;
-
-/** Every CTA on the page resolves through these. */
-export const links = {
-  whatsapp: whatsappUrl(messages.general),
-  /** TODO: swap for a real booking calendar when one exists. */
-  booking: whatsappUrl(messages.consult),
-  quote: whatsappUrl(messages.quote),
-  phone: telUrl(),
-  map: mapUrl(),
-  /** [DATO] Instagram handle not confirmed. */
-  instagram: null as string | null,
-} as const;

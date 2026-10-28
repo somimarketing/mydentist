@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
 import GradientText from "@/components/react-bits/GradientText";
-import { links } from "@/lib/site";
 import { useCopy } from "@/lib/i18n/context";
 import { useLinks } from "@/lib/i18n/links";
+import { site } from "@/lib/site";
 
 /* Real clinic links. Booking opens WhatsApp until a calendar exists. */
 
@@ -38,7 +38,7 @@ export function Hero9() {
   }, []);
 
   return (
-    <section id="hero" className="relative w-full min-h-screen overflow-hidden bg-charcoal">
+    <section id="hero" className="relative w-full min-h-screen overflow-hidden bg-brand">
       {!reduced && videoSrc ? (
         <video
           key={videoSrc}
@@ -63,7 +63,7 @@ export function Hero9() {
 
       {/* Deeper than the stock block so the Cotton headline stays readable
           over the footage. Charcoal-tinted in dark mode. */}
-      <div className="absolute inset-0 bg-black/40 dark:bg-charcoal/55" />
+      <div className="absolute inset-0 bg-black/40 dark:bg-brand/55" />
 
       {/* Single left column, vertically centered, per the approved hero mockup. */}
       <div className="relative z-10 min-h-screen flex flex-col justify-center px-4 sm:px-6 lg:px-8 pt-28 pb-28">
@@ -71,12 +71,21 @@ export function Hero9() {
           <div className="max-w-xl flex flex-col items-start">
             {/* One soft blur-in for the whole headline, then the React Bits
                 gradient runs continuously with the approved settings. */}
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="label-caps mb-6 text-cotton/75"
+            >
+              {t.hero.eyebrow}
+            </motion.p>
+
             <motion.div
               initial={{ opacity: 0, filter: "blur(14px)", y: 10 }}
               animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
             >
-              <h1 className="text-5xl sm:text-6xl lg:text-[5.75rem] xl:text-[7rem] font-medium leading-[0.95]">
+              <h1 className="text-5xl sm:text-6xl lg:text-[5.75rem] xl:text-[7rem] font-semibold leading-[0.95]">
                 <GradientText
                   colors={["#ffffff", "#c1cbdc", "#7a95ab"]}
                   animationSpeed={6}
@@ -89,8 +98,8 @@ export function Hero9() {
                     <span className="block">{t.hero.headlineLead}</span>
                   ) : null}
                   <span className="block">
-                    <span className="sig">{t.hero.headlineSig}</span>{" "}
-                    {t.hero.headlineTail}
+                    <span className="sig-on-dark">{t.hero.headlineSig}</span>
+                    {t.hero.headlineTail ? ` ${t.hero.headlineTail}` : ""}
                   </span>
                 </GradientText>
               </h1>
@@ -113,15 +122,33 @@ export function Hero9() {
             >
               <a
                 href={BOOKING_URL}
-                className="inline-flex items-center justify-center rounded-md bg-cotton px-9 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg lg:text-xl font-medium text-charcoal transition-colors hover:bg-cotton/90 cursor-pointer"
+                className="inline-flex items-center justify-center rounded-md bg-cotton px-9 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg lg:text-xl font-semibold text-brand transition-colors hover:bg-cotton/90 cursor-pointer"
               >
                 {t.common.bookConsult}
               </a>
               <a
-                href={WHATSAPP_URL}
-                className="inline-flex items-center justify-center rounded-md border border-cotton/80 bg-transparent px-9 sm:px-10 py-3.5 sm:py-4 text-base sm:text-lg lg:text-xl font-medium text-cotton transition-colors hover:bg-cotton/10 cursor-pointer"
+                href="#dentists"
+                className="inline-flex items-center justify-center px-2 py-3.5 text-base sm:text-lg font-medium text-cotton underline decoration-cotton/50 underline-offset-[6px] transition-colors hover:decoration-cotton"
               >
-                {t.common.whatsapp}
+                {t.hero.secondary}
+              </a>
+            </motion.div>
+
+            {/* Both lines, exactly as the brand kit sets them in the hero. */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="mt-8 flex flex-col gap-1 text-base sm:flex-row sm:items-center sm:gap-6 sm:text-lg text-cotton/85"
+            >
+              <a href={L.phoneUs} className="tabular-nums transition-colors hover:text-cotton">
+                {site.phoneUsDisplay}
+              </a>
+              <span aria-hidden="true" className="hidden text-cotton/40 sm:inline">
+                ·
+              </span>
+              <a href={L.phoneMx} className="tabular-nums transition-colors hover:text-cotton">
+                {site.phoneMxDisplay}
               </a>
             </motion.div>
           </div>
